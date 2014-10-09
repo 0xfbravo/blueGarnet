@@ -1,0 +1,1 @@
+INSERT INTO informacoesLogin(Usuario,Senha,Permissao) VALUES ('root','senha',0)
