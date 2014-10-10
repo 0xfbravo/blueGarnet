@@ -10,25 +10,27 @@ package br.com.fpimentel;
 	Fellipe Pimentel © 2014 
 */
 
-import javax.swing.JOptionPane;
-import java.sql.*;
+import java.sql.ResultSet;
 
-public class Login extends Janela{
+import javax.swing.JOptionPane;
+
+import br.com.fpimentel.db.Database;
+
+public class Login{
+	static ResultSet rs;
+	static String queryLogin = "SELECT Usuario, Senha FROM informacoesLogin";
+	
 	
 	/*
-	 * Método para verificarSenha
-	 * 		recebe a Senha e procura ela no arquivo
+	 * Método para verificarLogin
+	 * 		recebe o Usuário e procura ele no arquivo
 	 */
-	public boolean verificarSenha(String Usuario,String Senha){
+	public static boolean verificarUsuario(String Usuario){
 		try{
-			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-		    Connection conn = DriverManager.getConnection(url,userDB,passDB);
-		    Statement stmt = conn.createStatement();
-		    ResultSet rs;
-		    rs = stmt.executeQuery("SELECT * FROM informacoesLogin");
+			rs = Database.consultaDB(queryLogin);
 		    while(rs.next()){
-		    	if(rs.getString("Usuario").equals(Usuario) && rs.getString("Senha").equals(Senha)){
-		    		//System.out.println("A senha está ok!");
+		    	if(rs.getString("Usuario").equals(Usuario)){
+		    		//System.out.println("O Usuário está ok!");
 		    		return true;
 		    	}
 			}
@@ -37,22 +39,24 @@ public class Login extends Janela{
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 		}
 		return false;
-	}
-	
+	}	
 	/*
-	 * Método para realizarLogin
-	 * 		recebe o login e a senha e chama os métodos
-	 * 		verificarUsuario() e verificarSenha()
+	 * Método para verificarSenha
+	 * 		recebe a Senha e procura ela no arquivo
 	 */
-	public boolean realizarLogin(String Login, String Senha){
-		if(verificarUsuario(Login) == true){
-			if(verificarSenha(Login ,Senha) == true){
-				return true;
-			} else {
-				JOptionPane.showMessageDialog(null, "A senha está errada.", "Erro", JOptionPane.ERROR_MESSAGE);
+	public static boolean verificarSenha(String Usuario,String Senha){
+		try{
+			rs = Database.consultaDB(queryLogin);
+		    while(rs.next()){
+		    	if(rs.getString("Usuario").equals(Usuario) &&
+		    			rs.getString("Senha").equals(Senha)){
+		    		//System.out.println("A senha está ok!");
+		    		return true;
+		    	}
 			}
-		} else {
-			JOptionPane.showMessageDialog(null, "O usuário é inválido.", "Erro", JOptionPane.ERROR_MESSAGE);
+		}
+		catch (Exception e){
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 		}
 		return false;
 	}

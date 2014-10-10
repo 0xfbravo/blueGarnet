@@ -52,6 +52,7 @@ import org.jrimum.domkee.financeiro.banco.febraban.Titulo.Aceite;
 
 import br.com.fpimentel.Janela;
 import br.com.fpimentel.Menu;
+import br.com.fpimentel.db.Database;
 import br.com.fpimentel.enums.EmpresaCedente;
 import br.com.fpimentel.enums.SituacaoCobranca;
 import br.com.fpimentel.enums.TipoCobranca;
@@ -391,7 +392,7 @@ public class Cobrancas extends Janela{
 			public void actionPerformed(ActionEvent e){
 				try{
 					String url = "jdbc:sqlserver://192.168.100.204:49996;databaseName=ALTERDATA";
-					Connection conn = DriverManager.getConnection(url,userDB,passDB);
+					Connection conn = DriverManager.getConnection(url,Database.userDB,Database.passDB);
 					int inteiroInicial = Integer.parseInt(numEmpresaI.getText());
 					int inteiroFinal = Integer.parseInt(numEmpresaF.getText());
 					
@@ -423,7 +424,7 @@ public class Cobrancas extends Janela{
 	public void RenomearBoletos(){
 		try{
 			String url = "jdbc:sqlserver://192.168.100.204:49996;databaseName=ALTERDATA";
-			Connection conn = DriverManager.getConnection(url,userDB,passDB);	    
+			Connection conn = DriverManager.getConnection(url,Database.userDB,Database.passDB);	    
 			JInternalFrame JIF = createFrame("Renomear Boletos",240,500);
 			PainelInterno.add(JIF);
 			JDesktopPane PainelInternoJIF = new JDesktopPane();
@@ -619,7 +620,7 @@ public class Cobrancas extends Janela{
 	public void GerarBoletos(String NomeEmpresa, int NumeroEmpresa, String CNPJ){
 		try{
 			String url = "jdbc:sqlserver://192.168.100.204:49996;databaseName=ALTERDATA";
-			Connection conn = DriverManager.getConnection(url,userDB,passDB);
+			Connection conn = DriverManager.getConnection(url,Database.userDB,Database.passDB);
 			Statement s = conn.createStatement();
 			ResultSet rs;
 		    rs = s.executeQuery("select * from wphd.Empresa WHERE CdEmpresa='"+NumeroEmpresa+"'");

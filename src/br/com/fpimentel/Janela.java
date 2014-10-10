@@ -44,38 +44,47 @@ import br.com.fpimentel.db.Database;
 import br.com.fpimentel.enums.NivelPermissao;
 import br.com.fpimentel.util.Arquivos;
 import br.com.fpimentel.util.BackgroundPane;
+import br.com.fpimentel.util.SplashScreen;
 
-public class Janela extends Database{
+public class Janela{
 	/*
 	 *   Definições do Programa
 	 */
-	static String nomePrograma = "blueGarnet v0.4b";
+	public static String versaoPrograma = "v0.4b";
+	static String nomePrograma = "blueGarnet "+versaoPrograma;
 	static int alturaPrograma = 600, larguraPrograma = 900;
 	BufferedImage imagem;
 	ImageIcon imagemTituloJanela = Arquivos.buscarIcone("img/blueGarnet.png");
-	
-	String NomeJanela;
-	int Altura,Largura;
 	
 	private String nomeUsuario;
 	public String getNomeUsuario(){ return this.nomeUsuario; }
 	public void setNomeUsuario(String nomeUsuario){ this.nomeUsuario = nomeUsuario; }
 	
-	String Usuario,Senha;
-	boolean Adm;
-	
 	// ----- Janela Externa
 	JFrame Janela = new JFrame();
 	// ----- Painel Interno JANELA
-	protected static JDesktopPane PainelInterno = new BackgroundPane();
+	public static JDesktopPane PainelInterno = new JDesktopPane();
 	// ----- Menu
 	public static JMenuBar barraMenu = new JMenuBar();
 	
 	
 	/* ------------------------------------------------------------- */
-	public void JanelaLogin(){
+	public Janela(){}
+	public Janela(String NomeJanela, int Largura, int Altura){
+		/* Definições de Janela */
+		
+		Janela.setIconImage(imagemTituloJanela.getImage());
+		
+		Janela.setVisible(true);
+		Janela.setSize(Largura, Altura);
+		Janela.setLocationRelativeTo(null);
+		Janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Janela.setTitle(NomeJanela);
+		
+		PainelInterno.setBackground(new Color(255,255,255,3));
+		Janela.getContentPane().add(PainelInterno, BorderLayout.CENTER);
+		
 		JDesktopPane PainelInterno = new JDesktopPane();
-		Login login = new Login();
 		JButton btnEntrar = new JButton("Entrar");
 		JTextField campoUsuario = new JTextField();
 		JPasswordField campoSenha = new JPasswordField();
@@ -106,38 +115,27 @@ public class Janela extends Database{
 		btnEntrar.addActionListener(new ActionListener(){
 		public void actionPerformed(ActionEvent e){
 			String senha = new String(campoSenha.getPassword());
-			if(login.realizarLogin(campoUsuario.getText(), senha) == true){
-				Janela.setVisible(false);
-				JOptionPane.showMessageDialog(null, "Você acessou o sistema como: "+campoUsuario.getText()+"", "Login com sucesso!", JOptionPane.INFORMATION_MESSAGE);
-				PainelInterno.removeAll();
-				PainelInterno.repaint();
-				@SuppressWarnings("unused")
-				Janela janela = new Janela(nomePrograma,larguraPrograma,alturaPrograma,campoUsuario.getText());
+			Janela.setVisible(false);
+			new SplashScreen();
+			if(Login.verificarUsuario(campoUsuario.getText()) == true){
+					if(Login.verificarSenha(campoUsuario.getText(), senha) == true){
+						//JOptionPane.showMessageDialog(null, "Você acessou o sistema como: "+campoUsuario.getText()+"", "Login com sucesso!", JOptionPane.INFORMATION_MESSAGE);
+						PainelInterno.removeAll();
+						PainelInterno.repaint();
+						new Janela(nomePrograma,larguraPrograma,alturaPrograma,campoUsuario.getText());
+					} else {
+						JOptionPane.showMessageDialog(null, "A senha está errada.", "Erro", JOptionPane.ERROR_MESSAGE);
+						Janela.setVisible(true);
+					}
+			} else {
+				JOptionPane.showMessageDialog(null, "O usuário é inválido.", "Erro", JOptionPane.ERROR_MESSAGE);
+				Janela.setVisible(true);
 			}
 		}
 		});	
 	}
-	public Janela(){
-		
-	}
-	public Janela(String NomeJanela, int Largura, int Altura, boolean Login){
-		/* Definições de Janela */
-		
-		Janela.setIconImage(imagemTituloJanela.getImage());
-		
-		Janela.setVisible(true);
-		Janela.setSize(Largura, Altura);
-		Janela.setLocationRelativeTo(null);
-		Janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Janela.setTitle(NomeJanela);
-		
-		PainelInterno.setBackground(new Color(255,255,255,3));
-		Janela.getContentPane().add(PainelInterno, BorderLayout.CENTER);
-		
-		if(Login == true){ JanelaLogin(); }
-	
-	}
 	public Janela(String NomeJanela, int Largura, int Altura,String nomeUsuario) {
+		PainelInterno = new BackgroundPane();
 		Janela.setIconImage(imagemTituloJanela.getImage());
 		Janela.setBackground(new Color(255,255,255,80));
 		this.setNomeUsuario(nomeUsuario);
@@ -172,7 +170,7 @@ public class Janela extends Database{
 	public int verificarPermissao(){
 		try{
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-			Connection conn = DriverManager.getConnection(url,userDB,passDB);
+			Connection conn = DriverManager.getConnection(Database.url,Database.userDB,Database.passDB);
 		    Statement stmt = conn.createStatement();
 		    ResultSet rs;
 		    rs = stmt.executeQuery("SELECT * FROM informacoesLogin");
@@ -236,30 +234,7 @@ public class Janela extends Database{
                     e.printStackTrace();
             }
 
-    }	
-	/*
-	 * Método para verificarLogin
-	 * 		recebe o Usuário e procura ele no arquivo
-	 */
-	public boolean verificarUsuario(String Usuario){
-		try{
-			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-			Connection conn = DriverManager.getConnection(url,userDB,passDB);
-		    Statement stmt = conn.createStatement();
-		    ResultSet rs;
-		    rs = stmt.executeQuery("SELECT * FROM informacoesLogin");
-		    while(rs.next()){
-		    	if(rs.getString("Usuario").equals(Usuario)){
-		    		//System.out.println("O Usuário está ok!");
-		    		return true;
-		    	}
-			}
-		}
-		catch (Exception e){
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-		}
-		return false;
-	}	
+    }		
 	
 	/*
 	 * Método para criação da Janela Interna
@@ -299,17 +274,26 @@ public class Janela extends Database{
 	    while (rs.next()) {
 	        Vector<Object> vector = new Vector<Object>();
 	        for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
-	        	if(contemPermissao == true){
-	        		if(rs.getObject(columnIndex).toString() == "true"){
-	        			vector.add("Administrador");
-	        		} else if(rs.getObject(columnIndex).toString() == "false") {
-	        			vector.add("Usuário");
-	        		} else {
 	        		vector.add(rs.getObject(columnIndex));
-	        		}
-	        	} else {
-	        		vector.add(rs.getObject(columnIndex));
-	        	}
+	            	if(contemPermissao == true){
+	            		// -- DEBUG
+	            		//System.out.println("Coluna recebendo:"+rs.getInt("Permissao"));
+	            		if(rs.getInt("Permissao") == NivelPermissao.Adm.getNumPermissao()){
+	            			vector.add(NivelPermissao.Adm.getNomePermissao());
+	            		}
+	            		if(rs.getInt("Permissao") == NivelPermissao.Financeiro.getNumPermissao()){
+	            			vector.add(NivelPermissao.Financeiro.getNomePermissao());
+	            		}
+	            		if(rs.getInt("Permissao") == NivelPermissao.Fiscal.getNumPermissao()){
+	            			vector.add(NivelPermissao.Fiscal.getNomePermissao());
+	            		}
+	            		if(rs.getInt("Permissao") == NivelPermissao.Contabil.getNumPermissao()){
+	            			vector.add(NivelPermissao.Contabil.getNomePermissao());
+	            		}
+	            		if(rs.getInt("Permissao") == NivelPermissao.Dev.getNumPermissao()){
+	            			vector.add(NivelPermissao.Dev.getNomePermissao());
+	            		}
+	            	}
 	        }
 	        data.add(vector);
 	    }

@@ -32,8 +32,7 @@ public class Main extends Janela{
         	  
         	GraphiteLookAndFeel.setCurrentTheme(props);
             UIManager.setLookAndFeel("com.jtattoo.plaf.graphite.GraphiteLookAndFeel");
-    		@SuppressWarnings("unused")
-			br.com.fpimentel.Janela janelaLogin = new br.com.fpimentel.Janela(nomePrograma,330,195,true);
+			new Janela(nomePrograma,330,195);
         }
         catch (Exception ex) {
             ex.printStackTrace();
