@@ -42,6 +42,7 @@ import javax.swing.text.MaskFormatter;
 
 import br.com.fpimentel.db.Database;
 import br.com.fpimentel.enums.NivelPermissao;
+import br.com.fpimentel.enums.TipoInfoSplash;
 import br.com.fpimentel.util.Arquivos;
 import br.com.fpimentel.util.BackgroundPane;
 import br.com.fpimentel.util.SplashScreen;
@@ -116,7 +117,7 @@ public class Janela{
 		public void actionPerformed(ActionEvent e){
 			String senha = new String(campoSenha.getPassword());
 			Janela.setVisible(false);
-			new SplashScreen();
+			new SplashScreen("Conectando ao servidor...",TipoInfoSplash.acessoDB);
 			if(Login.verificarUsuario(campoUsuario.getText()) == true){
 					if(Login.verificarSenha(campoUsuario.getText(), senha) == true){
 						//JOptionPane.showMessageDialog(null, "Você acessou o sistema como: "+campoUsuario.getText()+"", "Login com sucesso!", JOptionPane.INFORMATION_MESSAGE);
@@ -239,7 +240,7 @@ public class Janela{
 	/*
 	 * Método para criação da Janela Interna
 	 */
-	protected JInternalFrame createFrame(String t, int Altura, int Largura) {
+	protected static JInternalFrame createFrame(String t, int Altura, int Largura) {
 		      JInternalFrame f = new JInternalFrame(t);
 		      f.setResizable(false);
 		      f.setClosable(true);

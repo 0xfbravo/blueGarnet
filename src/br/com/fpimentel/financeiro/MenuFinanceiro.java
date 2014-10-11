@@ -83,7 +83,7 @@ public class MenuFinanceiro {
 		contasReceber.setIcon(Arquivos.buscarIcone("img/money_dollar.png"));
 		Janela.barraMenu.add(contasReceber);
 			// Gerar Cobranças
-			contasReceber.add(Menu.subMenu("Gerar Cobranças","img/zone_money.png",f,2));
+			contasReceber.add(Menu.subMenu("Gerar Cobranças","img/zone_money.png",f,25));
 		
 		/*
 		 * 	Módulo: Contas a Pagar
