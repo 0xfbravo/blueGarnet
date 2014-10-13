@@ -17,7 +17,10 @@ import javax.swing.JOptionPane;
 
 	Fellipe Pimentel © 2014 
 */
-public class Database {
+public class Database implements Runnable{
+	Thread processo;
+	String nomeProcesso;
+	
 	static Connection conn;
 	static Statement st;
 	static ResultSet rs;
@@ -41,6 +44,38 @@ public class Database {
 	public static String userDBAlterdata = "sa";
 	public static String passDBAlterdata = "java";
 
+	/*
+	 * Método para acessarSistema
+	 * 		recebe Usuário & Senha e faz a consulta ao DB
+	 */
+	public boolean acessarSistema(String Usuario, String Senha){
+		String query = "SELECT Usuario,Senha FROM informacoesLogin WHERE Usuario='"+Usuario+"'";
+		try{
+			rs = Database.consultaDB(query);
+		    while(rs.next()){
+		    	// -- Debug
+		    	//System.out.println("usuário: "+rs.getString("Usuario")+" | Senha: "+rs.getString("Senha"));
+		    	if(rs.getString("Usuario").equals(Usuario)){
+		    			if(rs.getString("Senha").equals(Senha)){
+		    				return true;
+		    			} else {
+		    				JOptionPane.showMessageDialog(null, "A senha está errada.", "Erro", JOptionPane.ERROR_MESSAGE);
+		    				return false;
+		    			}
+		    	}
+			}
+		    JOptionPane.showMessageDialog(null, "O usuário é inválido.", "Erro", JOptionPane.ERROR_MESSAGE);
+		}
+		catch (Exception e){
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+		}
+		finally{
+		      //closing ResultSet,PreparedStatement and Connection object
+		}
+		return false;
+	}	
+	
+	
 	public static ResultSet consultaDB(String Query){
 		try{
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -81,5 +116,12 @@ public class Database {
 		catch (Exception e){
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 		}
+	}
+
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
 	}
 }

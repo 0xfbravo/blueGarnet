@@ -10,8 +10,11 @@ package br.com.fpimentel.administrador;
 	Fellipe Pimentel © 2014 
 */
 import java.awt.BorderLayout;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -25,7 +28,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import br.com.fpimentel.Janela;
-import br.com.fpimentel.Login;
 import br.com.fpimentel.db.Database;
 import br.com.fpimentel.enums.NivelPermissao;
 import br.com.fpimentel.util.*;
@@ -117,44 +119,56 @@ public class Administrador extends Janela{
 		btnAdicionar.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				  String senha = new String(novaSenha.getPassword());
-				if(Login.verificarUsuario(novoUsuario.getText()) == true){
-					JOptionPane.showMessageDialog(null, "O nome de Usuário já está em uso.", "Aviso", JOptionPane.WARNING_MESSAGE);
-				}
-				else if(novoUsuario.getText().equals("")){
+				  String verificarUsuario = "SELECT Usuario,Permissao FROM informacoesLogin WHERE Usuario='"+novoUsuario.getText()+"'";
+				  String updateDB = "INSERT INTO informacoesLogin(Usuario,Senha,Permissao) VALUES";
+				  ResultSet rs = Database.consultaDB(verificarUsuario);
+				  try {
+					if(rs.getString("Usuario") == novoUsuario.getText()){
+						JOptionPane.showMessageDialog(null, "O nome de Usuário já está em uso.", "Aviso", JOptionPane.WARNING_MESSAGE);
+					}
+				  }
+				  catch (HeadlessException e1){
+					  JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+				  }
+				  catch (SQLException e1) {
+					  JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+				  }
+				
+				// -- Usuário VAZIO
+				if(novoUsuario.getText().equals("")){
 					JOptionPane.showMessageDialog(null, "O nome de Usuário NÃO pode estar em branco.", "Aviso", JOptionPane.WARNING_MESSAGE);
 				}
+				// -- Senha VAZIA
 				else if(senha.equals("")){
 					JOptionPane.showMessageDialog(null, "A Senha NÃO pode estar em branco.", "Aviso", JOptionPane.WARNING_MESSAGE);
 				} else {
-					
+					// -----
+					//  Criação dos Usuário c/ suas
+					//     devidas Permissões
+					// -----
 					// Desenvolvedor
 					if(tipoPermissao.getSelectedItem().toString() == NivelPermissao.Dev.getNomePermissao()){
-						Database.updateDB("INSERT INTO informacoesLogin(Usuario,Senha,Permissao) VALUES"
-								+ " ('"+novoUsuario.getText()+"','"+senha+"',"+NivelPermissao.Dev.getNumPermissao()+")");
+						Database.updateDB(updateDB+" ('"+novoUsuario.getText()+"','"+senha+"',"+NivelPermissao.Dev.getNumPermissao()+")");
 						JOptionPane.showMessageDialog(null, "Você criou o usuário com sucesso.");
 					}
 					// Administrador
 					if(tipoPermissao.getSelectedItem().toString() == NivelPermissao.Adm.getNomePermissao()){
-						Database.updateDB("INSERT INTO informacoesLogin(Usuario,Senha,Permissao) VALUES"
-								+ " ('"+novoUsuario.getText()+"','"+senha+"',"+NivelPermissao.Adm.getNumPermissao()+")");
+						Database.updateDB(updateDB+" ('"+novoUsuario.getText()+"','"+senha+"',"+NivelPermissao.Adm.getNumPermissao()+")");
 						JOptionPane.showMessageDialog(null, "Você criou o usuário com sucesso.");
 					}
 					// Financeiro
 					if(tipoPermissao.getSelectedItem().toString() == NivelPermissao.Financeiro.getNomePermissao()){
-						Database.updateDB("INSERT INTO informacoesLogin(Usuario,Senha,Permissao) VALUES"
-								+ " ('"+novoUsuario.getText()+"','"+senha+"',"+NivelPermissao.Financeiro.getNumPermissao()+")");
+						Database.updateDB(updateDB+" ('"+novoUsuario.getText()+"','"+senha+"',"+NivelPermissao.Financeiro.getNumPermissao()+")");
 						JOptionPane.showMessageDialog(null, "Você criou o usuário com sucesso.");
 					}
 					// Fiscal
 					if(tipoPermissao.getSelectedItem().toString() == NivelPermissao.Fiscal.getNomePermissao()){
-						Database.updateDB("INSERT INTO informacoesLogin(Usuario,Senha,Permissao) VALUES"
-								+ " ('"+novoUsuario.getText()+"','"+senha+"',"+NivelPermissao.Fiscal.getNumPermissao()+")");
+						Database.updateDB(updateDB+" ('"+novoUsuario.getText()+"','"+senha+"',"+NivelPermissao.Fiscal.getNumPermissao()+")");
 					JOptionPane.showMessageDialog(null, "Você criou o usuário com sucesso.");
 					}
 					// Contábil
 					if(tipoPermissao.getSelectedItem().toString() == NivelPermissao.Contabil.getNomePermissao()){
-						Database.updateDB("INSERT INTO informacoesLogin(Usuario,Senha,Permissao) VALUES"
-								+ " ('"+novoUsuario.getText()+"','"+senha+"',"+NivelPermissao.Contabil.getNumPermissao()+")");
+						Database.updateDB(updateDB+" ('"+novoUsuario.getText()+"','"+senha+"',"+NivelPermissao.Contabil.getNumPermissao()+")");
 					JOptionPane.showMessageDialog(null, "Você criou o usuário com sucesso.");
 					}
 					

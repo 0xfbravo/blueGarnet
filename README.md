@@ -6,7 +6,7 @@ blueGarnet
   ------------------------------------------------
   		@author Fellipe Bravo Ribeiro Pimentel
   					© 2014/Outubro
-  				Atualizado em 09/10/2014
+  				Atualizado em 12/10/2014
   				Programa ainda em fase beta
   ------------------------------------------------
   

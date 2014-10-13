@@ -45,7 +45,7 @@ import br.com.fpimentel.enums.NivelPermissao;
 import br.com.fpimentel.enums.TipoInfoSplash;
 import br.com.fpimentel.util.Arquivos;
 import br.com.fpimentel.util.BackgroundPane;
-import br.com.fpimentel.util.SplashScreen;
+import br.com.fpimentel.util.SplashBG;
 
 public class Janela{
 	/*
@@ -117,19 +117,27 @@ public class Janela{
 		public void actionPerformed(ActionEvent e){
 			String senha = new String(campoSenha.getPassword());
 			Janela.setVisible(false);
-			new SplashScreen("Conectando ao servidor...",TipoInfoSplash.acessoDB);
-			if(Login.verificarUsuario(campoUsuario.getText()) == true){
-					if(Login.verificarSenha(campoUsuario.getText(), senha) == true){
-						//JOptionPane.showMessageDialog(null, "Você acessou o sistema como: "+campoUsuario.getText()+"", "Login com sucesso!", JOptionPane.INFORMATION_MESSAGE);
-						PainelInterno.removeAll();
-						PainelInterno.repaint();
-						new Janela(nomePrograma,larguraPrograma,alturaPrograma,campoUsuario.getText());
-					} else {
-						JOptionPane.showMessageDialog(null, "A senha está errada.", "Erro", JOptionPane.ERROR_MESSAGE);
-						Janela.setVisible(true);
-					}
+			
+			// - Criação SplashScreen & seu Processo
+			SplashBG splash = new SplashBG();
+			splash.mudaMensagem("Conectando ao servidor...",TipoInfoSplash.acessoDB);
+			Thread processoSplash = new Thread(splash);
+			processoSplash.start();
+			
+			// - Criação da Consulta ao DB & seu Processo
+			Database consultDB = new Database();
+			Thread procConsultDB = new Thread(consultDB);
+			procConsultDB.start();
+			while(procConsultDB.isAlive()){ splash.splJanela.repaint(); }
+			if(consultDB.acessarSistema(campoUsuario.getText(), senha) == true){
+				splash.mudaMensagem("Conexão realizada com sucesso!",TipoInfoSplash.sucesso);
+				procConsultDB.interrupt();
+				splash.splJanela.setVisible(false);
+				PainelInterno.removeAll();
+				PainelInterno.repaint();
+				new Janela(nomePrograma,larguraPrograma,alturaPrograma,campoUsuario.getText());
 			} else {
-				JOptionPane.showMessageDialog(null, "O usuário é inválido.", "Erro", JOptionPane.ERROR_MESSAGE);
+				splash.splJanela.setVisible(false);
 				Janela.setVisible(true);
 			}
 		}
