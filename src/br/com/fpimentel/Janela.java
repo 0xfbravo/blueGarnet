@@ -13,8 +13,11 @@ package br.com.fpimentel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -43,7 +46,7 @@ import javax.swing.text.MaskFormatter;
 import br.com.fpimentel.db.Database;
 import br.com.fpimentel.enums.NivelPermissao;
 import br.com.fpimentel.enums.TipoInfoSplash;
-import br.com.fpimentel.util.Arquivos;
+import br.com.fpimentel.util.FuncoesExtras;
 import br.com.fpimentel.util.BackgroundPane;
 import br.com.fpimentel.util.SplashBG;
 
@@ -55,7 +58,7 @@ public class Janela{
 	static String nomePrograma = "blueGarnet "+versaoPrograma;
 	static int alturaPrograma = 600, larguraPrograma = 900;
 	BufferedImage imagem;
-	ImageIcon imagemTituloJanela = Arquivos.buscarIcone("img/blueGarnet.png");
+	ImageIcon imagemTituloJanela = FuncoesExtras.buscarIcone("img/blueGarnet.png");
 	
 	private String nomeUsuario;
 	public String getNomeUsuario(){ return this.nomeUsuario; }
@@ -67,6 +70,7 @@ public class Janela{
 	public static JDesktopPane PainelInterno = new JDesktopPane();
 	// ----- Menu
 	public static JMenuBar barraMenu = new JMenuBar();
+	public static JDesktopPane barraMenuL = new JDesktopPane();
 	
 	
 	/* ------------------------------------------------------------- */
@@ -81,6 +85,7 @@ public class Janela{
 		Janela.setLocationRelativeTo(null);
 		Janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Janela.setTitle(NomeJanela);
+		Janela.requestFocusInWindow();
 		
 		PainelInterno.setBackground(new Color(255,255,255,3));
 		Janela.getContentPane().add(PainelInterno, BorderLayout.CENTER);
@@ -100,13 +105,45 @@ public class Janela{
 		campoUsuario.setBounds(30, 34, 256, 25);
 		PainelInterno.add(campoUsuario);
 		campoUsuario.setName("Usuário");	
+		campoUsuario.addKeyListener(new KeyListener(){
+			@Override
+			public void keyPressed(KeyEvent arg0) {}
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				switch (arg0.getKeyCode()){
+					case KeyEvent.VK_ENTER:
+						campoSenha.requestFocus();
+						break;
+					default:
+						break;
+				}
+			}
+			@Override
+			public void keyTyped(KeyEvent arg0) {}
+		});
 		// ----- Senha	
 		JLabel lblSenha = new JLabel("Senha:");
 		lblSenha.setBounds(30, 64, 92, 14);
 		PainelInterno.add(lblSenha);
 		campoSenha.setBounds(30, 81, 256, 25);
 		PainelInterno.add(campoSenha);
-		campoSenha.setName("Senha");	
+		campoSenha.setName("Senha");
+		campoSenha.addKeyListener(new KeyListener(){
+			@Override
+			public void keyPressed(KeyEvent arg0) {}
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				switch (arg0.getKeyCode()){
+					case KeyEvent.VK_ENTER:
+						campoSenha.requestFocus();
+						break;
+					default:
+						break;
+				}
+			}
+			@Override
+			public void keyTyped(KeyEvent arg0) {}
+		});
 		// ----- Botão Entrar
 		btnEntrar.setBounds(210, 115, 73, 35);
 		PainelInterno.add(btnEntrar);
@@ -114,6 +151,7 @@ public class Janela{
 		 *  Ação ao clicar no botão de Logar
 		 */
 		btnEntrar.addActionListener(new ActionListener(){
+		@SuppressWarnings("static-access")
 		public void actionPerformed(ActionEvent e){
 			String senha = new String(campoSenha.getPassword());
 			Janela.setVisible(false);
@@ -131,6 +169,12 @@ public class Janela{
 			while(procConsultDB.isAlive()){ splash.splJanela.repaint(); }
 			if(consultDB.acessarSistema(campoUsuario.getText(), senha) == true){
 				splash.mudaMensagem("Conexão realizada com sucesso!",TipoInfoSplash.sucesso);
+				try {
+					procConsultDB.sleep(1000);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				procConsultDB.interrupt();
 				splash.splJanela.setVisible(false);
 				PainelInterno.removeAll();
@@ -146,14 +190,13 @@ public class Janela{
 	public Janela(String NomeJanela, int Largura, int Altura,String nomeUsuario) {
 		PainelInterno = new BackgroundPane();
 		Janela.setIconImage(imagemTituloJanela.getImage());
-		Janela.setBackground(new Color(255,255,255,80));
 		this.setNomeUsuario(nomeUsuario);
 		Janela.setVisible(true);
 		Janela.setSize(Largura, Altura);
 		Janela.setLocationRelativeTo(null);
 		Janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Janela.setTitle(NomeJanela);
-		Janela.setResizable(false);
+		Janela.setResizable(true);
 		
 		PainelInterno.setBackground(Color.LIGHT_GRAY);
 		Janela.getContentPane().add(PainelInterno);
@@ -163,10 +206,14 @@ public class Janela{
 		Menu menu = new Menu();
 		Menu.criarMenu(verificarPermissao());
 		Janela.setJMenuBar(barraMenu);
+		GridLayout layoutMenu = new GridLayout(0,1);
+		barraMenuL.setLayout(layoutMenu);
+		Janela.add(barraMenuL, BorderLayout.WEST);
 		JLabel lblCopyright = new JLabel("Desenvolvido por Fellipe Pimentel © 2014");
-		lblCopyright.setBounds(680, 525, 360, 14);
-		lblCopyright.setForeground(new Color(255,255,255,45));
-		PainelInterno.add(lblCopyright);
+		lblCopyright.setForeground(Color.WHITE);
+		lblCopyright.setOpaque(true);
+		lblCopyright.setBackground(new Color(45,45,45));
+		Janela.add(lblCopyright, BorderLayout.SOUTH);
 	}
 	
 	
@@ -182,26 +229,21 @@ public class Janela{
 			Connection conn = DriverManager.getConnection(Database.url,Database.userDB,Database.passDB);
 		    Statement stmt = conn.createStatement();
 		    ResultSet rs;
-		    rs = stmt.executeQuery("SELECT * FROM informacoesLogin");
+		    rs = stmt.executeQuery("SELECT Permissao FROM bg_informacoesLogin WHERE Usuario='"+this.getNomeUsuario()+"'");
 		    while(rs.next()){
-		    	if(rs.getString("Usuario").equals(this.getNomeUsuario()) && rs.getInt("Permissao")
-		    			== NivelPermissao.Adm.getNumPermissao()){
+		    	if(rs.getInt("Permissao") == NivelPermissao.Adm.getNumPermissao()){
 		    		return NivelPermissao.Adm.getNumPermissao();
 		    	}
-		    	else if(rs.getString("Usuario").equals(this.getNomeUsuario()) && rs.getInt("Permissao")
-		    			== NivelPermissao.Dev.getNumPermissao()){
+		    	else if(rs.getInt("Permissao") == NivelPermissao.Dev.getNumPermissao()){
 		    		return NivelPermissao.Dev.getNumPermissao();
 		    	}
-		    	else if(rs.getString("Usuario").equals(this.getNomeUsuario()) && rs.getInt("Permissao")
-		    			== NivelPermissao.Financeiro.getNumPermissao()){
+		    	else if(rs.getInt("Permissao") == NivelPermissao.Financeiro.getNumPermissao()){
 		    		return NivelPermissao.Financeiro.getNumPermissao();
 		    	}
-		    	else if(rs.getString("Usuario").equals(this.getNomeUsuario()) && rs.getInt("Permissao")
-		    			== NivelPermissao.Fiscal.getNumPermissao()){
+		    	else if(rs.getInt("Permissao") == NivelPermissao.Fiscal.getNumPermissao()){
 		    		return NivelPermissao.Fiscal.getNumPermissao();
 		    	}
-		    	else if(rs.getString("Usuario").equals(this.getNomeUsuario()) && rs.getInt("Permissao")
-		    			== NivelPermissao.Contabil.getNumPermissao()){
+		    	else if(rs.getInt("Permissao") == NivelPermissao.Contabil.getNumPermissao()){
 		    		return NivelPermissao.Contabil.getNumPermissao();
 		    	}
 			}

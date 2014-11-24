@@ -24,14 +24,15 @@ public class SplashBG implements Runnable{
 
 	public void mudarIconeMensagem(TipoInfoSplash tipoMensagem){
 		if(tipoMensagem == TipoInfoSplash.acessoDB){
-			lblInfoIMG.setIcon(Arquivos.buscarIcone("img/database.png"));
+			lblInfoIMG.setIcon(FuncoesExtras.buscarIcone("img/database.png"));
 		}
 		else if(tipoMensagem == TipoInfoSplash.sucesso){
-			lblInfoIMG.setIcon(Arquivos.buscarIcone("img/world.png"));
+			lblInfoIMG.setIcon(FuncoesExtras.buscarIcone("img/world.png"));
 		}
 	}
 	public void mudaMensagem(String mensagem, TipoInfoSplash tipoMensagem){
 		lblInfoMSG.setText(mensagem);
+		lblInfoMSG.setForeground(Color.WHITE);
 		this.mudarIconeMensagem(tipoMensagem);
 		splJanela.repaint();
 	}
@@ -44,38 +45,39 @@ public class SplashBG implements Runnable{
 		lblInfoIMG.setHorizontalAlignment(SwingConstants.LEFT);
 		painel.add(lblInfoIMG);
 		lblInfoIMG.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblInfoIMG.setBounds(68, 325, 23, 25);
+		lblInfoIMG.setBounds(30, 113, 23, 25);
 		
 		lblInfoMSG.setHorizontalAlignment(SwingConstants.LEFT);
 		painel.add(lblInfoMSG);
 		lblInfoMSG.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblInfoMSG.setBounds(115, 325, 329, 25);
+		lblInfoMSG.setBounds(52, 113, 210, 25);
 		
 		Cursor c = Toolkit.getDefaultToolkit().createCustomCursor(
 				Toolkit.getDefaultToolkit().createImage(""),new Point(splJanela.getX(), splJanela.getY()), "Cursor");
 		splJanela.setCursor(c);
-		splJanela.setSize(419, 419);
+		splJanela.setSize(466, 152);
 		splJanela.setLocationRelativeTo(null);
 		splJanela.setBackground(new Color(0, 0, 0, 0));
 		
 		painel.setBackground(new Color(0, 0, 0, 0));
 		
 		JLabel lblNewLabel = new JLabel(Janela.versaoPrograma);
+		lblNewLabel.setForeground(Color.WHITE);
 		painel.add(lblNewLabel);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel.setBounds(159, 67, 85, 25);
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblNewLabel.setBounds(418, 17, 49, 25);
 		
 		JLabel lblImgLoad = new JLabel("");
 		lblImgLoad.setHorizontalAlignment(SwingConstants.CENTER);
-		lblImgLoad.setIcon(Arquivos.buscarIcone("img/loader.gif"));
-		lblImgLoad.setBounds(152, 161, 128, 137);
+		lblImgLoad.setIcon(FuncoesExtras.buscarIcone("img/loader.gif"));
+		lblImgLoad.setBounds(20, 17, 33, 39);
 		painel.add(lblImgLoad);
 		
 		JLabel splashImg = new JLabel();
-		splashImg.setLocation(10, 11);
+		splashImg.setLocation(0, 11);
 		splashImg.setHorizontalAlignment(SwingConstants.CENTER);
-		splashImg.setIcon(Arquivos.buscarIcone("img/blueGarnet_SPLASH.png"));
-		splashImg.setSize(422, 409);
+		splashImg.setIcon(FuncoesExtras.buscarIcone("img/blueGarnet_SPLASH.png"));
+		splashImg.setSize(467, 137);
 		painel.add(splashImg);
 		
 		splJanela.getContentPane().add(painel);

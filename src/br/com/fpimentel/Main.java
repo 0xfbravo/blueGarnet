@@ -13,7 +13,7 @@ import java.util.Properties;
 
 import javax.swing.UIManager;
 
-import com.jtattoo.plaf.graphite.GraphiteLookAndFeel;
+import com.jtattoo.plaf.acryl.AcrylLookAndFeel;
 
 public class Main extends Janela{
 
@@ -24,15 +24,14 @@ public class Main extends Janela{
         	props.put("textAntiAliasing","on");
         	props.put("menuOpaque","20");
         	props.put("windowTitleFont", "Arial BOLD 11");
-        	props.put("menuTextFont", "Arial BOLD 12");
         	props.put("systemTextFont", "Arial 11");
         	props.put("userTextFont", "Arial 11");
         	props.put("textAntiAliasingMode", "default");
         	  
         	  
-        	GraphiteLookAndFeel.setCurrentTheme(props);
-            UIManager.setLookAndFeel("com.jtattoo.plaf.graphite.GraphiteLookAndFeel");
-			new Janela(nomePrograma,330,195);
+        	AcrylLookAndFeel.setCurrentTheme(props);
+            UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
+			new Janela(nomePrograma,330,185);
         }
         catch (Exception ex) {
             ex.printStackTrace();

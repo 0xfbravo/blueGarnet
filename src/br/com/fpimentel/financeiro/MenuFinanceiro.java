@@ -13,7 +13,7 @@ import javax.swing.JMenu;
 
 import br.com.fpimentel.Janela;
 import br.com.fpimentel.Menu;
-import br.com.fpimentel.util.Arquivos;
+import br.com.fpimentel.util.FuncoesExtras;
 
 public class MenuFinanceiro {
 	
@@ -22,7 +22,7 @@ public class MenuFinanceiro {
 		 * 	Módulo: Orçamento
 		 */
 		JMenu orcamento = new JMenu("Orçamento");
-		orcamento.setIcon(Arquivos.buscarIcone("img/calculator.png"));
+		orcamento.setIcon(FuncoesExtras.buscarIcone("img/calculator.png"));
 		Janela.barraMenu.add(orcamento);
 			// Gerar Orçamento
 				orcamento.add(Menu.subMenu("Gerar Orçamento","img/cross_shield.png",f,0));
@@ -46,7 +46,7 @@ public class MenuFinanceiro {
 		 * 	Módulo: Fluxo de Caixa
 		 */
 		JMenu flxCaixa = new JMenu("Fluxo de Caixa");
-		flxCaixa.setIcon(Arquivos.buscarIcone("img/arrow_refresh.png"));
+		flxCaixa.setIcon(FuncoesExtras.buscarIcone("img/arrow_refresh.png"));
 		Janela.barraMenu.add(flxCaixa);
 			// Caixa Diário
 			flxCaixa.add(Menu.subMenu("Caixa Diário","img/cross_shield.png",f,17));
@@ -80,17 +80,49 @@ public class MenuFinanceiro {
 		 * 	Módulo: Contas a Receber
 		 */
 		JMenu contasReceber = new JMenu("Contas a Receber");
-		contasReceber.setIcon(Arquivos.buscarIcone("img/money_dollar.png"));
+		contasReceber.setIcon(FuncoesExtras.buscarIcone("img/money_dollar.png"));
 		Janela.barraMenu.add(contasReceber);
+			// Lançamentos & Baixas
+			contasReceber.add(Menu.subMenu("Lançamentos & Baixas","img/cross_shield.png",f,30));	
 			// Gerar Cobranças
-			contasReceber.add(Menu.subMenu("Gerar Cobranças","img/zone_money.png",f,25));
+			contasReceber.add(Menu.subMenu("Gerar Cobranças","img/zone_money.png",f,1));
+			// Relatórios de Cobrança
+			contasReceber.add(Menu.subMenu("Relatórios de Cobrança","img/cross_shield.png",f,30));
+			// SEPARADOR
+			contasReceber.addSeparator();
+			// Geração de NF
+			contasReceber.add(Menu.subMenu("Geração de NF","img/cross_shield.png",f,30));
+			// Geração de RPS
+			contasReceber.add(Menu.subMenu("Geração de RPS","img/cross_shield.png",f,30));
+			// Atualização de NF
+			contasReceber.add(Menu.subMenu("Atualização de NF","img/cross_shield.png",f,30));
+			// Atualização de RPS
+			contasReceber.add(Menu.subMenu("Atualização de RPS","img/cross_shield.png",f,30));
+			// Índices de Desempenho
+			contasReceber.add(Menu.subMenu("Índices de Desempenho","img/cross_shield.png",f,30));
+			// Relatórios de Faturamento
+			contasReceber.add(Menu.subMenu("Relatórios de Faturamento","img/cross_shield.png",f,30));
+			// SEPARADOR
+			contasReceber.addSeparator();
+			// Listagem de Cobranças
+			contasReceber.add(Menu.subMenu("Listagem de Cobranças","img/cross_shield.png",f,30));
+			// Listagem de Faturamentos
+			contasReceber.add(Menu.subMenu("Listagem de Faturamentos","img/cross_shield.png",f,30));
+			// Listagem de Clientes
+			contasReceber.add(Menu.subMenu("Listagem de Clientes","img/cross_shield.png",f,30));
 		
 		/*
 		 * 	Módulo: Contas a Pagar
 		 */
 		JMenu contasPagar = new JMenu("Contas a Pagar");
-		contasPagar.setIcon(Arquivos.buscarIcone("img/money.png"));
+		contasPagar.setIcon(FuncoesExtras.buscarIcone("img/money.png"));
 		Janela.barraMenu.add(contasPagar);
+			// Gastos Efetuados & Previstos
+			contasPagar.add(Menu.subMenu("Gastos Efetuados & Previstos","img/cross_shield.png",f,30));
+			// Listagem de Pagamentos do Período
+			contasPagar.add(Menu.subMenu("Listagem de Pagamentos do Período","img/cross_shield.png",f,30));
+			// Relatórios de Pagamento
+			contasPagar.add(Menu.subMenu("Relatórios de Pagamento","img/cross_shield.png",f,30));
 	}
 
 }

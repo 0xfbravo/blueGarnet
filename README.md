@@ -6,8 +6,8 @@ blueGarnet
   ------------------------------------------------
   		@author Fellipe Bravo Ribeiro Pimentel
   					© 2014/Outubro
-  				Atualizado em 12/10/2014
-  				Programa ainda em fase beta
+  			  Atualizado em 24/11/2014
+  			Programa ainda em fase beta
   ------------------------------------------------
   
   *Aplicativo com diversas utilidades desenvolvido
@@ -15,7 +15,7 @@ blueGarnet
   utilizando o Microsoft SQL Server como o banco
   de dados.
   Algumas consultas ao banco de dados são feitas
-  na base de dados da ALTERDATA sistema Pack Diamond (SQL).
+  na base de dados do sistema ALTERDATA, Pack Diamond (SQL).
   Novas funcionalidades estão sendo adicionadas ao programa
   a cada dia que passa.*
   
@@ -42,4 +42,9 @@ blueGarnet
    			- Gerar Boletos
    					> Gera diversos boletos que são salvos automaticamente organizados
    					em pastas seguindo o caminho:
-   						>> ANO/MÊS/NúmeroDaEmpresa/Documento.pdf <<
+   						>> ANO/MÊS/NúmeroDaEmpresa/NomeDocumento.pdf <<
+   		
+   		* _Outros Usuários_
+   			- Digitalização de Documentos
+   					> Módulo para organização de documentos dos clientes
+   						>> Maiores informações serão adicionadas posteriormente

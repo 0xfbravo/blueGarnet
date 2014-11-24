@@ -8,5 +8,6 @@
 	<classpathentry kind="lib" path="src/bibliotecas/JTattoo-1.6.10.jar"/>
 	<classpathentry kind="lib" path="src/bibliotecas/log4j-1.2.15.jar"/>
 	<classpathentry kind="lib" path="src/bibliotecas/sqljdbc4.jar"/>
+	<classpathentry kind="lib" path="src/bibliotecas/javax.mail.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
