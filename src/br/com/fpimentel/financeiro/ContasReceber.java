@@ -39,7 +39,7 @@ import org.jrimum.domkee.financeiro.banco.febraban.TipoDeTitulo;
 import org.jrimum.domkee.financeiro.banco.febraban.Titulo;
 import org.jrimum.domkee.financeiro.banco.febraban.Titulo.Aceite;
 
-import br.com.fpimentel.db.Database;
+import br.com.fpimentel.Database;
 import br.com.fpimentel.enums.EmpresaCedente;
 import br.com.fpimentel.enums.SituacaoCobranca;
 import br.com.fpimentel.enums.TipoCobranca;

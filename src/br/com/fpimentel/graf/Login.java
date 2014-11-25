@@ -15,7 +15,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import br.com.fpimentel.Config;
-import br.com.fpimentel.db.Database;
+import br.com.fpimentel.Database;
 import br.com.fpimentel.enums.TipoInfoSplash;
 import br.com.fpimentel.util.SplashBG;
 

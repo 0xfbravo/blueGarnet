@@ -16,17 +16,15 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
-import br.com.fpimentel.administrador.Administrador;
-import br.com.fpimentel.administrador.MenuAdministrador;
+import br.com.fpimentel.administrador.Administracao;
 import br.com.fpimentel.dev.MenuDesenvolvedor;
 import br.com.fpimentel.enums.NivelPermissao;
 import br.com.fpimentel.financeiro.ContasReceber;
-import br.com.fpimentel.financeiro.MenuFinanceiro;
 import br.com.fpimentel.util.FuncoesExtras;
 
 public class Menu{
 	public static ContasReceber contasReceber = new ContasReceber();
-	public static Administrador administrador = new Administrador();
+	public static Administracao administrador = new Administracao();
 
 	/*
 	 * Método para criação do SubMenu c/ Opções
@@ -121,7 +119,9 @@ public class Menu{
 		 *----------------------------------------*/	
 		if(Administrador == NivelPermissao.Adm.getNumPermissao() ||
 		   Administrador == NivelPermissao.Dev.getNumPermissao()){
-			new MenuAdministrador(administrador);		
+			new MenuAdministrador(administrador);
+			BotaoMenu item = new BotaoMenu("Administração [EM DESENVOLVIMENTO]","img/businessman193.png");
+			JanelaPrincipal.barraMenuL.add(item);
 		}
 		
 		
@@ -178,21 +178,19 @@ public class Menu{
 			new MenuDesenvolvedor();
 		}
 		
-		ItemMenu item = new ItemMenu("Administração [EM DESENVOLVIMENTO]","img/businessman193.png");
-		JanelaPrincipal.barraMenuL.add(item);
-		ItemMenu item2 = new ItemMenu("Orçamento [EM DESENVOLVIMENTO]","img/calculator69.png");
+		BotaoMenu item2 = new BotaoMenu("Orçamento [EM DESENVOLVIMENTO]","img/calculator69.png");
 		JanelaPrincipal.barraMenuL.add(item2);
-		ItemMenu item3 = new ItemMenu("Fluxo de Caixa [EM DESENVOLVIMENTO]","img/refresh46.png");
+		BotaoMenu item3 = new BotaoMenu("Fluxo de Caixa [EM DESENVOLVIMENTO]","img/refresh46.png");
 		JanelaPrincipal.barraMenuL.add(item3);
-		ItemMenu item4 = new ItemMenu("Contas a Receber [EM DESENVOLVIMENTO]","img/dollar179.png");
+		BotaoMenu item4 = new BotaoMenu("Contas a Receber [EM DESENVOLVIMENTO]","img/dollar179.png");
 		JanelaPrincipal.barraMenuL.add(item4);
-		ItemMenu item5 = new ItemMenu("Contas a Pagar [EM DESENVOLVIMENTO]","img/job6.png");
+		BotaoMenu item5 = new BotaoMenu("Contas a Pagar [EM DESENVOLVIMENTO]","img/job6.png");
 		JanelaPrincipal.barraMenuL.add(item5);
-		ItemMenu item6 = new ItemMenu("Operacional [EM DESENVOLVIMENTO]","img/seo1.png");
+		BotaoMenu item6 = new BotaoMenu("Operacional [EM DESENVOLVIMENTO]","img/seo1.png");
 		JanelaPrincipal.barraMenuL.add(item6);
-		ItemMenu item7 = new ItemMenu("Funções Extras [EM DESENVOLVIMENTO]","img/plugin.png");
+		BotaoMenu item7 = new BotaoMenu("Funções Extras [EM DESENVOLVIMENTO]","img/plugin.png");
 		JanelaPrincipal.barraMenuL.add(item7);
-		ItemMenu item8 = new ItemMenu("Funções BETA [EM DESENVOLVIMENTO]","img/radioactive3.png");
+		BotaoMenu item8 = new BotaoMenu("Funções BETA [EM DESENVOLVIMENTO]","img/radioactive3.png");
 		JanelaPrincipal.barraMenuL.add(item8);
 	}
 }

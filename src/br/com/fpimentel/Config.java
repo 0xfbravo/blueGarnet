@@ -13,7 +13,7 @@ public class Config {
 	 */
 	public static String versaoPrograma = "v0.4b";
 	public static String nomePrograma = "blueGarnet "+versaoPrograma;
-	public static int alturaPrograma = 600, larguraPrograma = 900;
+	public static int alturaPrograma = 600, larguraPrograma = 1000;
 	BufferedImage imagem;
 	public static ImageIcon imagemTituloJanela = FuncoesExtras.buscarIcone("img/blueGarnet.png");
 

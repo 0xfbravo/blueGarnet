@@ -31,7 +31,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
-import br.com.fpimentel.db.Database;
+import br.com.fpimentel.Database;
 import br.com.fpimentel.enums.NivelPermissao;
 import br.com.fpimentel.enums.OrganizacaoDigital;
 import br.com.fpimentel.graf.JanelaPrincipal;

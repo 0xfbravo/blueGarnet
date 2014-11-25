@@ -29,7 +29,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 
 import br.com.fpimentel.Config;
-import br.com.fpimentel.db.Database;
+import br.com.fpimentel.Database;
 import br.com.fpimentel.enums.NivelPermissao;
 import br.com.fpimentel.util.BackgroundPane;
 
@@ -66,15 +66,15 @@ public class JanelaPrincipal extends JFrame{
 		getContentPane().add(PainelInterno);
 	
 		// ----- Criação do Menu na Janela
-		@SuppressWarnings("unused")
-		Menu menu = new Menu();
+		new Menu();
 		Menu.criarMenu(verificarPermissao());
 		setJMenuBar(barraMenu);
 		GridLayout layoutMenu = new GridLayout(0,1);
 		barraMenuL.setLayout(layoutMenu);
+		barraMenuL.setBackground(new Color(28,57,85));
 		add(barraMenuL, BorderLayout.WEST);
-		JLabel lblCopyright = new JLabel("Desenvolvido por Fellipe Pimentel © 2014");
-		lblCopyright.setForeground(Color.WHITE);
+		JLabel lblCopyright = new JLabel("Desenvolvido por Fellipe Pimentel © 2014 :: Contato: fellipe.bravo@gmail.com");
+		lblCopyright.setForeground(new Color(255,255,255,35));
 		lblCopyright.setOpaque(true);
 		lblCopyright.setBackground(new Color(45,45,45));
 		add(lblCopyright, BorderLayout.SOUTH);
