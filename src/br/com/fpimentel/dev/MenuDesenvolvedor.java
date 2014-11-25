@@ -13,7 +13,7 @@ package br.com.fpimentel.dev;
 
 import javax.swing.JMenu;
 
-import br.com.fpimentel.Menu;
+import br.com.fpimentel.graf.JanelaPrincipal;
 import br.com.fpimentel.util.FuncoesExtras;
 
 public class MenuDesenvolvedor {
@@ -24,7 +24,7 @@ public class MenuDesenvolvedor {
 		 *----------------------------------*/
 		JMenu menuDesenvolvimento = new JMenu("Funções BETA");
 		menuDesenvolvimento.setIcon(FuncoesExtras.buscarIcone("img/nuclear.png"));
-		Menu.barraMenu.add(menuDesenvolvimento);
+		JanelaPrincipal.barraMenu.add(menuDesenvolvimento);
 	}
 
 }

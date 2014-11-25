@@ -39,12 +39,13 @@ import org.jrimum.domkee.financeiro.banco.febraban.TipoDeTitulo;
 import org.jrimum.domkee.financeiro.banco.febraban.Titulo;
 import org.jrimum.domkee.financeiro.banco.febraban.Titulo.Aceite;
 
-import br.com.fpimentel.Janela;
-import br.com.fpimentel.Menu;
 import br.com.fpimentel.db.Database;
 import br.com.fpimentel.enums.EmpresaCedente;
 import br.com.fpimentel.enums.SituacaoCobranca;
 import br.com.fpimentel.enums.TipoCobranca;
+import br.com.fpimentel.graf.JanelaPrincipal;
+import br.com.fpimentel.graf.Menu;
+import br.com.fpimentel.util.FuncoesExtras;
 
 /*
 	 _     _             _____                       _   
@@ -56,7 +57,7 @@ import br.com.fpimentel.enums.TipoCobranca;
 
 	Fellipe Pimentel © 2014 
 */
-public class ContasReceber extends Janela{
+public class ContasReceber{
 	/* Informações Sacado */
 	private String nomeEmpresaSAC;
 	private String cnpjSAC;
@@ -208,7 +209,7 @@ public class ContasReceber extends Janela{
     		//System.out.println(manipulaCNPJ+" > Tirou o PONTO");
     	}
     	//System.out.println(manipulaCNPJ+" -- Antes da Conversão");
-    	this.cnpjCED = format("##.###.###/####-##",manipulaCNPJ);
+    	this.cnpjCED = FuncoesExtras.format("##.###.###/####-##",manipulaCNPJ);
     	//System.out.println(this.cnpjCED+" -- Após Conversão");
 	}
 	public String getNomeEmpresaCED() {
@@ -248,7 +249,7 @@ public class ContasReceber extends Janela{
     		//System.out.println(manipulaCNPJ+" > Tirou o PONTO");
     	}
     	//System.out.println(manipulaCNPJ+" -- Antes da Conversão");
-    	this.cnpjSAC = format("##.###.###/####-##",manipulaCNPJ);
+    	this.cnpjSAC = FuncoesExtras.format("##.###.###/####-##",manipulaCNPJ);
     	//System.out.println(this.cnpjSAC+" -- Após Conversão");
 	}
 	public String getNomeEmpresaSAC() {
@@ -262,13 +263,13 @@ public class ContasReceber extends Janela{
 	
 	/*
 	 *  Método para Criação da
-	 *		Janela de Cobranças
+	 *		JanelaPrincipal de Cobranças
 	 */
 	@SuppressWarnings("unchecked")
-	public void JanelaGerarCobrancas(){
-		JInternalFrame JIF = createFrame("Gerar Cobranças",400,500);
+	public void GerarCobrancas(){
+		JInternalFrame JIF = JanelaPrincipal.createFrame("Gerar Cobranças",400,500);
 		JIF.setFrameIcon(new ImageIcon(Menu.class.getClassLoader().getResource("img/zone_money.png")));
-		PainelInterno.add(JIF);
+		JanelaPrincipal.PainelInterno.add(JIF);
 		JDesktopPane PainelInternoJIF = new JDesktopPane();
 		JIF.getContentPane().add(PainelInternoJIF);
 		

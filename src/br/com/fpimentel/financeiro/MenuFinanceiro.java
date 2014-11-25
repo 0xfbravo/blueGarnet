@@ -11,8 +11,8 @@ package br.com.fpimentel.financeiro;
 */
 import javax.swing.JMenu;
 
-import br.com.fpimentel.Janela;
-import br.com.fpimentel.Menu;
+import br.com.fpimentel.graf.JanelaPrincipal;
+import br.com.fpimentel.graf.Menu;
 import br.com.fpimentel.util.FuncoesExtras;
 
 public class MenuFinanceiro {
@@ -23,7 +23,7 @@ public class MenuFinanceiro {
 		 */
 		JMenu orcamento = new JMenu("Orçamento");
 		orcamento.setIcon(FuncoesExtras.buscarIcone("img/calculator.png"));
-		Janela.barraMenu.add(orcamento);
+		JanelaPrincipal.barraMenu.add(orcamento);
 			// Gerar Orçamento
 				orcamento.add(Menu.subMenu("Gerar Orçamento","img/cross_shield.png",f,0));
 			// Importar Dados CP & CR
@@ -47,7 +47,7 @@ public class MenuFinanceiro {
 		 */
 		JMenu flxCaixa = new JMenu("Fluxo de Caixa");
 		flxCaixa.setIcon(FuncoesExtras.buscarIcone("img/arrow_refresh.png"));
-		Janela.barraMenu.add(flxCaixa);
+		JanelaPrincipal.barraMenu.add(flxCaixa);
 			// Caixa Diário
 			flxCaixa.add(Menu.subMenu("Caixa Diário","img/cross_shield.png",f,17));
 			// Fechamento Caixa
@@ -81,7 +81,7 @@ public class MenuFinanceiro {
 		 */
 		JMenu contasReceber = new JMenu("Contas a Receber");
 		contasReceber.setIcon(FuncoesExtras.buscarIcone("img/money_dollar.png"));
-		Janela.barraMenu.add(contasReceber);
+		JanelaPrincipal.barraMenu.add(contasReceber);
 			// Lançamentos & Baixas
 			contasReceber.add(Menu.subMenu("Lançamentos & Baixas","img/cross_shield.png",f,30));	
 			// Gerar Cobranças
@@ -116,7 +116,7 @@ public class MenuFinanceiro {
 		 */
 		JMenu contasPagar = new JMenu("Contas a Pagar");
 		contasPagar.setIcon(FuncoesExtras.buscarIcone("img/money.png"));
-		Janela.barraMenu.add(contasPagar);
+		JanelaPrincipal.barraMenu.add(contasPagar);
 			// Gastos Efetuados & Previstos
 			contasPagar.add(Menu.subMenu("Gastos Efetuados & Previstos","img/cross_shield.png",f,30));
 			// Listagem de Pagamentos do Período

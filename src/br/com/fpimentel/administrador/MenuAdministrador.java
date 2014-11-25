@@ -11,8 +11,8 @@ package br.com.fpimentel.administrador;
 */
 import javax.swing.JMenu;
 
-import br.com.fpimentel.Janela;
-import br.com.fpimentel.Menu;
+import br.com.fpimentel.graf.JanelaPrincipal;
+import br.com.fpimentel.graf.Menu;
 import br.com.fpimentel.util.FuncoesExtras;
 
 public class MenuAdministrador {
@@ -21,7 +21,7 @@ public class MenuAdministrador {
 		// ----- Opções da Barra de Menu
 		JMenu administracaoMenu = new JMenu("Administração");
 		administracaoMenu.setIcon(FuncoesExtras.buscarIcone("img/user_business.jpg"));
-		Janela.barraMenu.add(administracaoMenu);
+		JanelaPrincipal.barraMenu.add(administracaoMenu);
 		
 			// Adicionar Usuário
 			administracaoMenu.add(Menu.subMenu("Adicionar Usuário","img/user.png",a,1));			

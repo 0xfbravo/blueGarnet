@@ -1,4 +1,4 @@
-package br.com.fpimentel;
+package br.com.fpimentel.graf;
 /*
 	 _     _             _____                       _   
 	| |   | |           / ____|                     | |  
@@ -24,7 +24,7 @@ import br.com.fpimentel.financeiro.ContasReceber;
 import br.com.fpimentel.financeiro.MenuFinanceiro;
 import br.com.fpimentel.util.FuncoesExtras;
 
-public class Menu extends Janela{
+public class Menu{
 	public static ContasReceber contasReceber = new ContasReceber();
 	public static Administrador administrador = new Administrador();
 
@@ -73,7 +73,7 @@ public class Menu extends Janela{
 				if(o == contasReceber){
 					switch(valorMenu){
 						case 1:
-							contasReceber.JanelaGerarCobrancas();
+							contasReceber.GerarCobrancas();
 						break;
 						case 2:
 						break;
@@ -139,14 +139,14 @@ public class Menu extends Janela{
 		 */
 		JMenu operacional = new JMenu("Operacional");
 		operacional.setIcon(FuncoesExtras.buscarIcone("img/monitor.png"));
-		barraMenu.add(operacional);
+		JanelaPrincipal.barraMenu.add(operacional);
 			
 		/*
 		 * 	Módulo: Funções Extras
 		 */
 		JMenu extras = new JMenu("Funções Extras");
 		extras.setIcon(FuncoesExtras.buscarIcone("img/plugin2.png"));
-		barraMenu.add(extras);
+		JanelaPrincipal.barraMenu.add(extras);
 			// Sub-menu 1
 			JMenuItem digitalizacao = new JMenuItem("Digitalização de Documentos");
 			digitalizacao.setIcon(FuncoesExtras.buscarIcone("img/doc_convert.png"));
@@ -177,22 +177,22 @@ public class Menu extends Janela{
 		if(Administrador == NivelPermissao.Dev.getNumPermissao()){	
 			new MenuDesenvolvedor();
 		}
-		/*
+		
 		ItemMenu item = new ItemMenu("Administração [EM DESENVOLVIMENTO]","img/businessman193.png");
-		barraMenuL.add(item);
+		JanelaPrincipal.barraMenuL.add(item);
 		ItemMenu item2 = new ItemMenu("Orçamento [EM DESENVOLVIMENTO]","img/calculator69.png");
-		barraMenuL.add(item2);
+		JanelaPrincipal.barraMenuL.add(item2);
 		ItemMenu item3 = new ItemMenu("Fluxo de Caixa [EM DESENVOLVIMENTO]","img/refresh46.png");
-		barraMenuL.add(item3);
+		JanelaPrincipal.barraMenuL.add(item3);
 		ItemMenu item4 = new ItemMenu("Contas a Receber [EM DESENVOLVIMENTO]","img/dollar179.png");
-		barraMenuL.add(item4);
+		JanelaPrincipal.barraMenuL.add(item4);
 		ItemMenu item5 = new ItemMenu("Contas a Pagar [EM DESENVOLVIMENTO]","img/job6.png");
-		barraMenuL.add(item5);
+		JanelaPrincipal.barraMenuL.add(item5);
 		ItemMenu item6 = new ItemMenu("Operacional [EM DESENVOLVIMENTO]","img/seo1.png");
-		barraMenuL.add(item6);
+		JanelaPrincipal.barraMenuL.add(item6);
 		ItemMenu item7 = new ItemMenu("Funções Extras [EM DESENVOLVIMENTO]","img/plugin.png");
-		barraMenuL.add(item7);
+		JanelaPrincipal.barraMenuL.add(item7);
 		ItemMenu item8 = new ItemMenu("Funções BETA [EM DESENVOLVIMENTO]","img/radioactive3.png");
-		barraMenuL.add(item8);*/
+		JanelaPrincipal.barraMenuL.add(item8);
 	}
 }

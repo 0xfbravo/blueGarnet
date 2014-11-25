@@ -4,7 +4,7 @@ import javax.swing.JDesktopPane;
 import javax.swing.JLabel;
 import javax.swing.JWindow;
 
-import br.com.fpimentel.Janela;
+import br.com.fpimentel.Config;
 import br.com.fpimentel.enums.TipoInfoSplash;
 
 import javax.swing.SwingConstants;
@@ -61,7 +61,7 @@ public class SplashBG implements Runnable{
 		
 		painel.setBackground(new Color(0, 0, 0, 0));
 		
-		JLabel lblNewLabel = new JLabel(Janela.versaoPrograma);
+		JLabel lblNewLabel = new JLabel(Config.versaoPrograma);
 		lblNewLabel.setForeground(Color.WHITE);
 		painel.add(lblNewLabel);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 10));

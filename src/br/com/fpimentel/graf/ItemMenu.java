@@ -1,4 +1,4 @@
-package br.com.fpimentel;
+package br.com.fpimentel.graf;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -9,13 +9,16 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
+import javax.swing.JPopupMenu;
 import javax.swing.Timer;
+import javax.swing.border.BevelBorder;
 
 import br.com.fpimentel.util.FuncoesExtras;
 
 
 public class ItemMenu extends JButton{
 
+	public JPopupMenu popup = new JPopupMenu();
     private static final JButton lafDeterminer = new JButton();
     private static final long serialVersionUID = 1L;
     private boolean rectangularLAF;
@@ -50,6 +53,8 @@ public class ItemMenu extends JButton{
         rectangularLAF = lafDeterminer.isOpaque();
     }
 	public ItemMenu(String nome,String caminhoImagem){
+		popup.setLabel("Justification");
+	    popup.setBorder(new BevelBorder(BevelBorder.RAISED));
 		setToolTipText(nome);
 		setIcon(FuncoesExtras.buscarIcone(caminhoImagem));
 		setPreferredSize(new Dimension(90,0));
@@ -60,7 +65,7 @@ public class ItemMenu extends JButton{
 		setBackground(new Color(16,99,107));
 		addMouseListener(new MouseListener(){
 			@Override
-			public void mouseClicked(MouseEvent arg0) {}
+			public void mouseClicked(MouseEvent arg0) { popup.setVisible(true);}
 
 			@Override
 			public void mouseEntered(MouseEvent arg0) {

@@ -13,9 +13,11 @@ import java.util.Properties;
 
 import javax.swing.UIManager;
 
+import br.com.fpimentel.graf.Login;
+
 import com.jtattoo.plaf.acryl.AcrylLookAndFeel;
 
-public class Main extends Janela{
+public class Main{
 
 	public static void main(String[] args){
         try {
@@ -31,7 +33,7 @@ public class Main extends Janela{
         	  
         	AcrylLookAndFeel.setCurrentTheme(props);
             UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
-			new Janela(nomePrograma,330,185);
+			new Login(Config.nomePrograma,330,185);
         }
         catch (Exception ex) {
             ex.printStackTrace();

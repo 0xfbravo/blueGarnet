@@ -36,14 +36,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-import br.com.fpimentel.Janela;
 import br.com.fpimentel.db.Database;
 import br.com.fpimentel.enums.Ano;
 import br.com.fpimentel.enums.Mes;
 import br.com.fpimentel.enums.NivelPermissao;
+import br.com.fpimentel.graf.JanelaPrincipal;
 import br.com.fpimentel.util.*;
 
-public class Administrador extends Janela{
+public class Administrador{
 	static String queryLogin = "SELECT Usuario,Permissao FROM bg_informacoesLogin";
 	
 	/*
@@ -52,8 +52,8 @@ public class Administrador extends Janela{
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void GerarImportacaoAlterdata(){
 		try{
-			JInternalFrame JIF = createFrame("Gerar Importação do Alterdata (Mensalidade Ideal)",200,350);
-			PainelInterno.add(JIF);
+			JInternalFrame JIF = JanelaPrincipal.createFrame("Gerar Importação do Alterdata (Mensalidade Ideal)",200,350);
+			JanelaPrincipal.PainelInterno.add(JIF);
 			JDesktopPane PainelInternoJIF = new JDesktopPane();
 			JIF.getContentPane().add(PainelInternoJIF, BorderLayout.CENTER);
 			JIF.setFrameIcon(FuncoesExtras.buscarIcone("img/bricks.png"));
@@ -235,8 +235,8 @@ public class Administrador extends Janela{
 	 */		
 	public void EditarUsuario(){
 		try{	    
-			JInternalFrame JIF = createFrame("Adicionar Usuário",200,500);
-			PainelInterno.add(JIF);
+			JInternalFrame JIF = JanelaPrincipal.createFrame("Adicionar Usuário",200,500);
+			JanelaPrincipal.PainelInterno.add(JIF);
 			JDesktopPane PainelInternoJIF = new JDesktopPane();
 			JIF.getContentPane().add(PainelInternoJIF, BorderLayout.CENTER);
 			JIF.setFrameIcon(FuncoesExtras.buscarIcone("img/page_white_wrench.png"));
@@ -246,7 +246,7 @@ public class Administrador extends Janela{
 			btnAdicionar.setBounds(390, 125, 73, 35);
 			PainelInternoJIF.add(btnAdicionar);
 			
-			JTable tabela = new JTable(buildTableModel(Database.consultaDB(queryLogin,false),false));
+			JTable tabela = new JTable(FuncoesExtras.buildTableModel(Database.consultaDB(queryLogin,false),false));
 			tabela.setEnabled(false);
 			JIF.add(tabela);
 		}
@@ -265,8 +265,8 @@ public class Administrador extends Janela{
 			Statement s = conn.createStatement();
 			String query = "select NmEmpresa,CdEmpresa from wphd.Empresa";
 			
-			JInternalFrame JIF = createFrame("Alteração de E-mails - Clientes",255,500);
-			PainelInterno.add(JIF);
+			JInternalFrame JIF = JanelaPrincipal.createFrame("Alteração de E-mails - Clientes",255,500);
+			JanelaPrincipal.PainelInterno.add(JIF);
 			JDesktopPane PainelInternoJIF = new JDesktopPane();
 			JIF.getContentPane().add(PainelInternoJIF, BorderLayout.CENTER);
 			JIF.setFrameIcon(FuncoesExtras.buscarIcone("img/envelope.png"));
@@ -462,8 +462,8 @@ public class Administrador extends Janela{
 	@SuppressWarnings({ "unchecked"})
 	public void CriarUsuario(){
 		try{
-			JInternalFrame JIF = createFrame("Adicionar Usuário",200,500);
-			PainelInterno.add(JIF);
+			JInternalFrame JIF = JanelaPrincipal.createFrame("Adicionar Usuário",200,500);
+			JanelaPrincipal.PainelInterno.add(JIF);
 			JDesktopPane PainelInternoJIF = new JDesktopPane();
 			JIF.getContentPane().add(PainelInternoJIF, BorderLayout.CENTER);
 			JIF.setFrameIcon(FuncoesExtras.buscarIcone("img/user.png"));
@@ -626,11 +626,11 @@ public class Administrador extends Janela{
 	 */	
 	public void ListarEmpresas(){
 		try{		    
-		    JInternalFrame JIF = createFrame("Listagem de Empresas",500,500);
+		    JInternalFrame JIF = JanelaPrincipal.createFrame("Listagem de Empresas",500,500);
 		    JIF.setFrameIcon(FuncoesExtras.buscarIcone("img/book.png"));
-		    PainelInterno.add(JIF);
+		    JanelaPrincipal.PainelInterno.add(JIF);
 		
-		    JTable tabela = new JTable(buildTableModel(
+		    JTable tabela = new JTable(FuncoesExtras.buildTableModel(
 		    		Database.consultaDB("select CdEmpresa,NmEmpresa from wphd.Empresa order by CdEmpresa ASC",true),false));
 		    tabela.setEnabled(false);
 		    tabela.getTableHeader().getColumnModel().getColumn(0).setHeaderValue("Código");
@@ -649,11 +649,11 @@ public class Administrador extends Janela{
 	public void ListarUsuarios(){
 		try{
 		    
-		    JInternalFrame JIF = createFrame("Listagem de Usuários",500,500);
+		    JInternalFrame JIF = JanelaPrincipal.createFrame("Listagem de Usuários",500,500);
 		    JIF.setFrameIcon(FuncoesExtras.buscarIcone("img/book_addresses.png"));
-		    PainelInterno.add(JIF);
+		    JanelaPrincipal.PainelInterno.add(JIF);
 		
-		    JTable tabela = new JTable(buildTableModel(Database.consultaDB(queryLogin+" order by Permissao ASC",false),true));
+		    JTable tabela = new JTable(FuncoesExtras.buildTableModel(Database.consultaDB(queryLogin+" order by Permissao ASC",false),true));
 		    tabela.setEnabled(false);
 		    tabela.getTableHeader().getColumnModel().getColumn(0).setHeaderValue("Usuário");
 		    tabela.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(200);
