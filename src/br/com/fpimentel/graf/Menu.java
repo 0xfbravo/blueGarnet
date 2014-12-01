@@ -10,9 +10,14 @@ package br.com.fpimentel.graf;
 	Fellipe Pimentel © 2014 
 */
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JDesktopPane;
+import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
@@ -28,7 +33,7 @@ public class Menu{
 
 	/*
 	 * Método para criação do SubMenu c/ Opções
-	 */	
+	 	
 	public static JMenu subMenuComOpcoes(String nome, String localIMG, Object o,int valorMenu){
 		JMenu s = new JMenu(nome);
 		s.setIcon(FuncoesExtras.buscarIcone(localIMG));
@@ -40,7 +45,7 @@ public class Menu{
 	}
 	/*
 	 * Método para criação do SubMenu
-	 */	
+	 	
 	public static JMenuItem subMenu(String nome, String localIMG, Object o,int valorMenu){
 		JMenuItem s = new JMenuItem(nome);
 		s.setIcon(FuncoesExtras.buscarIcone(localIMG));
@@ -112,26 +117,46 @@ public class Menu{
 	/*
 	 * Método para criação do MENU
 	 */	
-	public static void criarMenu(int Administrador){
+	public Menu(int Permissao, JFrame j){
 		
 		/*----------------------------------------*
 		 *  Menu Diferenciado para Administradores
 		 *----------------------------------------*/	
-		if(Administrador == NivelPermissao.Adm.getNumPermissao() ||
-		   Administrador == NivelPermissao.Dev.getNumPermissao()){
-			new MenuAdministrador(administrador);
+		if(Permissao >= NivelPermissao.Adm.getNumPermissao()){
+			//new MenuAdministrador(administrador);
 			BotaoMenu item = new BotaoMenu("Administração [EM DESENVOLVIMENTO]","img/businessman193.png");
 			JanelaPrincipal.barraMenuL.add(item);
+			item.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					JDesktopPane jdp = new JDesktopPane();
+					jdp.setBackground(Color.RED);
+					jdp.setPreferredSize(new Dimension(JanelaPrincipal.PainelInterno.getWidth()/2,JanelaPrincipal.PainelInterno.getHeight()));
+					JanelaPrincipal.PainelInterno.add(jdp);
+					j.invalidate();
+					j.validate();
+				}
+				
+			});
 		}
 		
 		
 		/*----------------------------------*
 		 *  Menu Diferenciado para Financeiro
 		 *----------------------------------*/
-		if(Administrador == NivelPermissao.Financeiro.getNumPermissao() ||
-				Administrador == NivelPermissao.Adm.getNumPermissao() ||
-					Administrador == NivelPermissao.Dev.getNumPermissao()){
-			new MenuFinanceiro(contasReceber); // Mudar para financeiro depois
+		if(Permissao >= NivelPermissao.Financeiro.getNumPermissao()){
+			//new MenuFinanceiro(contasReceber); // Mudar para financeiro depois
+			
+			BotaoMenu item2 = new BotaoMenu("Orçamento [EM DESENVOLVIMENTO]","img/calculator69.png");
+			JanelaPrincipal.barraMenuL.add(item2);
+			BotaoMenu item3 = new BotaoMenu("Fluxo de Caixa [EM DESENVOLVIMENTO]","img/refresh46.png");
+			JanelaPrincipal.barraMenuL.add(item3);
+			BotaoMenu item4 = new BotaoMenu("Contas a Receber [EM DESENVOLVIMENTO]","img/dollar179.png");
+			JanelaPrincipal.barraMenuL.add(item4);
+			BotaoMenu item5 = new BotaoMenu("Contas a Pagar [EM DESENVOLVIMENTO]","img/job6.png");
+			JanelaPrincipal.barraMenuL.add(item5);
+			BotaoMenu item6 = new BotaoMenu("Operacional [EM DESENVOLVIMENTO]","img/seo1.png");
+			JanelaPrincipal.barraMenuL.add(item6);
 		}
 		
 		/*
@@ -173,24 +198,15 @@ public class Menu{
 					FuncoesExtras.RenomearBoletos();
 				}
 			});
-		
-		if(Administrador == NivelPermissao.Dev.getNumPermissao()){	
+			
+			BotaoMenu item7 = new BotaoMenu("Funções Extras [EM DESENVOLVIMENTO]","img/plugin.png");
+			JanelaPrincipal.barraMenuL.add(item7);
+			
+		if(Permissao == NivelPermissao.Dev.getNumPermissao()){	
 			new MenuDesenvolvedor();
+			BotaoMenu item8 = new BotaoMenu("Funções BETA [EM DESENVOLVIMENTO]","img/radioactive3.png");
+			JanelaPrincipal.barraMenuL.add(item8);
 		}
 		
-		BotaoMenu item2 = new BotaoMenu("Orçamento [EM DESENVOLVIMENTO]","img/calculator69.png");
-		JanelaPrincipal.barraMenuL.add(item2);
-		BotaoMenu item3 = new BotaoMenu("Fluxo de Caixa [EM DESENVOLVIMENTO]","img/refresh46.png");
-		JanelaPrincipal.barraMenuL.add(item3);
-		BotaoMenu item4 = new BotaoMenu("Contas a Receber [EM DESENVOLVIMENTO]","img/dollar179.png");
-		JanelaPrincipal.barraMenuL.add(item4);
-		BotaoMenu item5 = new BotaoMenu("Contas a Pagar [EM DESENVOLVIMENTO]","img/job6.png");
-		JanelaPrincipal.barraMenuL.add(item5);
-		BotaoMenu item6 = new BotaoMenu("Operacional [EM DESENVOLVIMENTO]","img/seo1.png");
-		JanelaPrincipal.barraMenuL.add(item6);
-		BotaoMenu item7 = new BotaoMenu("Funções Extras [EM DESENVOLVIMENTO]","img/plugin.png");
-		JanelaPrincipal.barraMenuL.add(item7);
-		BotaoMenu item8 = new BotaoMenu("Funções BETA [EM DESENVOLVIMENTO]","img/radioactive3.png");
-		JanelaPrincipal.barraMenuL.add(item8);
 	}
 }

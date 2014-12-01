@@ -13,7 +13,12 @@ package br.com.fpimentel.graf;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
@@ -21,17 +26,21 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import br.com.fpimentel.Config;
 import br.com.fpimentel.Database;
+import br.com.fpimentel.administrador.Administracao;
+import br.com.fpimentel.administrador.MenuAdm;
 import br.com.fpimentel.enums.NivelPermissao;
-import br.com.fpimentel.util.BackgroundPane;
+import br.com.fpimentel.financeiro.Orcamento;
 
 public class JanelaPrincipal extends JFrame{
 	/**
@@ -44,7 +53,7 @@ public class JanelaPrincipal extends JFrame{
 	public void setNomeUsuario(String nomeUsuario){ this.nomeUsuario = nomeUsuario; }
 	
 	// ----- Painel Interno JANELA PRINCIPAL
-	public static JDesktopPane PainelInterno = new JDesktopPane();
+	public static JPanel PainelInterno = new JPanel();
 	// ----- Menu
 	public static JMenuBar barraMenu = new JMenuBar();
 	public static JDesktopPane barraMenuL = new JDesktopPane();
@@ -52,7 +61,6 @@ public class JanelaPrincipal extends JFrame{
 	
 	/* ------------------------------------------------------------- */
 	public JanelaPrincipal(String NomeJanela, int Largura, int Altura,String nomeUsuario) {
-		PainelInterno = new BackgroundPane();
 		setIconImage(Config.imagemTituloJanela.getImage());
 		this.setNomeUsuario(nomeUsuario);
 		setVisible(true);
@@ -63,18 +71,176 @@ public class JanelaPrincipal extends JFrame{
 		setResizable(true);
 		
 		PainelInterno.setBackground(Color.LIGHT_GRAY);
-		getContentPane().add(PainelInterno);
-	
-		// ----- Criação do Menu na Janela
-		new Menu();
-		Menu.criarMenu(verificarPermissao());
-		setJMenuBar(barraMenu);
-		GridLayout layoutMenu = new GridLayout(0,1);
-		barraMenuL.setLayout(layoutMenu);
+		PainelInterno.setLayout(new FlowLayout());
+		PainelInterno.addMouseListener(new MouseListener(){
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				PainelInterno.removeAll();
+				PainelInterno.repaint();
+				invalidate();
+				validate();
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {}
+
+			@Override
+			public void mouseExited(MouseEvent e) {}
+
+			@Override
+			public void mousePressed(MouseEvent e) {}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {}
+			
+		});
+		getContentPane().setLayout(new BorderLayout());
+		add(PainelInterno,BorderLayout.CENTER);
+		PainelInterno.setLayout(new BorderLayout());
+		// Criação do Menu
+		//new Menu(verificarPermissao(),this);
+		/*----------------------------------------*
+		 *  Menu Diferenciado para Administradores
+		 *----------------------------------------*/	
+		if(verificarPermissao() >= NivelPermissao.Adm.getNumPermissao()){
+			//new MenuAdministrador(administrador);
+			BotaoMenu item = new BotaoMenu("Administração","img/businessman193.png");
+			barraMenuL.add(item);
+			item.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {new MenuAdm(JanelaPrincipal.this,item);}
+			});
+		}
+		/*----------------------------------*
+		 *  Menu Diferenciado para Financeiro
+		 *----------------------------------*/
+		if(verificarPermissao() >= NivelPermissao.Financeiro.getNumPermissao()){
+			//new MenuFinanceiro(contasReceber); // Mudar para financeiro depois
+			
+			BotaoMenu item2 = new BotaoMenu("Orçamento","img/calculator69.png");
+			barraMenuL.add(item2);
+			item2.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) { new Orcamento(JanelaPrincipal.this,item2);}	
+			});
+			BotaoMenu item3 = new BotaoMenu("Fluxo de Caixa","img/refresh46.png");
+			barraMenuL.add(item3);
+			item3.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					PainelInterno.removeAll();
+					PainelInterno.repaint();
+					JDesktopPane jdp = new JDesktopPane();
+					jdp.setBackground(Color.WHITE);
+					jdp.setPreferredSize(new Dimension(PainelInterno.getWidth()/2,PainelInterno.getHeight()));
+					PainelInterno.add(jdp);
+					invalidate();
+					validate();
+				}
+				
+			});
+			BotaoMenu item4 = new BotaoMenu("Contas a Receber","img/dollar179.png");
+			barraMenuL.add(item4);
+			item4.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					PainelInterno.removeAll();
+					PainelInterno.repaint();
+					JDesktopPane jdp = new JDesktopPane();
+					jdp.setBackground(Color.CYAN);
+					jdp.setPreferredSize(new Dimension(PainelInterno.getWidth()/2,PainelInterno.getHeight()));
+					PainelInterno.add(jdp);
+					invalidate();
+					validate();
+				}
+				
+			});
+			BotaoMenu item5 = new BotaoMenu("Contas a Pagar","img/job6.png");
+			barraMenuL.add(item5);
+			item5.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					PainelInterno.removeAll();
+					PainelInterno.repaint();
+					JDesktopPane jdp = new JDesktopPane();
+					jdp.setBackground(Color.MAGENTA);
+					jdp.setPreferredSize(new Dimension(PainelInterno.getWidth()/2,PainelInterno.getHeight()));
+					PainelInterno.add(jdp);
+					invalidate();
+					validate();
+				}
+				
+			});
+			BotaoMenu item6 = new BotaoMenu("Operacional","img/seo1.png");
+			barraMenuL.add(item6);
+			item6.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					PainelInterno.removeAll();
+					PainelInterno.repaint();
+					JDesktopPane jdp = new JDesktopPane();
+					jdp.setBackground(Color.BLUE);
+					jdp.setPreferredSize(new Dimension(PainelInterno.getWidth()/2,PainelInterno.getHeight()));
+					PainelInterno.add(jdp);
+					invalidate();
+					validate();
+				}
+				
+			});
+		}
+		
+		BotaoMenu item7 = new BotaoMenu("Funções Extras","img/plugin.png");
+		barraMenuL.add(item7);
+		item7.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				PainelInterno.removeAll();
+				PainelInterno.repaint();
+				JDesktopPane jdp = new JDesktopPane();
+				jdp.setBackground(Color.BLACK);
+				jdp.setPreferredSize(new Dimension(PainelInterno.getWidth()/2,PainelInterno.getHeight()));
+				PainelInterno.add(jdp);
+				invalidate();
+				validate();
+			}
+			
+		});
+		
+		if(verificarPermissao() == NivelPermissao.Dev.getNumPermissao()){	
+			//new MenuDesenvolvedor();
+			BotaoMenu item8 = new BotaoMenu("Funções BETA","img/radioactive3.png");
+			barraMenuL.add(item8);
+			item8.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					PainelInterno.removeAll();
+					PainelInterno.repaint();
+					JDesktopPane jdp = new JDesktopPane();
+					jdp.setBackground(Color.ORANGE);
+					jdp.setPreferredSize(new Dimension(PainelInterno.getWidth()/2,PainelInterno.getHeight()));
+					PainelInterno.add(jdp);
+					invalidate();
+					validate();
+				}
+				
+			});
+		}
+		//setJMenuBar(barraMenu);
+		barraMenuL.setLayout(new GridLayout(0,1));
 		barraMenuL.setBackground(new Color(28,57,85));
 		add(barraMenuL, BorderLayout.WEST);
-		JLabel lblCopyright = new JLabel("Desenvolvido por Fellipe Pimentel © 2014 :: Contato: fellipe.bravo@gmail.com");
-		lblCopyright.setForeground(new Color(255,255,255,35));
+		
+		// Copyright
+		JLabel lblCopyright = new JLabel(
+				"<html>"
+					+ "<div style='padding:2px; float: right; margin-right: 10px;'>"
+						+ "<i><b>::</b></i> Desenvolvido por <i>Fellipe Pimentel © 2014</i><br>"
+						+ "<i><b>::</b></i> Contato: <i>fellipe.bravo@gmail.com</i>"
+						+ "</div>" +
+			   "</html>"
+				);
+		lblCopyright.setForeground(new Color(255,255,255,5));
 		lblCopyright.setOpaque(true);
 		lblCopyright.setBackground(new Color(45,45,45));
 		add(lblCopyright, BorderLayout.SOUTH);
@@ -94,19 +260,16 @@ public class JanelaPrincipal extends JFrame{
 		    ResultSet rs;
 		    rs = stmt.executeQuery("SELECT Permissao FROM bg_informacoesLogin WHERE Usuario='"+this.getNomeUsuario()+"'");
 		    while(rs.next()){
-		    	if(rs.getInt("Permissao") == NivelPermissao.Adm.getNumPermissao()){
-		    		return NivelPermissao.Adm.getNumPermissao();
-		    	}
-		    	else if(rs.getInt("Permissao") == NivelPermissao.Dev.getNumPermissao()){
+		    	switch(rs.getInt("Permissao")){
+		    	case 99:
 		    		return NivelPermissao.Dev.getNumPermissao();
-		    	}
-		    	else if(rs.getInt("Permissao") == NivelPermissao.Financeiro.getNumPermissao()){
+				case 0:
+		    		return NivelPermissao.Adm.getNumPermissao();
+				case 1:
 		    		return NivelPermissao.Financeiro.getNumPermissao();
-		    	}
-		    	else if(rs.getInt("Permissao") == NivelPermissao.Fiscal.getNumPermissao()){
+				case 2:
 		    		return NivelPermissao.Fiscal.getNumPermissao();
-		    	}
-		    	else if(rs.getInt("Permissao") == NivelPermissao.Contabil.getNumPermissao()){
+				case 3:
 		    		return NivelPermissao.Contabil.getNumPermissao();
 		    	}
 			}
@@ -138,18 +301,12 @@ public class JanelaPrincipal extends JFrame{
 	/*
 	 * Método para criação da Janela Interna
 	 */
-	public static JInternalFrame createFrame(String t, int Altura, int Largura) {
-		      JInternalFrame f = new JInternalFrame(t);
+	public static JFrame createFrame(String t, int Altura, int Largura) {
+		      JFrame f = new JFrame(t);
 		      f.setResizable(false);
-		      f.setClosable(true);
 		      f.setVisible(true);
 		      f.setSize(Largura,Altura);
-		      Dimension tamanhoPainelInterno = PainelInterno.getSize();
-		      //System.out.println(tamanhoPainelInterno.toString());
-		      Dimension tamanhoJanelaInterna = f.getSize();
-		      //System.out.println(tamanhoJanelaInterna.toString());
-		      f.setLocation((tamanhoPainelInterno.width - tamanhoJanelaInterna.width)/2,
-		          (tamanhoPainelInterno.height- tamanhoJanelaInterna.height)/2);
+		      f.setLocationRelativeTo(null);
 		      return f;
 	}
 }

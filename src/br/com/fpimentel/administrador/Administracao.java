@@ -28,6 +28,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDesktopPane;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -50,13 +51,13 @@ public class Administracao{
 	 * Gerar Importação para o Alterdata
 	 */		
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public void GerarImportacaoAlterdata(){
+	public static void GerarImportacaoAlterdata(){
 		try{
-			JInternalFrame JIF = JanelaPrincipal.createFrame("Gerar Importação do Alterdata (Mensalidade Ideal)",200,350);
-			JanelaPrincipal.PainelInterno.add(JIF);
+			JFrame JIF = JanelaPrincipal.createFrame("Gerar Importação do Alterdata (Mensalidade Ideal)",200,350);
+			
 			JDesktopPane PainelInternoJIF = new JDesktopPane();
 			JIF.getContentPane().add(PainelInternoJIF, BorderLayout.CENTER);
-			JIF.setFrameIcon(FuncoesExtras.buscarIcone("img/bricks.png"));
+			JIF.setIconImage(FuncoesExtras.buscarIcone("img/bricks.png").getImage());
 			JCheckBox CT = new JCheckBox("Importar dados do Contábil");
 			JCheckBox DP = new JCheckBox("Importar dados do Departamento Pessoal");
 			JCheckBox EF = new JCheckBox("Importar dados da Escrita Fiscal");
@@ -233,13 +234,13 @@ public class Administracao{
 	/*
 	 * Método de Edição de Usuários do SQL
 	 */		
-	public void EditarUsuario(){
+	public static void EditarUsuario(){
 		try{	    
-			JInternalFrame JIF = JanelaPrincipal.createFrame("Adicionar Usuário",200,500);
-			JanelaPrincipal.PainelInterno.add(JIF);
+			JFrame JIF = JanelaPrincipal.createFrame("Edição de Usuários",200,500);
+			
 			JDesktopPane PainelInternoJIF = new JDesktopPane();
 			JIF.getContentPane().add(PainelInternoJIF, BorderLayout.CENTER);
-			JIF.setFrameIcon(FuncoesExtras.buscarIcone("img/page_white_wrench.png"));
+			JIF.setIconImage(FuncoesExtras.buscarIcone("img/page_white_wrench.png").getImage());
 
 			// ----- Botão Adicionar
 			JButton btnAdicionar = new JButton("Salvar");
@@ -248,7 +249,8 @@ public class Administracao{
 			
 			JTable tabela = new JTable(FuncoesExtras.buildTableModel(Database.consultaDB(queryLogin,false),false));
 			tabela.setEnabled(false);
-			JIF.add(tabela);
+			JScrollPane jsp = new JScrollPane(tabela);
+			JIF.add(jsp, BorderLayout.NORTH);
 		}
 		catch (Exception e1){
 			JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
@@ -258,18 +260,17 @@ public class Administracao{
 	/*
 	 * Método de Adição de E-mails p/ Empresas do SQL
 	 */
-	public void AlteracaoDeEmail(){
+	public static void AlteracaoDeEmail(){
 		try{
 			// Conexão com SQL
 			Connection conn = DriverManager.getConnection(Database.urlAlterdata,Database.userDBAlterdata,Database.passDBAlterdata);
 			Statement s = conn.createStatement();
 			String query = "select NmEmpresa,CdEmpresa from wphd.Empresa";
 			
-			JInternalFrame JIF = JanelaPrincipal.createFrame("Alteração de E-mails - Clientes",255,500);
-			JanelaPrincipal.PainelInterno.add(JIF);
+			JFrame JIF = JanelaPrincipal.createFrame("Alteração de E-mails - Clientes",255,500);
 			JDesktopPane PainelInternoJIF = new JDesktopPane();
 			JIF.getContentPane().add(PainelInternoJIF, BorderLayout.CENTER);
-			JIF.setFrameIcon(FuncoesExtras.buscarIcone("img/envelope.png"));
+			JIF.setIconImage(FuncoesExtras.buscarIcone("img/envelope.png").getImage());
 			JButton btnAdicionar = new JButton("Alterar");
 			JButton btnEditarEmail1 = new JButton();
 			JButton btnEditarEmail2 = new JButton();
@@ -460,13 +461,13 @@ public class Administracao{
 	 * Método de Criação de Usuários do SQL
 	 */		
 	@SuppressWarnings({ "unchecked"})
-	public void CriarUsuario(){
+	public static void CriarUsuario(){
 		try{
-			JInternalFrame JIF = JanelaPrincipal.createFrame("Adicionar Usuário",200,500);
-			JanelaPrincipal.PainelInterno.add(JIF);
+			JFrame JIF = JanelaPrincipal.createFrame("Adicionar Usuário",200,500);
+			
 			JDesktopPane PainelInternoJIF = new JDesktopPane();
 			JIF.getContentPane().add(PainelInternoJIF, BorderLayout.CENTER);
-			JIF.setFrameIcon(FuncoesExtras.buscarIcone("img/user.png"));
+			JIF.setIconImage(FuncoesExtras.buscarIcone("img/user.png").getImage());
 			
 			// ----- Usuário
 			JLabel lblUsuario = new JLabel("Usuário:");
@@ -626,9 +627,9 @@ public class Administracao{
 	 */	
 	public void ListarEmpresas(){
 		try{		    
-		    JInternalFrame JIF = JanelaPrincipal.createFrame("Listagem de Empresas",500,500);
-		    JIF.setFrameIcon(FuncoesExtras.buscarIcone("img/book.png"));
-		    JanelaPrincipal.PainelInterno.add(JIF);
+		    JFrame JIF = JanelaPrincipal.createFrame("Listagem de Empresas",500,500);
+		    JIF.setIconImage(FuncoesExtras.buscarIcone("img/book.png").getImage());
+		    
 		
 		    JTable tabela = new JTable(FuncoesExtras.buildTableModel(
 		    		Database.consultaDB("select CdEmpresa,NmEmpresa from wphd.Empresa order by CdEmpresa ASC",true),false));
@@ -649,9 +650,9 @@ public class Administracao{
 	public void ListarUsuarios(){
 		try{
 		    
-		    JInternalFrame JIF = JanelaPrincipal.createFrame("Listagem de Usuários",500,500);
-		    JIF.setFrameIcon(FuncoesExtras.buscarIcone("img/book_addresses.png"));
-		    JanelaPrincipal.PainelInterno.add(JIF);
+		    JFrame JIF = JanelaPrincipal.createFrame("Listagem de Usuários",500,500);
+		    JIF.setIconImage(FuncoesExtras.buscarIcone("img/book_addresses.png").getImage());
+		    
 		
 		    JTable tabela = new JTable(FuncoesExtras.buildTableModel(Database.consultaDB(queryLogin+" order by Permissao ASC",false),true));
 		    tabela.setEnabled(false);

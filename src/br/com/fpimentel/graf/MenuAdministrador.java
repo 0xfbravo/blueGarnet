@@ -15,7 +15,7 @@ import br.com.fpimentel.util.FuncoesExtras;
 
 public class MenuAdministrador {
 	
-	public MenuAdministrador(Object a){	
+	/*public MenuAdministrador(Object a){	
 		// ----- Opções da Barra de Menu
 		JMenu administracaoMenu = new JMenu("Administração");
 		administracaoMenu.setIcon(FuncoesExtras.buscarIcone("img/user_business.jpg"));
@@ -91,6 +91,6 @@ public class MenuAdministrador {
 			administracaoMenu.add(Menu.subMenu("Cadastro de Salário Mínimo","img/cross_shield.png",a,10));
 			// Cadastro de Sindicatos
 			administracaoMenu.add(Menu.subMenu("Cadastro de Sindicatos","img/cross_shield.png",a,10));
-	}
+	}*/
 
 }

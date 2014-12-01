@@ -22,6 +22,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDesktopPane;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -132,11 +133,11 @@ public class FuncoesExtras{
 		 * Método de Renomear Arquivos Digitalizados
 		 */	
 		OrganizacaoDigital organizacao = new OrganizacaoDigital();
-		JInternalFrame JIF = JanelaPrincipal.createFrame("Renomear Arquivos Digitalizados",390,560);
+		JFrame JIF = JanelaPrincipal.createFrame("Renomear Arquivos Digitalizados",390,560);
 		JanelaPrincipal.PainelInterno.add(JIF);
 		JDesktopPane PainelInternoJIF = new JDesktopPane();
 		JIF.getContentPane().add(PainelInternoJIF, BorderLayout.CENTER);
-		JIF.setFrameIcon(new ImageIcon(Menu.class.getClassLoader().getResource("img/doc_convert.png")));
+		JIF.setIconImage(buscarIcone("img/doc_convert.png").getImage());
 		
 		JComboBox<String> unidade = new JComboBox<String>();
 		JComboBox<String> orgUnidade = new JComboBox<String>();
@@ -498,11 +499,11 @@ public class FuncoesExtras{
 	        System.out.println("Session created");
 		try{
 			Connection conn = DriverManager.getConnection(Database.urlAlterdata,Database.userDBAlterdata,Database.passDBAlterdata);	    
-			JInternalFrame JIF = JanelaPrincipal.createFrame("Renomear Boletos",240,500);
+			JFrame JIF = JanelaPrincipal.createFrame("Renomear Boletos",240,500);
 			JanelaPrincipal.PainelInterno.add(JIF);
 			JDesktopPane PainelInternoJIF = new JDesktopPane();
 			JIF.getContentPane().add(PainelInternoJIF, BorderLayout.CENTER);
-			JIF.setFrameIcon(new ImageIcon(Menu.class.getClassLoader().getResource("img/page_white_stack.png")));
+			JIF.setIconImage(buscarIcone("img/page_white_stack.png").getImage());
 
 			// ----- Pesquisar Número
 			JButton btnAdicionar = new JButton("Pesquisar");

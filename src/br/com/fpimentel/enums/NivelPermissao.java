@@ -11,7 +11,7 @@ package br.com.fpimentel.enums;
 */
 
 public enum NivelPermissao {
-	Dev(99,"Desenvolvedor"),Adm(0,"Administrador"),Financeiro(1,"Financeiro"),
+	Dev(99,"Desenvolvedor"),Adm(98,"Administrador"),Financeiro(1,"Financeiro"),
 		Fiscal(2,"Fiscal"),Contabil(3,"Contábil");
 	
 	private int numPermissao;

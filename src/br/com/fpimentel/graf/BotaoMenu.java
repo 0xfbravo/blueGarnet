@@ -9,16 +9,14 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
-import javax.swing.JPopupMenu;
 import javax.swing.Timer;
-import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
 
 import br.com.fpimentel.util.FuncoesExtras;
 
 
 public class BotaoMenu extends JButton{
 
-	public JPopupMenu popup = new JPopupMenu();
     private static final JButton lafDeterminer = new JButton();
     private static final long serialVersionUID = 1L;
     private boolean rectangularLAF;
@@ -53,23 +51,26 @@ public class BotaoMenu extends JButton{
         rectangularLAF = lafDeterminer.isOpaque();
     }
 	public BotaoMenu(String nome,String caminhoImagem){
-		popup.setLabel("Justification");
-	    popup.setBorder(new BevelBorder(BevelBorder.RAISED));
+	    setText(nome);
 		setToolTipText(nome);
+		setHorizontalTextPosition(JButton.CENTER);
+		setVerticalTextPosition(JButton.BOTTOM);
+		setForeground(Color.WHITE);
 		setIcon(FuncoesExtras.buscarIcone(caminhoImagem));
-		setPreferredSize(new Dimension(90,0));
+		setPreferredSize(new Dimension(120,0));
 		setBorderPainted(false);
+		setBorder(new EmptyBorder(10,10,10,10));
 		setFocusPainted(false);
 		setContentAreaFilled(false);
 		setOpaque(true);
 		setBackground(new Color(28,57,85));
 		addMouseListener(new MouseListener(){
 			@Override
-			public void mouseClicked(MouseEvent arg0) { popup.setVisible(true);}
+			public void mouseClicked(MouseEvent arg0) {}
 
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
-					setBackground(new Color(123,148,151));
+					//setBackground(new Color(123,148,151));
 					alphaChanger = new Timer(10, new ActionListener() {
 
 			            private float incrementer = -.01f;

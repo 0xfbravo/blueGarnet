@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDesktopPane;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -260,16 +261,15 @@ public class ContasReceber{
 	}
 	
 	
-	
 	/*
 	 *  Método para Criação da
 	 *		JanelaPrincipal de Cobranças
 	 */
 	@SuppressWarnings("unchecked")
 	public void GerarCobrancas(){
-		JInternalFrame JIF = JanelaPrincipal.createFrame("Gerar Cobranças",400,500);
-		JIF.setFrameIcon(new ImageIcon(Menu.class.getClassLoader().getResource("img/zone_money.png")));
-		JanelaPrincipal.PainelInterno.add(JIF);
+		JFrame JIF = JanelaPrincipal.createFrame("Gerar Cobranças",400,500);
+		JIF.setIconImage(FuncoesExtras.buscarIcone("img/zone_money.png").getImage());
+		
 		JDesktopPane PainelInternoJIF = new JDesktopPane();
 		JIF.getContentPane().add(PainelInternoJIF);
 		

@@ -15,10 +15,10 @@ import br.com.fpimentel.util.FuncoesExtras;
 
 public class MenuFinanceiro {
 	
-	public MenuFinanceiro(Object f){
+	/*public MenuFinanceiro(Object f){
 		/*
 		 * 	Módulo: Orçamento
-		 */
+		
 		JMenu orcamento = new JMenu("Orçamento");
 		orcamento.setIcon(FuncoesExtras.buscarIcone("img/calculator.png"));
 		JanelaPrincipal.barraMenu.add(orcamento);
@@ -42,7 +42,7 @@ public class MenuFinanceiro {
 		
 		/*
 		 * 	Módulo: Fluxo de Caixa
-		 */
+		
 		JMenu flxCaixa = new JMenu("Fluxo de Caixa");
 		flxCaixa.setIcon(FuncoesExtras.buscarIcone("img/arrow_refresh.png"));
 		JanelaPrincipal.barraMenu.add(flxCaixa);
@@ -76,7 +76,7 @@ public class MenuFinanceiro {
 		
 		/*
 		 * 	Módulo: Contas a Receber
-		 */
+		 
 		JMenu contasReceber = new JMenu("Contas a Receber");
 		contasReceber.setIcon(FuncoesExtras.buscarIcone("img/money_dollar.png"));
 		JanelaPrincipal.barraMenu.add(contasReceber);
@@ -111,7 +111,7 @@ public class MenuFinanceiro {
 		
 		/*
 		 * 	Módulo: Contas a Pagar
-		 */
+		 
 		JMenu contasPagar = new JMenu("Contas a Pagar");
 		contasPagar.setIcon(FuncoesExtras.buscarIcone("img/money.png"));
 		JanelaPrincipal.barraMenu.add(contasPagar);
@@ -121,6 +121,6 @@ public class MenuFinanceiro {
 			contasPagar.add(Menu.subMenu("Listagem de Pagamentos do Período","img/cross_shield.png",f,30));
 			// Relatórios de Pagamento
 			contasPagar.add(Menu.subMenu("Relatórios de Pagamento","img/cross_shield.png",f,30));
-	}
+	}*/
 
 }
