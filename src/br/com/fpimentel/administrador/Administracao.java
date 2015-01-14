@@ -10,6 +10,7 @@ package br.com.fpimentel.administrador;
 	Fellipe Pimentel © 2014 
 */
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -29,7 +30,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
@@ -37,39 +37,36 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-import br.com.fpimentel.Database;
-import br.com.fpimentel.enums.Ano;
-import br.com.fpimentel.enums.Mes;
-import br.com.fpimentel.enums.NivelPermissao;
-import br.com.fpimentel.graf.JanelaPrincipal;
-import br.com.fpimentel.util.*;
+import br.com.blueGarnet.enums.Ano;
+import br.com.blueGarnet.enums.Mes;
+import br.com.blueGarnet.enums.NivelPermissao;
+import br.com.blueGarnet.graphics.JanelaPrincipal;
+import br.com.blueGarnet.others.FuncoesExtras;
+import br.com.blueGarnet.system.Database;
 
-public class Administracao{
+@SuppressWarnings("serial")
+public class Administracao extends JDesktopPane{
 	static String queryLogin = "SELECT Usuario,Permissao FROM bg_informacoesLogin";
 	
 	/*
 	 * Gerar Importação para o Alterdata
 	 */		
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static void GerarImportacaoAlterdata(){
+	public static JDesktopPane GerarImportacaoAlterdata(){
+		JDesktopPane j = new JDesktopPane();
+		j.setBackground(new Color(236, 240, 241));
 		try{
-			JFrame JIF = JanelaPrincipal.createFrame("Gerar Importação do Alterdata (Mensalidade Ideal)",200,350);
-			
-			JDesktopPane PainelInternoJIF = new JDesktopPane();
-			JIF.getContentPane().add(PainelInternoJIF, BorderLayout.CENTER);
-			JIF.setIconImage(FuncoesExtras.buscarIcone("img/bricks.png").getImage());
 			JCheckBox CT = new JCheckBox("Importar dados do Contábil");
 			JCheckBox DP = new JCheckBox("Importar dados do Departamento Pessoal");
 			JCheckBox EF = new JCheckBox("Importar dados da Escrita Fiscal");
 					
 			// ----- Botão Gerar
 			JButton btnGerar = new JButton("Gerar");
-			btnGerar.setBounds(150, 125, 73, 35);
-			PainelInternoJIF.add(btnGerar);
+			btnGerar.setBounds(290, 100, 73, 35);
+			j.add(btnGerar);
 			btnGerar.setEnabled(false);
 			
-			DP.setBounds(20,20,190,20);
-			PainelInternoJIF.add(DP);
+			DP.setBounds(20,20,260,20);
+			j.add(DP);
 			DP.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
 					if(EF.isSelected() == false && CT.isSelected() == false && DP.isSelected() == false){
@@ -81,7 +78,7 @@ public class Administracao{
 			});
 			
 			CT.setBounds(20,50,190,20);
-			PainelInternoJIF.add(CT);
+			j.add(CT);
 			CT.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
 					if(EF.isSelected() == false && CT.isSelected() == false && DP.isSelected() == false){
@@ -94,7 +91,7 @@ public class Administracao{
 			
 
 			EF.setBounds(20,80,190,20);
-			PainelInternoJIF.add(EF);
+			j.add(EF);
 			EF.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
 					if(EF.isSelected() == false && CT.isSelected() == false && DP.isSelected() == false){
@@ -115,12 +112,12 @@ public class Administracao{
 					selMes.setSelectedItem(mes.get(i).getNomeMes());
 				}
 			}
-			selMes.setBounds(240, 20, 90, 20);
-			PainelInternoJIF.add(selMes);
+			selMes.setBounds(290, 20, 90, 20);
+			j.add(selMes);
 			
 			//ComboBox Ano
 			ArrayList<Ano> ano = new ArrayList<Ano>(EnumSet.allOf(Ano.class));
-			JComboBox selAno= new JComboBox();
+			JComboBox<Integer> selAno= new JComboBox<Integer>();
 			int numeroAno = Calendar.getInstance().get(Calendar.YEAR);
 			for(int i = 0; i < ano.size(); i++){
 				selAno.addItem(ano.get(i).getAno());
@@ -129,8 +126,8 @@ public class Administracao{
 				}
 			}
 			selAno.setSelectedItem(numeroAno);
-			selAno.setBounds(240, 60, 90, 20);
-			PainelInternoJIF.add(selAno);
+			selAno.setBounds(290, 60, 90, 20);
+			j.add(selAno);
 			
 			btnGerar.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
@@ -230,47 +227,38 @@ public class Administracao{
 		catch (Exception e1){
 			JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 		}
+		return j;
 	}
+
 	/*
 	 * Método de Edição de Usuários do SQL
+	 * TODO: Finalizar Edição de Usuários
 	 */		
-	public static void EditarUsuario(){
-		try{	    
-			JFrame JIF = JanelaPrincipal.createFrame("Edição de Usuários",200,500);
-			
-			JDesktopPane PainelInternoJIF = new JDesktopPane();
-			JIF.getContentPane().add(PainelInternoJIF, BorderLayout.CENTER);
-			JIF.setIconImage(FuncoesExtras.buscarIcone("img/page_white_wrench.png").getImage());
-
-			// ----- Botão Adicionar
-			JButton btnAdicionar = new JButton("Salvar");
-			btnAdicionar.setBounds(390, 125, 73, 35);
-			PainelInternoJIF.add(btnAdicionar);
-			
+	public static JScrollPane EditarUsuario(){
+		try{
 			JTable tabela = new JTable(FuncoesExtras.buildTableModel(Database.consultaDB(queryLogin,false),false));
 			tabela.setEnabled(false);
 			JScrollPane jsp = new JScrollPane(tabela);
-			JIF.add(jsp, BorderLayout.NORTH);
+			return jsp;
 		}
 		catch (Exception e1){
 			JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 		}
+		return null;
 	}
 
 	/*
 	 * Método de Adição de E-mails p/ Empresas do SQL
 	 */
-	public static void AlteracaoDeEmail(){
+	public static JDesktopPane AlteracaoDeEmail(){
+		JDesktopPane PainelInternoJIF = new JDesktopPane();
 		try{
 			// Conexão com SQL
 			Connection conn = DriverManager.getConnection(Database.urlAlterdata,Database.userDBAlterdata,Database.passDBAlterdata);
 			Statement s = conn.createStatement();
 			String query = "select NmEmpresa,CdEmpresa from wphd.Empresa";
 			
-			JFrame JIF = JanelaPrincipal.createFrame("Alteração de E-mails - Clientes",255,500);
-			JDesktopPane PainelInternoJIF = new JDesktopPane();
-			JIF.getContentPane().add(PainelInternoJIF, BorderLayout.CENTER);
-			JIF.setIconImage(FuncoesExtras.buscarIcone("img/envelope.png").getImage());
+
 			JButton btnAdicionar = new JButton("Alterar");
 			JButton btnEditarEmail1 = new JButton();
 			JButton btnEditarEmail2 = new JButton();
@@ -433,7 +421,7 @@ public class Administracao{
 						    			btnEditarEmail3.setVisible(true);
 						    		}
 						    		btnAdicionar.setEnabled(true);
-						    		JIF.repaint();
+						    		
 						    	}
 						    } else {
 						    	nomeEmpresa.setText("");
@@ -455,40 +443,36 @@ public class Administracao{
 		catch (Exception e1){
 			JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 		}
+		return PainelInternoJIF;
 	}
 		
 	/*
 	 * Método de Criação de Usuários do SQL
-	 */		
-	@SuppressWarnings({ "unchecked"})
-	public static void CriarUsuario(){
+	 */
+	public static JDesktopPane CriarUsuario(){
+		JDesktopPane j = new JDesktopPane();
+		j.setBackground(new Color(236, 240, 241));
 		try{
-			JFrame JIF = JanelaPrincipal.createFrame("Adicionar Usuário",200,500);
-			
-			JDesktopPane PainelInternoJIF = new JDesktopPane();
-			JIF.getContentPane().add(PainelInternoJIF, BorderLayout.CENTER);
-			JIF.setIconImage(FuncoesExtras.buscarIcone("img/user.png").getImage());
-			
 			// ----- Usuário
 			JLabel lblUsuario = new JLabel("Usuário:");
 			lblUsuario.setBounds(30, 17, 52, 14);
-			PainelInternoJIF.add(lblUsuario);	
+			j.add(lblUsuario);	
 			JButton btnAdicionar = new JButton("Adicionar");
 			JTextField novoUsuario = new JTextField();
 			JPasswordField novaSenha = new JPasswordField();
 			
 			// ----- Botão Adicionar
-			btnAdicionar.setBounds(390, 125, 73, 35);
-			PainelInternoJIF.add(btnAdicionar);
+			btnAdicionar.setBounds(198, 125, 90, 35);
+			j.add(btnAdicionar);
 			btnAdicionar.setEnabled(false);
 			
 			JLabel lblExiste = new JLabel();
-			PainelInternoJIF.add(lblExiste);
+			j.add(lblExiste);
 			lblExiste.setBounds(306, 34, 256, 25);
 			
 			novoUsuario.setColumns(10);
 			novoUsuario.setBounds(30, 34, 256, 25);
-			PainelInternoJIF.add(novoUsuario);
+			j.add(novoUsuario);
 			novoUsuario.setName("Usuário");
 			novoUsuario.addKeyListener(new KeyListener(){
 				@Override
@@ -503,7 +487,7 @@ public class Administracao{
 						  lblExiste.setText("Usuário inválido");
 						  lblExiste.setIcon(FuncoesExtras.buscarIcone("img/cancel.png"));
 						  btnAdicionar.setEnabled(false);
-						  JIF.repaint();
+						  
 					} else {
 					  try {
 						// Verifica se existe próxima linha
@@ -514,7 +498,7 @@ public class Administracao{
 						lblExiste.setText("Usuário inválido");
 						lblExiste.setIcon(FuncoesExtras.buscarIcone("img/cancel.png"));
 						btnAdicionar.setEnabled(false);
-						JIF.repaint();
+						
 						}
 					  }
 					  catch (Exception e1){
@@ -522,7 +506,7 @@ public class Administracao{
 						  	lblExiste.setText("Usuário válido");
 					  		lblExiste.setIcon(FuncoesExtras.buscarIcone("img/accept.png"));
 					  		btnAdicionar.setEnabled(true);
-					  		JIF.repaint();
+					  		
 					  }
 					}
 				}
@@ -531,14 +515,14 @@ public class Administracao{
 			});
 			// ----- Senha
 			JLabel lblSenhaEmBranco = new JLabel();
-			PainelInternoJIF.add(lblSenhaEmBranco);
+			j.add(lblSenhaEmBranco);
 			lblSenhaEmBranco.setBounds(306, 81, 256, 25);
 			
 			JLabel lblSenha = new JLabel("Senha:");
 			lblSenha.setBounds(30, 64, 92, 14);
-			PainelInternoJIF.add(lblSenha);
+			j.add(lblSenha);
 			novaSenha.setBounds(30, 81, 256, 25);
-			PainelInternoJIF.add(novaSenha);
+			j.add(novaSenha);
 			novaSenha.setName("Senha");
 			novaSenha.addKeyListener(new KeyListener(){
 				@Override
@@ -550,12 +534,12 @@ public class Administracao{
 						lblSenhaEmBranco.setText("Senha inválida");
 						lblSenhaEmBranco.setIcon(FuncoesExtras.buscarIcone("img/cancel.png"));
 						btnAdicionar.setEnabled(false);
-						JIF.repaint();
+						
 					} else {
 						lblSenhaEmBranco.setText("");
 						lblSenhaEmBranco.setIcon(FuncoesExtras.buscarIcone("img/accept.png"));
 						btnAdicionar.setEnabled(true);
-						JIF.repaint();
+						
 					}
 				}
 				@Override
@@ -565,9 +549,8 @@ public class Administracao{
 			// ------ Tipo de Permissão
 			JLabel lblTipoPermissao = new JLabel("Tipo de Permissão");
 			lblTipoPermissao.setBounds(30, 111, 180, 14);
-			PainelInternoJIF.add(lblTipoPermissao);
-			@SuppressWarnings("rawtypes")
-			JComboBox tipoPermissao = new JComboBox();
+			j.add(lblTipoPermissao);
+			JComboBox<String> tipoPermissao = new JComboBox<String>();
 			tipoPermissao.addItem(NivelPermissao.Dev.getNomePermissao());
 			tipoPermissao.addItem(NivelPermissao.Adm.getNomePermissao());
 			tipoPermissao.addItem(NivelPermissao.Financeiro.getNomePermissao());
@@ -575,7 +558,7 @@ public class Administracao{
 			tipoPermissao.addItem(NivelPermissao.Contabil.getNomePermissao());
 			tipoPermissao.setBounds(30, 131, 140, 25);
 			tipoPermissao.setToolTipText("Selecione o tipo de Permissão");
-			PainelInternoJIF.add(tipoPermissao);
+			j.add(tipoPermissao);
 			
 		/*
 		 *  Ação ao clicar no botão de Adicionar Usuário
@@ -619,6 +602,7 @@ public class Administracao{
 		catch (Exception e1){
 			JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 		}
+		return j;
 	}
 	
 	/*
@@ -628,7 +612,7 @@ public class Administracao{
 	public void ListarEmpresas(){
 		try{		    
 		    JFrame JIF = JanelaPrincipal.createFrame("Listagem de Empresas",500,500);
-		    JIF.setIconImage(FuncoesExtras.buscarIcone("img/book.png").getImage());
+		    JIF.setIconImage(FuncoesExtras.buscarIcone("img/buildings.png").getImage());
 		    
 		
 		    JTable tabela = new JTable(FuncoesExtras.buildTableModel(

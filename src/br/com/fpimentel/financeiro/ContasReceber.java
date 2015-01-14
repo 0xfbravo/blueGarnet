@@ -13,12 +13,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -40,13 +38,12 @@ import org.jrimum.domkee.financeiro.banco.febraban.TipoDeTitulo;
 import org.jrimum.domkee.financeiro.banco.febraban.Titulo;
 import org.jrimum.domkee.financeiro.banco.febraban.Titulo.Aceite;
 
-import br.com.fpimentel.Database;
-import br.com.fpimentel.enums.EmpresaCedente;
-import br.com.fpimentel.enums.SituacaoCobranca;
-import br.com.fpimentel.enums.TipoCobranca;
-import br.com.fpimentel.graf.JanelaPrincipal;
-import br.com.fpimentel.graf.Menu;
-import br.com.fpimentel.util.FuncoesExtras;
+import br.com.blueGarnet.enums.EmpresaCedente;
+import br.com.blueGarnet.enums.SituacaoCobranca;
+import br.com.blueGarnet.enums.TipoCobranca;
+import br.com.blueGarnet.graphics.JanelaPrincipal;
+import br.com.blueGarnet.others.FuncoesExtras;
+import br.com.blueGarnet.system.Database;
 
 /*
 	 _     _             _____                       _   
@@ -57,6 +54,8 @@ import br.com.fpimentel.util.FuncoesExtras;
 	|_.__/|_|\__,_|\___|\_____|\__,_|_|  |_| |_|\___|\__|
 
 	Fellipe Pimentel © 2014 
+	
+	TODO: Finalizar MÓDULO Contas a Pagar
 */
 public class ContasReceber{
 	/* Informações Sacado */
@@ -282,7 +281,7 @@ public class ContasReceber{
 		btnGerarCB = new JButton("Gerar Cobranças");
 		PainelInternoJIF.repaint();
 		btnGerarCB.setBounds(340, 37, 140, 25);
-		btnGerarCB.setIcon(new ImageIcon(Menu.class.getClassLoader().getResource("img/page_copy.png")));
+		btnGerarCB.setIcon(FuncoesExtras.buscarIcone("img/page_copy.png"));
 		PainelInternoJIF.add(btnGerarCB);
 		
 		// ----- Número da Empresa Inicial
@@ -336,7 +335,7 @@ public class ContasReceber{
 		// ----- Gerar Nosso Número
 		JButton btnGerarNN = new JButton();
 		btnGerarNN.setBounds(130, 157, 30, 25);
-		btnGerarNN.setIcon(new ImageIcon(Menu.class.getClassLoader().getResource("img/sort_number.png")));
+		btnGerarNN.setIcon(FuncoesExtras.buscarIcone("img/sort_number.png"));
 		btnGerarNN.setToolTipText("Gerar Nosso Número");
 		PainelInternoJIF.add(btnGerarNN);
 		

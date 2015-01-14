@@ -8,6 +8,8 @@ package br.com.fpimentel.financeiro;
 	|_.__/|_|\__,_|\___|\_____|\__,_|_|  |_| |_|\___|\__|
 
 	Fellipe Pimentel © 2014 
+	
+	TODO: Fazer MÓDULO Operacional
 */
 public class Operacional {
 

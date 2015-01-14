@@ -9,5 +9,10 @@
 	<classpathentry kind="lib" path="src/bibliotecas/log4j-1.2.15.jar"/>
 	<classpathentry kind="lib" path="src/bibliotecas/sqljdbc4.jar"/>
 	<classpathentry kind="lib" path="src/bibliotecas/javax.mail.jar"/>
+	<classpathentry kind="lib" path="src/bibliotecas/jna.jar"/>
+	<classpathentry kind="lib" path="src/bibliotecas/oshi-core.jar"/>
+	<classpathentry kind="lib" path="src/bibliotecas/platform.jar"/>
+	<classpathentry kind="lib" path="src/bibliotecas/css-engine-swing-api-sources.jar"/>
+	<classpathentry kind="lib" path="src/bibliotecas/css-engine-swing-api.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
