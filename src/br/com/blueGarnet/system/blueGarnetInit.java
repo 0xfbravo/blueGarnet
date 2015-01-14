@@ -23,8 +23,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class blueGarnetInit{
-	public static TrayIcon icon = new TrayIcon(Config.imagemTituloJanela.getImage(), Config.nomePrograma, 
-			createPopupMenu());
+	public static TrayIcon icon = new TrayIcon(Config.imagemTituloJanela.getImage(), Config.nomePrograma, createPopupMenu());
 	private static PopupMenu createPopupMenu() throws HeadlessException {
 	      PopupMenu menu = new PopupMenu();
 	      MenuItem exit = new MenuItem("Sair do blueGarnet");
