@@ -132,8 +132,7 @@ public class Login extends JFrame{
 					catch (InterruptedException e1) {e1.printStackTrace();}
 					procConsultDB.interrupt();
 					splash.splJanela.setVisible(false);
-					JanelaPrincipal janelaPrincipal = new JanelaPrincipal(
-															verificarPermissao(campoUsuario.getText()));
+					JanelaPrincipal janelaPrincipal = new JanelaPrincipal(verificarPermissao(campoUsuario.getText()));
 					janelaPrincipal.setExtendedState(JFrame.MAXIMIZED_BOTH);
 				} else {
 					splash.splJanela.setVisible(false);

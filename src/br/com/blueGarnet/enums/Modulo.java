@@ -12,13 +12,15 @@ package br.com.blueGarnet.enums;
 */
 
 public enum Modulo{
-	administracao(99,"Administração","img/directive_board.png"),
+	administracao(100,"Administração","img/directive_board.png"),
 	orcamento(0,"Orçamento","img/report2.png"),
 	fluxoCaixa(1,"Fluxo de Caixa","img/bank_transaction.png"),
 	contasReceber(2,"Contas a Receber","img/wallet.png"),
 	contasPagar(3,"Contas a Pagar","img/paypal.png"),
-	relatorios(4,"Relatórios","img/printer.png"),
-	suporte(5,"Suporte","img/headset.png");
+	listagens(99,"Listagens","img/white_list.png"),
+	relatorios(98,"Relatórios","img/printer.png"),
+	suporte(6,"Suporte","img/headset.png"),
+	verAtt(7,"Atualizações","img/network.png"),;
 	
 	private int permissao;
 	private String nomeModulo;
