@@ -1,14 +1,16 @@
 package br.com.blueGarnet.enums;
 /*
-	 _     _             _____                       _   
-	| |   | |           / ____|                     | |  
-	| |__ | |_   _  ___| |  __  __ _ _ __ _ __   ___| |_ 
-	| '_ \| | | | |/ _ \ | |_ |/ _` | '__| '_ \ / _ \ __|
-	| |_) | | |_| |  __/ |__| | (_| | |  | | | |  __/ |_ 
-	|_.__/|_|\__,_|\___|\_____|\__,_|_|  |_| |_|\___|\__|
+ _     _             _____                       _   
+| |   | |           / ____|                     | |  
+| |__ | |_   _  ___| |  __  __ _ _ __ _ __   ___| |_ 
+| '_ \| | | | |/ _ \ | |_ |/ _` | '__| '_ \ / _ \ __|
+| |_) | | |_| |  __/ |__| | (_| | |  | | | |  __/ |_ 
+|_.__/|_|\__,_|\___|\_____|\__,_|_|  |_| |_|\___|\__|
 
-	Fellipe Pimentel © 2014 
+							  Fellipe Pimentel © 2014
+										 www.fcode.co
 */
+
 public enum EmpresaCedente {
 	SemEmpresa("P/ COBRANÇAS CONVERTIDAS S/ EMPRESA","001"),Malote("SERVIÇOS DE MALOTE","002"),
 		Contabilidade("SERVIÇOS DE CONTABILIDADE","003"),Bureau("SJT BUREAU DE SERVIÇOS","004"),

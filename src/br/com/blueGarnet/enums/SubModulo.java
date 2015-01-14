@@ -1,11 +1,22 @@
 package br.com.blueGarnet.enums;
+/*
+ _     _             _____                       _   
+| |   | |           / ____|                     | |  
+| |__ | |_   _  ___| |  __  __ _ _ __ _ __   ___| |_ 
+| '_ \| | | | |/ _ \ | |_ |/ _` | '__| '_ \ / _ \ __|
+| |_) | | |_| |  __/ |__| | (_| | |  | | | |  __/ |_ 
+|_.__/|_|\__,_|\___|\_____|\__,_|_|  |_| |_|\___|\__|
+
+							  Fellipe Pimentel © 2014
+										 www.fcode.co
+*/
 
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JScrollPane;
 
+import br.com.blueGarnet.modules.Administracao;
 import br.com.blueGarnet.others.FuncoesExtras;
-import br.com.fpimentel.administrador.Administracao;
 
 public enum SubModulo{
 	

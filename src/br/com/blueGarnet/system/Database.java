@@ -1,4 +1,15 @@
 package br.com.blueGarnet.system;
+/*
+ _     _             _____                       _   
+| |   | |           / ____|                     | |  
+| |__ | |_   _  ___| |  __  __ _ _ __ _ __   ___| |_ 
+| '_ \| | | | |/ _ \ | |_ |/ _` | '__| '_ \ / _ \ __|
+| |_) | | |_| |  __/ |__| | (_| | |  | | | |  __/ |_ 
+|_.__/|_|\__,_|\___|\_____|\__,_|_|  |_| |_|\___|\__|
+
+							  Fellipe Pimentel © 2014
+										 www.fcode.co
+*/
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,16 +18,6 @@ import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
-/*
-	 _     _             _____                       _   
-	| |   | |           / ____|                     | |  
-	| |__ | |_   _  ___| |  __  __ _ _ __ _ __   ___| |_ 
-	| '_ \| | | | |/ _ \ | |_ |/ _` | '__| '_ \ / _ \ __|
-	| |_) | | |_| |  __/ |__| | (_| | |  | | | |  __/ |_ 
-	|_.__/|_|\__,_|\___|\_____|\__,_|_|  |_| |_|\___|\__|
-
-	Fellipe Pimentel © 2014 
-*/
 public class Database implements Runnable{
 	Thread processo;
 	String nomeProcesso;

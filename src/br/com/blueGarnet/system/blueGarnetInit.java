@@ -1,14 +1,16 @@
 package br.com.blueGarnet.system;
 /*
-	 _     _             _____                       _   
-	| |   | |           / ____|                     | |  
-	| |__ | |_   _  ___| |  __  __ _ _ __ _ __   ___| |_ 
-	| '_ \| | | | |/ _ \ | |_ |/ _` | '__| '_ \ / _ \ __|
-	| |_) | | |_| |  __/ |__| | (_| | |  | | | |  __/ |_ 
-	|_.__/|_|\__,_|\___|\_____|\__,_|_|  |_| |_|\___|\__|
+ _     _             _____                       _   
+| |   | |           / ____|                     | |  
+| |__ | |_   _  ___| |  __  __ _ _ __ _ __   ___| |_ 
+| '_ \| | | | |/ _ \ | |_ |/ _` | '__| '_ \ / _ \ __|
+| |_) | | |_| |  __/ |__| | (_| | |  | | | |  __/ |_ 
+|_.__/|_|\__,_|\___|\_____|\__,_|_|  |_| |_|\___|\__|
 
-	Fellipe Pimentel © 2014 
+							  Fellipe Pimentel © 2014
+										 www.fcode.co
 */
+
 import java.awt.HeadlessException;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
@@ -19,8 +21,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-
-import br.com.blueGarnet.graphics.JanelaPrincipal;
 
 public class blueGarnetInit{
 	public static TrayIcon icon = new TrayIcon(Config.imagemTituloJanela.getImage(), Config.nomePrograma, 
@@ -47,8 +47,8 @@ public class blueGarnetInit{
     	    catch (InstantiationException e) {}
     	    catch (IllegalAccessException e) {}
             
-			//new Login(Config.nomePrograma,330,185);
-            new JanelaPrincipal(99);
+			new Login(Config.nomePrograma,320,185);
+            //new JanelaPrincipal(99);
         }
         catch (Exception ex) {
             ex.printStackTrace();

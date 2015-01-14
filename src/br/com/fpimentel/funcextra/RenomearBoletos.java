@@ -1,4 +1,15 @@
 package br.com.fpimentel.funcextra;
+/*
+ _     _             _____                       _   
+| |   | |           / ____|                     | |  
+| |__ | |_   _  ___| |  __  __ _ _ __ _ __   ___| |_ 
+| '_ \| | | | |/ _ \ | |_ |/ _` | '__| '_ \ / _ \ __|
+| |_) | | |_| |  __/ |__| | (_| | |  | | | |  __/ |_ 
+|_.__/|_|\__,_|\___|\_____|\__,_|_|  |_| |_|\___|\__|
+
+							  Fellipe Pimentel © 2014
+										 www.fcode.co
+*/
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -26,12 +37,15 @@ import javax.swing.JTextField;
 
 import br.com.blueGarnet.graphics.JanelaPrincipal;
 import br.com.blueGarnet.others.EmailUtil;
-import br.com.blueGarnet.others.FileDrop;
 import br.com.blueGarnet.others.FuncoesExtras;
 import br.com.blueGarnet.system.Database;
 
 public class RenomearBoletos {
 	
+/*
+ * Módulo Desabilitado Temporariamente
+ * 
+ * 
 	public RenomearBoletos(){
 		// Necessário a criação da pasta
 					// 		e modificação do caminho no arquivo
@@ -110,7 +124,7 @@ public class RenomearBoletos {
 					 text.setEnabled(false);
 
 				     PainelInternoJIF.add(text2);
-				       new FileDrop( System.out, text, /*dragBorder,*/ new FileDrop.Listener()
+				       new FileDrop( System.out, text, new FileDrop.Listener()
 				        {   public void filesDropped( java.io.File[] files )
 				            {   for( int i = 0; i < files.length; i++ )
 				                {   try
@@ -222,6 +236,6 @@ public class RenomearBoletos {
 				catch (Exception e1){
 					System.err.println(e1.getMessage());
 				}
-	}
+	}*/
 
 }

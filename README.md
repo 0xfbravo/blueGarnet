@@ -1,17 +1,19 @@
 blueGarnet
 ==========
 					Última Versão:
-				v0.4b © 2014/Outubro                                  
+				v0.5.1b © 2015/Outubro                                  
                                                      
   ------------------------------------------------
   		@author Fellipe Bravo Ribeiro Pimentel
   					© 2014/Outubro
-  			  Atualizado em 24/11/2014
+  			  Atualizado em 14/01/2015
   			Programa ainda em fase beta
+  			
+  					www.fcode.co
   ------------------------------------------------
   
-  *Aplicativo com diversas utilidades desenvolvido
-  para o Escritório Contábil São Judas Tadeu (SJT)
+  *Gerenciador Financeiro feito para o
+  Escritório Contábil São Judas Tadeu (SJT)
   utilizando o Microsoft SQL Server como o banco
   de dados.
   Algumas consultas ao banco de dados são feitas
@@ -21,7 +23,6 @@ blueGarnet
   
     
   Bibliotecas utilizadas:
-   * _JTattoo_ (Skin do Aplicativo)
    * _SQLJDBC_ (Conexão com o Banco de Dados SQL)
    * _JRimum-BOPEPO_ (Geração de Boletos Bancários)
    	- Log4J (Dependência BOPEPO)

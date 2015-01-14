@@ -1,4 +1,15 @@
 package br.com.blueGarnet.graphics;
+/*
+ _     _             _____                       _   
+| |   | |           / ____|                     | |  
+| |__ | |_   _  ___| |  __  __ _ _ __ _ __   ___| |_ 
+| '_ \| | | | |/ _ \ | |_ |/ _` | '__| '_ \ / _ \ __|
+| |_) | | |_| |  __/ |__| | (_| | |  | | | |  __/ |_ 
+|_.__/|_|\__,_|\___|\_____|\__,_|_|  |_| |_|\___|\__|
+
+							  Fellipe Pimentel © 2014
+										 www.fcode.co
+*/
 
 import javax.swing.JDesktopPane;
 import javax.swing.JLabel;
@@ -28,7 +39,7 @@ public class SplashBG implements Runnable{
 			lblInfoIMG.setIcon(FuncoesExtras.buscarIcone("img/database.png"));
 		}
 		else if(tipoMensagem == TipoInfoSplash.sucesso){
-			lblInfoIMG.setIcon(FuncoesExtras.buscarIcone("img/world.png"));
+			lblInfoIMG.setIcon(FuncoesExtras.buscarIcone("img/world2.png"));
 		}
 	}
 	public void mudaMensagem(String mensagem, TipoInfoSplash tipoMensagem){

@@ -1,4 +1,16 @@
 package br.com.fpimentel.funcextra;
+/*
+ _     _             _____                       _   
+| |   | |           / ____|                     | |  
+| |__ | |_   _  ___| |  __  __ _ _ __ _ __   ___| |_ 
+| '_ \| | | | |/ _ \ | |_ |/ _` | '__| '_ \ / _ \ __|
+| |_) | | |_| |  __/ |__| | (_| | |  | | | |  __/ |_ 
+|_.__/|_|\__,_|\___|\_____|\__,_|_|  |_| |_|\___|\__|
+
+							  Fellipe Pimentel © 2014
+										 www.fcode.co
+*/
+//TODO: Finalizar MÓDULO Ticket de Suporte
 
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
@@ -17,7 +29,6 @@ import oshi.hardware.HardwareAbstractionLayer;
 import oshi.hardware.Processor;
 import oshi.util.FormatUtil;
 
-// TODO: Finalizar MÓDULO Ticket de Suporte
 public class TicketSuporte {
 	private SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 	private boolean resolvido;

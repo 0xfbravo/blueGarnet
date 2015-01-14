@@ -1,4 +1,4 @@
-package br.com.blueGarnet.enums;
+package br.com.blueGarnet.modules;
 /*
  _     _             _____                       _   
 | |   | |           / ____|                     | |  
@@ -10,5 +10,8 @@ package br.com.blueGarnet.enums;
 							  Fellipe Pimentel © 2014
 										 www.fcode.co
 */
+// TODO: Fazer Módulo Fluxo de Caixa
 
-public enum TipoInfoSplash { acessoDB,sucesso }
+public class FluxoCaixa {
+
+}

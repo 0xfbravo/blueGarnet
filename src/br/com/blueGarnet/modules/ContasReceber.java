@@ -1,4 +1,16 @@
-package br.com.fpimentel.financeiro;
+package br.com.blueGarnet.modules;
+/*
+ _     _             _____                       _   
+| |   | |           / ____|                     | |  
+| |__ | |_   _  ___| |  __  __ _ _ __ _ __   ___| |_ 
+| '_ \| | | | |/ _ \ | |_ |/ _` | '__| '_ \ / _ \ __|
+| |_) | | |_| |  __/ |__| | (_| | |  | | | |  __/ |_ 
+|_.__/|_|\__,_|\___|\_____|\__,_|_|  |_| |_|\___|\__|
+
+							  Fellipe Pimentel © 2014
+										 www.fcode.co
+*/
+//TODO: Finalizar Módulo Contas a Receber
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -45,18 +57,6 @@ import br.com.blueGarnet.graphics.JanelaPrincipal;
 import br.com.blueGarnet.others.FuncoesExtras;
 import br.com.blueGarnet.system.Database;
 
-/*
-	 _     _             _____                       _   
-	| |   | |           / ____|                     | |  
-	| |__ | |_   _  ___| |  __  __ _ _ __ _ __   ___| |_ 
-	| '_ \| | | | |/ _ \ | |_ |/ _` | '__| '_ \ / _ \ __|
-	| |_) | | |_| |  __/ |__| | (_| | |  | | | |  __/ |_ 
-	|_.__/|_|\__,_|\___|\_____|\__,_|_|  |_| |_|\___|\__|
-
-	Fellipe Pimentel © 2014 
-	
-	TODO: Finalizar MÓDULO Contas a Pagar
-*/
 public class ContasReceber{
 	/* Informações Sacado */
 	private String nomeEmpresaSAC;

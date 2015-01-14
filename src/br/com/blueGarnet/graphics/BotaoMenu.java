@@ -1,4 +1,15 @@
 package br.com.blueGarnet.graphics;
+/*
+ _     _             _____                       _   
+| |   | |           / ____|                     | |  
+| |__ | |_   _  ___| |  __  __ _ _ __ _ __   ___| |_ 
+| '_ \| | | | |/ _ \ | |_ |/ _` | '__| '_ \ / _ \ __|
+| |_) | | |_| |  __/ |__| | (_| | |  | | | |  __/ |_ 
+|_.__/|_|\__,_|\___|\_____|\__,_|_|  |_| |_|\___|\__|
+
+							  Fellipe Pimentel © 2014
+										 www.fcode.co
+*/
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -7,24 +18,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JDesktopPane;
 import javax.swing.border.EmptyBorder;
 
 import br.com.blueGarnet.enums.SubModulo;
 import br.com.blueGarnet.others.FuncoesExtras;
-
 
 public class BotaoMenu extends JButton{
 
 	private static final long serialVersionUID = 1L;
 	private boolean menuAberto;
 	private int permissao;
-	private ArrayList<SubModulo> subModulos = new ArrayList<SubModulo>();
     
 	public BotaoMenu(int permissao,String nome,String caminhoImagem){
 		this.setPermissao(permissao);
@@ -107,13 +114,5 @@ public class BotaoMenu extends JButton{
 
 	public void setPermissao(int permissao) {
 		this.permissao = permissao;
-	}
-
-	public ArrayList<SubModulo> getSubModulos() {
-		return subModulos;
-	}
-
-	public void setSubModulos(ArrayList<SubModulo> subModulos) {
-		this.subModulos = subModulos;
 	}
 }
