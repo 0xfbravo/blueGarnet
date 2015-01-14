@@ -9,7 +9,7 @@ package br.com.fpimentel.administrador;
 
 	Fellipe Pimentel © 2014 
 */
-import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,7 +29,6 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDesktopPane;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
@@ -40,12 +39,10 @@ import javax.swing.JTextField;
 import br.com.blueGarnet.enums.Ano;
 import br.com.blueGarnet.enums.Mes;
 import br.com.blueGarnet.enums.NivelPermissao;
-import br.com.blueGarnet.graphics.JanelaPrincipal;
 import br.com.blueGarnet.others.FuncoesExtras;
 import br.com.blueGarnet.system.Database;
 
-@SuppressWarnings("serial")
-public class Administracao extends JDesktopPane{
+public class Administracao{
 	static String queryLogin = "SELECT Usuario,Permissao FROM bg_informacoesLogin";
 	
 	/*
@@ -251,14 +248,14 @@ public class Administracao extends JDesktopPane{
 	 * Método de Adição de E-mails p/ Empresas do SQL
 	 */
 	public static JDesktopPane AlteracaoDeEmail(){
-		JDesktopPane PainelInternoJIF = new JDesktopPane();
+		JDesktopPane j = new JDesktopPane();
+		j.setBackground(new Color(236, 240, 241));
 		try{
 			// Conexão com SQL
 			Connection conn = DriverManager.getConnection(Database.urlAlterdata,Database.userDBAlterdata,Database.passDBAlterdata);
 			Statement s = conn.createStatement();
 			String query = "select NmEmpresa,CdEmpresa from wphd.Empresa";
 			
-
 			JButton btnAdicionar = new JButton("Alterar");
 			JButton btnEditarEmail1 = new JButton();
 			JButton btnEditarEmail2 = new JButton();
@@ -268,22 +265,22 @@ public class Administracao extends JDesktopPane{
 			JButton btnPesquisar = new JButton("Pesquisar");
 			btnPesquisar.setBounds(130, 40, 120, 25);
 			btnPesquisar.setIcon(FuncoesExtras.buscarIcone("img/magnifier.png"));
-			PainelInternoJIF.add(btnPesquisar);
+			j.add(btnPesquisar);
 			// ----- Número da Empresa
 			JLabel lblNumeroE = new JLabel("Nº da Empresa:");
 			lblNumeroE.setBounds(30, 20, 110, 14);
-			PainelInternoJIF.add(lblNumeroE);	
+			j.add(lblNumeroE);	
 			JTextField numEmpresa = new JTextField();
 			numEmpresa.setColumns(10);
 			numEmpresa.setBounds(30, 40, 90, 25);
-			PainelInternoJIF.add(numEmpresa);
+			j.add(numEmpresa);
 			numEmpresa.setName("Numero da Empresa");
 			
 			// ----- NOME da Empresa
 			JTextField nomeEmpresa = new JTextField();
 			nomeEmpresa.setColumns(10);
 			nomeEmpresa.setBounds(30, 80, 300, 25);
-			PainelInternoJIF.add(nomeEmpresa);
+			j.add(nomeEmpresa);
 			nomeEmpresa.setName("Nome da Empresa");
 			nomeEmpresa.setEnabled(false);
 			
@@ -291,16 +288,16 @@ public class Administracao extends JDesktopPane{
 			JTextField email1 = new JTextField();
 			email1.setColumns(10);
 			email1.setBounds(30, 120, 200, 25);
-			PainelInternoJIF.add(email1);
+			j.add(email1);
 			email1.setText("E-mail 1");
 			email1.setEnabled(false);
 			
 			JLabel lblExisteEmail1 = new JLabel();
-			PainelInternoJIF.add(lblExisteEmail1);
+			j.add(lblExisteEmail1);
 			lblExisteEmail1.setBounds(240, 120, 256, 25);
 
 			btnEditarEmail1.setBounds(260, 120, 25, 25);
-			PainelInternoJIF.add(btnEditarEmail1);
+			j.add(btnEditarEmail1);
 			btnEditarEmail1.setVisible(false);
 			btnEditarEmail1.setIcon(FuncoesExtras.buscarIcone("img/pencil.png"));
 			btnEditarEmail1.addActionListener(new ActionListener(){
@@ -313,16 +310,16 @@ public class Administracao extends JDesktopPane{
 			JTextField email2 = new JTextField();
 			email2.setColumns(10);
 			email2.setBounds(30, 150, 200, 25);
-			PainelInternoJIF.add(email2);
+			j.add(email2);
 			email2.setText("E-mail 2");
 			email2.setEnabled(false);
 			
 			JLabel lblExisteEmail2 = new JLabel();
-			PainelInternoJIF.add(lblExisteEmail2);
+			j.add(lblExisteEmail2);
 			lblExisteEmail2.setBounds(240, 150, 256, 25);
 			
 			btnEditarEmail2.setBounds(260, 150, 25, 25);
-			PainelInternoJIF.add(btnEditarEmail2);
+			j.add(btnEditarEmail2);
 			btnEditarEmail2.setVisible(false);
 			btnEditarEmail2.setIcon(FuncoesExtras.buscarIcone("img/pencil.png"));
 			btnEditarEmail2.addActionListener(new ActionListener(){
@@ -336,16 +333,16 @@ public class Administracao extends JDesktopPane{
 			JTextField email3 = new JTextField();
 			email3.setColumns(10);
 			email3.setBounds(30, 180, 200, 25);
-			PainelInternoJIF.add(email3);
+			j.add(email3);
 			email3.setText("E-mail 3");
 			email3.setEnabled(false);
 			
 			JLabel lblExisteEmail3 = new JLabel();
-			PainelInternoJIF.add(lblExisteEmail3);
+			j.add(lblExisteEmail3);
 			lblExisteEmail3.setBounds(240, 180, 256, 25);
 			
 			btnEditarEmail3.setBounds(260, 180, 25, 25);
-			PainelInternoJIF.add(btnEditarEmail3);
+			j.add(btnEditarEmail3);
 			btnEditarEmail3.setVisible(false);
 			btnEditarEmail3.setIcon(FuncoesExtras.buscarIcone("img/pencil.png"));
 			btnEditarEmail3.addActionListener(new ActionListener(){
@@ -356,7 +353,7 @@ public class Administracao extends JDesktopPane{
 
 			// ----- Botão Adicionar/Alterar
 			btnAdicionar.setBounds(390, 170, 73, 35);
-			PainelInternoJIF.add(btnAdicionar);
+			j.add(btnAdicionar);
 			btnAdicionar.setEnabled(false);
 			
 			/* Botão Adicionar E-mails */
@@ -443,7 +440,7 @@ public class Administracao extends JDesktopPane{
 		catch (Exception e1){
 			JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 		}
-		return PainelInternoJIF;
+		return j;
 	}
 		
 	/*
@@ -609,45 +606,38 @@ public class Administracao extends JDesktopPane{
 	 * Método de Listar EMPRESAS do SQL
 	 *    buscando informações do DB da ALTERDATA
 	 */	
-	public void ListarEmpresas(){
+	public static JScrollPane ListarEmpresas(){
 		try{		    
-		    JFrame JIF = JanelaPrincipal.createFrame("Listagem de Empresas",500,500);
-		    JIF.setIconImage(FuncoesExtras.buscarIcone("img/buildings.png").getImage());
-		    
-		
 		    JTable tabela = new JTable(FuncoesExtras.buildTableModel(
 		    		Database.consultaDB("select CdEmpresa,NmEmpresa from wphd.Empresa order by CdEmpresa ASC",true),false));
 		    tabela.setEnabled(false);
 		    tabela.getTableHeader().getColumnModel().getColumn(0).setHeaderValue("Código");
 		    tabela.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(50);
 		    tabela.getTableHeader().getColumnModel().getColumn(1).setHeaderValue("Nome");
-		    JIF.add(new JScrollPane(tabela));
+		    return new JScrollPane(tabela);
 		}
 		catch (Exception e1){
 			JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 		}
+		return null;
 	}
 	
 	/*
 	 * Método de Listar Usuários do SQL
 	 */	
-	public void ListarUsuarios(){
+	public static JScrollPane ListarUsuarios(){
 		try{
-		    
-		    JFrame JIF = JanelaPrincipal.createFrame("Listagem de Usuários",500,500);
-		    JIF.setIconImage(FuncoesExtras.buscarIcone("img/book_addresses.png").getImage());
-		    
-		
 		    JTable tabela = new JTable(FuncoesExtras.buildTableModel(Database.consultaDB(queryLogin+" order by Permissao ASC",false),true));
 		    tabela.setEnabled(false);
 		    tabela.getTableHeader().getColumnModel().getColumn(0).setHeaderValue("Usuário");
 		    tabela.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(200);
 		    tabela.getTableHeader().getColumnModel().getColumn(1).setHeaderValue("Nível de Permissão");
-		    JIF.add(new JScrollPane(tabela));
+		    return new JScrollPane(tabela);
 		}
 		catch (Exception e1){
 			JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 		}
+		return null;
 	}
 
 }

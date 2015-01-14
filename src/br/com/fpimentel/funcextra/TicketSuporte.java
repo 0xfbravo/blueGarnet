@@ -107,4 +107,28 @@ public class TicketSuporte {
 			}
 		return ticket;
 	}
+
+	public boolean isResolvido() {
+		return resolvido;
+	}
+
+	public void setResolvido(boolean resolvido) {
+		this.resolvido = resolvido;
+	}
+
+	public String getSolucao() {
+		return solucao;
+	}
+
+	public void setSolucao(String solucao) {
+		this.solucao = solucao;
+	}
+
+	public String getDataSolucao() {
+		return dataSolucao;
+	}
+
+	public void setDataSolucao(String dataSolucao) {
+		this.dataSolucao = dataSolucao;
+	}
 }

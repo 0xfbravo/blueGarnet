@@ -29,7 +29,7 @@ public class JanelaPrincipal extends JFrame{
 	private static final long serialVersionUID = 1L;	
 	// ----- Painel Interno JANELA PRINCIPAL
 	public static JPanel PainelInterno = new JPanel();
-	public static JTabbedPane subMenu = new JTabbedPane();
+	public static JTabbedPane subModulos = new JTabbedPane();
 	/* ------------------------------------------------------------- */
 	public JanelaPrincipal(int nivelPermissao) {
 		setSize(Config.larguraPrograma, Config.alturaPrograma);
@@ -41,8 +41,9 @@ public class JanelaPrincipal extends JFrame{
 		
 		PainelInterno.setBackground(Color.LIGHT_GRAY);
 		PainelInterno.setLayout(new BorderLayout());
-		subMenu.addTab("<html>Seja bem-vindo ao <b style='color:#34495e;'>"+Config.nomePrograma+"</b></html>",Config.imagemTituloJanela, new NovidadesVersao());
-		PainelInterno.add(subMenu);
+		subModulos.setBackground(new Color(236, 240, 241));
+		subModulos.addTab("<html>Seja bem-vindo ao <b style='color:#34495e;'>"+Config.nomePrograma+"</b></html>",Config.imagemTituloJanela, new NovidadesVersao());
+		PainelInterno.add(subModulos);
 		
 		add(PainelInterno, BorderLayout.CENTER);
 		add(new Menu(), BorderLayout.WEST);
