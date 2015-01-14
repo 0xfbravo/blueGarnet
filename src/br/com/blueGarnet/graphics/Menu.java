@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.JDesktopPane;
+import javax.swing.JOptionPane;
 
 import br.com.blueGarnet.others.FuncoesExtras;
 import br.com.fpimentel.administrador.Administracao;
@@ -48,8 +49,59 @@ public class Menu extends JDesktopPane{
 						// TODO: Cadastro - Sindicatos
 						//JanelaPrincipal.subMenu.addTab("Cadastro - Sindicatos",FuncoesExtras.buscarIcone("img/operator.png"),new JDesktopPane());
 					break;
+					
+					// TODO: Módulo - Orçamento
+					case 0:
+						JOptionPane.showMessageDialog(
+								JanelaPrincipal.PainelInterno, "<html>"
+										+ "Este módulo ainda não foi habilitado,<br>"
+										+ " é possível que esteja funcional na próxima revisão do Sistema blueGarnet.</html>",
+										"Módulo não habilitado", JOptionPane.ERROR_MESSAGE);
+					break;
+					
+					// TODO: Módulo - Fluxo de Caixa
+					case 1:
+						JOptionPane.showMessageDialog(
+								JanelaPrincipal.PainelInterno, "<html>"
+										+ "Este módulo ainda não foi habilitado,<br>"
+										+ " é possível que esteja funcional na próxima revisão do Sistema blueGarnet.</html>",
+										"Módulo não habilitado", JOptionPane.ERROR_MESSAGE);
+					break;
+					
+					// TODO: Módulo - Contas a Receber
+					case 2:
+						JanelaPrincipal.subMenu.removeAll();
+						JanelaPrincipal.subMenu.addTab("Gerar Cobranças",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane());
+						JanelaPrincipal.subMenu.addTab("Lançamentos & Baixas",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane());
+					break;
+					
+					
+					// TODO: Módulo - Contas a Pagar
+					case 3:
+						JOptionPane.showMessageDialog(
+								JanelaPrincipal.PainelInterno, "<html>"
+										+ "Este módulo ainda não foi habilitado,<br>"
+										+ " é possível que esteja funcional na próxima revisão do Sistema blueGarnet.</html>",
+										"Módulo não habilitado", JOptionPane.ERROR_MESSAGE);
+					break;
+					
+					// TODO: Módulo de Relatórios
+					case 4:
+						JOptionPane.showMessageDialog(
+								JanelaPrincipal.PainelInterno, "<html>"
+										+ "Este módulo ainda não foi habilitado,<br>"
+										+ " é possível que esteja funcional na próxima revisão do Sistema blueGarnet.</html>",
+										"Módulo não habilitado", JOptionPane.ERROR_MESSAGE);
+					break;
+					
+					// TODO: Módulo de Suporte
 					case 5:
-						new TicketSuporte();
+						JOptionPane.showMessageDialog(
+								JanelaPrincipal.PainelInterno, "<html>"
+										+ "Este módulo ainda não foi habilitado,<br>"
+										+ " é possível que esteja funcional na próxima revisão do Sistema blueGarnet.</html>",
+										"Módulo não habilitado", JOptionPane.ERROR_MESSAGE);
+						//new TicketSuporte();
 					break;
 					default:
 					break;
