@@ -18,10 +18,8 @@ import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
-public class Database implements Runnable{
-	Thread processo;
-	String nomeProcesso;
-	
+public class Database{
+
 	static Connection conn;
 	static Statement st;
 	static ResultSet rs;
@@ -49,58 +47,16 @@ public class Database implements Runnable{
 	//public static String userDBAlterdata = "sa";
 	//public static String passDBAlterdata = "#abc123#";
 	
-	// -- Ambiente Local (Testes de Novas Funcionalidades)
-	//public static String url = "jdbc:sqlserver://localhost;databaseName=ProgramaJava";
-	//public static String userDB = "sa";
-	//public static String passDB = "java";
-	// -- Acesso ao Banco da Alterdata (Ambiente Local)
-	//public static String urlAlterdata = "jdbc:sqlserver://localhost;databaseName=ALTERDATA";
-	//public static String userDBAlterdata = "sa";
-	//public static String passDBAlterdata = "java";
-
-	/*
-	 * Método para acessarSistema
-	 * 		recebe Usuário & Senha e faz a consulta ao DB
-	 */
-	public boolean acessarSistema(String Usuario, String Senha){
-		String query = "SELECT Usuario,Senha FROM bg_informacoesLogin WHERE Usuario='"+Usuario+"'";
-		try{
-			rs = Database.consultaDB(query,false);
-		    while(rs.next()){
-		    	// -- Debug
-		    	//System.out.println("usuário: "+rs.getString("Usuario")+" | Senha: "+rs.getString("Senha"));
-		    	if(rs.getString("Usuario").equals(Usuario)){
-		    			if(rs.getString("Senha").equals(Senha)){
-		    				return true;
-		    			} else {
-		    				JOptionPane.showMessageDialog(null, "A senha está errada.", "Erro", JOptionPane.ERROR_MESSAGE);
-		    				return false;
-		    			}
-		    	}
-			}
-		    JOptionPane.showMessageDialog(null, "O usuário é inválido.", "Erro", JOptionPane.ERROR_MESSAGE);
-		}
-		catch (Exception e){
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-		}
-		return false;
-	}	
-	
 	public static ResultSet consultaDB(String Query,boolean Alterdata){
 		try{
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-			if(Alterdata == true){
-				conn = DriverManager.getConnection(urlAlterdata,userDBAlterdata,passDBAlterdata);
-			} else {
-				conn = DriverManager.getConnection(url,userDB,passDB);
-			}
+			if(Alterdata == true) conn = DriverManager.getConnection(urlAlterdata,userDBAlterdata,passDBAlterdata);
+			else conn = DriverManager.getConnection(url,userDB,passDB);
 			st = conn.createStatement();
 			rs = st.executeQuery(Query);
 			return rs;
 		}
-		catch (Exception e){
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-		}
+		catch (Exception e){ JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE); }
 		return rs;
 	}
 	
@@ -111,12 +67,6 @@ public class Database implements Runnable{
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(Query);
 		}
-		catch (Exception e){
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-		}
+		catch (Exception e){ JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE); }
 	}
-
-
-	@Override
-	public void run() {}
 }

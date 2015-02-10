@@ -21,71 +21,71 @@ import br.com.blueGarnet.others.FuncoesExtras;
 public enum SubModulo{
 	
 	/* Sub-Módulos de Administração */
-	criarUsuario(100,"Criar Usuário",FuncoesExtras.buscarIcone("img/anonymous_add.png"),Administracao.CriarUsuario()),
-	editarUsuario(100,"Editar Usuário",FuncoesExtras.buscarIcone("img/anonymous_edit.png"),Administracao.EditarUsuario()),
-	importarAlterdata(100,"Gerar Importação para Alterdata",FuncoesExtras.buscarIcone("img/backup_server_save.png"),Administracao.GerarImportacaoAlterdata()),
-	emailClientes(100,"Alterar E-mails de Clientes",FuncoesExtras.buscarIcone("img/address_book_edit.png"),Administracao.AlteracaoDeEmail()),
+	criarUsuario(Modulo.administracao.getIdModulo(),"Criar Usuário",FuncoesExtras.buscarIcone("img/anonymous_add.png"),Administracao.CriarUsuario()),
+	editarUsuario(Modulo.administracao.getIdModulo(),"Editar Usuário",FuncoesExtras.buscarIcone("img/anonymous_edit.png"),Administracao.EditarUsuario()),
+	importarAlterdata(Modulo.administracao.getIdModulo(),"Gerar Importação para Alterdata",FuncoesExtras.buscarIcone("img/backup_server_save.png"),Administracao.GerarImportacaoAlterdata()),
+	emailClientes(Modulo.administracao.getIdModulo(),"Alterar E-mails de Clientes",FuncoesExtras.buscarIcone("img/address_book_edit.png"),Administracao.AlteracaoDeEmail()),
 	// TODO: Ajuste de Percentuais
-	ajustePercentuais(100,"Ajuste de Percentuais",FuncoesExtras.buscarIcone("img/technical_screwdriver.png"),new JDesktopPane()),
+	ajustePercentuais(Modulo.administracao.getIdModulo(),"Ajuste de Percentuais",FuncoesExtras.buscarIcone("img/technical_screwdriver.png"),Administracao.AjustePercentuais()),
 	// TODO: Cadastro - Banco & Agência
-	cadBanco(100,"Cadastro - Banco & Agência",FuncoesExtras.buscarIcone("img/bank.png"),new JDesktopPane()),
+	cadBanco(Modulo.administracao.getIdModulo(),"Cadastro - Banco & Agência",FuncoesExtras.buscarIcone("img/bank.png"),new JDesktopPane()),
 	// TODO: Cadastro - Limite de Faturamento
-	cadLimite(100,"Cadastro - Limite de Faturamento",FuncoesExtras.buscarIcone("img/debt.png"),new JDesktopPane()),
+	cadLimite(Modulo.administracao.getIdModulo(),"Cadastro - Limite de Faturamento",FuncoesExtras.buscarIcone("img/debt.png"),new JDesktopPane()),
 	// TODO: Cadastro - Atividades
-	cadAtividades(100,"Cadastro - Atividades",FuncoesExtras.buscarIcone("img/task.png"),new JDesktopPane()),
+	cadAtividades(Modulo.administracao.getIdModulo(),"Cadastro - Atividades",FuncoesExtras.buscarIcone("img/task.png"),new JDesktopPane()),
 	// TODO: Cadastro - Estados
-	cadEstados(100,"Cadastro - Estados",FuncoesExtras.buscarIcone("img/world.png"),new JDesktopPane()),
+	cadEstados(Modulo.administracao.getIdModulo(),"Cadastro - Estados",FuncoesExtras.buscarIcone("img/world.png"),new JDesktopPane()),
 	// TODO: Cadastro - Salário Mínimo
-	cadSalMin(100,"Cadastro - Salário Mínimo",FuncoesExtras.buscarIcone("img/salary.png"),new JDesktopPane()),
+	cadSalMin(Modulo.administracao.getIdModulo(),"Cadastro - Salário Mínimo",FuncoesExtras.buscarIcone("img/salary.png"),new JDesktopPane()),
 	// TODO: Cadastro - Sindicatos
-	cadSindicatos(100,"Cadastro - Sindicatos",FuncoesExtras.buscarIcone("img/operator.png"),new JDesktopPane()),
+	cadSindicatos(Modulo.administracao.getIdModulo(),"Cadastro - Sindicatos",FuncoesExtras.buscarIcone("img/operator.png"),new JDesktopPane()),
 	
 	
 	/* Sub-Módulos de Orçamento */
-	gerOrcamento(0,"Gerar Orçamento",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
-	importDados(0,"Importar Dados CP/CR",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
-	attIndividual(0,"Atualização Individual",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
-	attGeral(0,"Atualização Geral",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
-	eventos(0,"Eventos",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
+	gerOrcamento(Modulo.orcamento.getIdModulo(),"Gerar Orçamento",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
+	importDados(Modulo.orcamento.getIdModulo(),"Importar Dados CP/CR",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
+	attIndividual(Modulo.orcamento.getIdModulo(),"Atualização Individual",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
+	attGeral(Modulo.orcamento.getIdModulo(),"Atualização Geral",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
+	eventos(Modulo.orcamento.getIdModulo(),"Eventos",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
 	
 	
 	/* Sub-Módulos de Fluxo de Caixa */
-	cxDiario(1,"Caixa Diário",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
-	fchCaixa(1,"Fechamento de Caixa",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
-	accBancaria(1,"Conta Bancária",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
-	supContas(1,"Suprimento de Contas",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
-	consultChq(1,"Consulta de Cheques",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
-	hist(1,"Histórico",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
-	proj(1,"Projetado",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
-	comb(1,"Combinado",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
+	cxDiario(Modulo.fluxoCaixa.getIdModulo(),"Caixa Diário",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
+	fchCaixa(Modulo.fluxoCaixa.getIdModulo(),"Fechamento de Caixa",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
+	accBancaria(Modulo.fluxoCaixa.getIdModulo(),"Conta Bancária",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
+	supContas(Modulo.fluxoCaixa.getIdModulo(),"Suprimento de Contas",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
+	consultChq(Modulo.fluxoCaixa.getIdModulo(),"Consulta de Cheques",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
+	hist(Modulo.fluxoCaixa.getIdModulo(),"Histórico",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
+	proj(Modulo.fluxoCaixa.getIdModulo(),"Projetado",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
+	comb(Modulo.fluxoCaixa.getIdModulo(),"Combinado",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
 	
 	
 	/* Sub-Módulos de Contas a Receber */
-	lncBaixa(2,"Lançamentos & Baixas",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
-	gerCobran(2,"Gerar Cobranças",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
-	gerNF(2,"Geração de NF",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
-	gerRPS(2,"Geração de RPS",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
-	attNF(2,"Atualização de NF",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
-	attRPS(2,"Atualização de RPS",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
-	indDesempenho(2,"Índices de Desempenho",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
+	lncBaixa(Modulo.contasReceber.getIdModulo(),"Lançamentos & Baixas",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
+	gerCobran(Modulo.contasReceber.getIdModulo(),"Gerar Cobranças",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
+	gerNF(Modulo.contasReceber.getIdModulo(),"Geração de NF",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
+	gerRPS(Modulo.contasReceber.getIdModulo(),"Geração de RPS",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
+	attNF(Modulo.contasReceber.getIdModulo(),"Atualização de NF",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
+	attRPS(Modulo.contasReceber.getIdModulo(),"Atualização de RPS",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
+	indDesempenho(Modulo.contasReceber.getIdModulo(),"Índices de Desempenho",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
 	
 	/* Sub-Módulos de Listagens */
-	lstUsuario(99,"Listagem de Usuários",FuncoesExtras.buscarIcone("img/anonymous_comment.png"),Administracao.ListarUsuarios()),
-	lstEmpresas(99,"Listagem de Empresas",FuncoesExtras.buscarIcone("img/alliance.png"),Administracao.ListarEmpresas()),
-	lstCobrancas(99,"Listagem de Cobranças",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
-	lstPgtoPer(99,"Pagamentos do Período",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
-	lstFatur(99,"Listagem de Faturamentos",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
-	lstClientes(99,"Listagem de Clientes",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
+	lstUsuario(Modulo.listagens.getIdModulo(),"Listagem de Usuários",FuncoesExtras.buscarIcone("img/anonymous_comment.png"),Administracao.ListarUsuarios()),
+	lstEmpresas(Modulo.listagens.getIdModulo(),"Listagem de Empresas",FuncoesExtras.buscarIcone("img/alliance.png"),Administracao.ListarEmpresas()),
+	lstCobrancas(Modulo.listagens.getIdModulo(),"Listagem de Cobranças",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
+	lstPgtoPer(Modulo.listagens.getIdModulo(),"Pagamentos do Período",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
+	lstFatur(Modulo.listagens.getIdModulo(),"Listagem de Faturamentos",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
+	lstClientes(Modulo.listagens.getIdModulo(),"Listagem de Clientes",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
 	
 	/* Sub-Módulos de Relatórios */
-	relOrc(98,"Orçamentos",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
-	relCxCon(98,"Caixa Consolidado",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
-	relCobrancas(98,"Cobranças",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
-	relFatur(98,"Faturamentos",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
-	relPagto(98,"Pagamentos",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
+	relOrc(Modulo.relatorios.getIdModulo(),"Orçamentos",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
+	relCxCon(Modulo.relatorios.getIdModulo(),"Caixa Consolidado",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
+	relCobrancas(Modulo.relatorios.getIdModulo(),"Cobranças",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
+	relFatur(Modulo.relatorios.getIdModulo(),"Faturamentos",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
+	relPagto(Modulo.relatorios.getIdModulo(),"Pagamentos",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane()),
 	
 	/* Sub-Módulos de Contas a Pagar */
-	gastEfet(3,"Gastos Efetuados & Previstos",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane());
+	gastEfet(Modulo.contasPagar.getIdModulo(),"Gastos Efetuados & Previstos",FuncoesExtras.buscarIcone("img/engineering.png"),new JDesktopPane());
 	
 	private int permissao;
 	private String nomeSubModulo;

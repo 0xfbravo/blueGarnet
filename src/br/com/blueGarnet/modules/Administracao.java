@@ -12,6 +12,7 @@ package br.com.blueGarnet.modules;
 */
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -23,8 +24,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.EnumSet;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -36,15 +39,319 @@ import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 import br.com.blueGarnet.enums.Ano;
 import br.com.blueGarnet.enums.Mes;
-import br.com.blueGarnet.enums.NivelPermissao;
+import br.com.blueGarnet.enums.Percentuais;
 import br.com.blueGarnet.others.FuncoesExtras;
 import br.com.blueGarnet.system.Database;
+import br.com.blueGarnet.users.NivelPermissao;
 
 public class Administracao{
-	static String queryLogin = "SELECT Usuario,Permissao FROM bg_informacoesLogin";
+	static String queryLogin = "SELECT Usuario,Senha,Permissao FROM bg_informacoesLogin";
+	static List<NivelPermissao> lstPermissao = Arrays.asList(NivelPermissao.values());
+
+	/*
+	 * Método de Criação de Usuários do SQL
+	 */
+	public static JDesktopPane CriarUsuario(){
+		JDesktopPane j = new JDesktopPane();
+		j.setBackground(new Color(236, 240, 241));
+		try{
+			// ----- Usuário
+			JLabel lblUsuario = new JLabel("Usuário:");
+			lblUsuario.setBounds(30, 17, 52, 14);
+			j.add(lblUsuario);	
+			JButton btnAdicionar = new JButton("Adicionar");
+			JTextField novoUsuario = new JTextField();
+			JPasswordField novaSenha = new JPasswordField();
+			
+			// ----- Botão Adicionar
+			btnAdicionar.setBounds(198, 125, 90, 35);
+			btnAdicionar.setEnabled(false);
+			j.add(btnAdicionar);
+			
+			JLabel lblExiste = new JLabel();
+			lblExiste.setBounds(306, 34, 256, 25);
+			j.add(lblExiste);
+			
+			novoUsuario.setColumns(10);
+			novoUsuario.setBounds(30, 34, 256, 25);
+			novoUsuario.setName("Usuário");
+			novoUsuario.addKeyListener(new KeyListener(){
+				@Override
+				public void keyPressed(KeyEvent arg0) {}
+				@Override
+				public void keyReleased(KeyEvent arg0) {
+					//System.out.println("Valor do texto atual: " +novoUsuario.getText());
+					String verificarUsuario = queryLogin+" WHERE Usuario='"+novoUsuario.getText()+"'";
+					//System.out.println(verificarUsuario);
+					ResultSet rs = Database.consultaDB(verificarUsuario,false);
+					if(novoUsuario.getText().equals("")){
+						  lblExiste.setText("Usuário inválido");
+						  lblExiste.setIcon(FuncoesExtras.buscarIcone("img/cancel.png"));
+						  btnAdicionar.setEnabled(false);
+						  
+					} else {
+					  try {
+						// Verifica se existe próxima linha
+						rs.next();
+						// -- Se possui linha, logo usuário é inválido
+						if(rs.getString("Usuario").equalsIgnoreCase(novoUsuario.getText())){
+						// -- Usuário já cadastrado OU campo em branco
+						lblExiste.setText("Usuário inválido");
+						lblExiste.setIcon(FuncoesExtras.buscarIcone("img/cancel.png"));
+						btnAdicionar.setEnabled(false);
+						
+						}
+					  }
+					  catch (Exception e1){
+						  	// -- Não possui linha, logo usuário é válido
+						  	lblExiste.setText("Usuário válido");
+					  		lblExiste.setIcon(FuncoesExtras.buscarIcone("img/accept.png"));
+					  		btnAdicionar.setEnabled(true);
+					  		
+					  }
+					}
+				}
+				@Override
+				public void keyTyped(KeyEvent arg0) {}
+			});
+			j.add(novoUsuario);
+			
+			
+			// ----- Senha
+			JLabel lblSenhaEmBranco = new JLabel();
+			lblSenhaEmBranco.setBounds(306, 81, 256, 25);
+			j.add(lblSenhaEmBranco);
+			
+			JLabel lblSenha = new JLabel("Senha:");
+			lblSenha.setBounds(30, 64, 92, 14);
+			j.add(lblSenha);
+			
+			novaSenha.setBounds(30, 81, 256, 25);
+			novaSenha.setName("Senha");
+			novaSenha.addKeyListener(new KeyListener(){
+				@Override
+				public void keyPressed(KeyEvent arg0) {}
+				@Override
+				public void keyReleased(KeyEvent arg0) {
+					String senha = new String(novaSenha.getPassword());
+					if(senha.equals("")){
+						lblSenhaEmBranco.setText("Senha inválida");
+						lblSenhaEmBranco.setIcon(FuncoesExtras.buscarIcone("img/cancel.png"));
+						btnAdicionar.setEnabled(false);
+						
+					} else {
+						lblSenhaEmBranco.setText("");
+						lblSenhaEmBranco.setIcon(FuncoesExtras.buscarIcone("img/accept.png"));
+						btnAdicionar.setEnabled(true);
+						
+					}
+				}
+				@Override
+				public void keyTyped(KeyEvent arg0) {}
+			});
+			j.add(novaSenha);
+			
+			// ------ Tipo de Permissão
+			JLabel lblTipoPermissao = new JLabel("Tipo de Permissão");
+			lblTipoPermissao.setBounds(30, 111, 180, 14);
+			j.add(lblTipoPermissao);
+			JComboBox<String> tipoPermissao = new JComboBox<String>();
+			lstPermissao.forEach((NivelPermissao np) -> tipoPermissao.addItem(np.getNomePermissao()));
+			tipoPermissao.setBounds(30, 131, 140, 25);
+			tipoPermissao.setToolTipText("Selecione o tipo de Permissão");
+			j.add(tipoPermissao);
+			
+		/*
+		 *  Ação ao clicar no botão de Adicionar Usuário
+		 */
+		btnAdicionar.addActionListener(new ActionListener(){
+			String updateDB = "INSERT INTO bg_informacoesLogin(Usuario,Senha,Permissao) VALUES";
+			
+			public void actionPerformed(ActionEvent e){
+				String senha = new String(novaSenha.getPassword());
+				lstPermissao.forEach((NivelPermissao np) -> {
+					if(tipoPermissao.getSelectedItem().toString() == np.getNomePermissao()){
+						Database.updateDB(updateDB+" ('"+novoUsuario.getText()+"','"+senha+"',"+np.getNumPermissao()+")");
+						JOptionPane.showMessageDialog(null, "Você criou o usuário com sucesso.");
+					}
+				});
+			}
+		});
+		}
+		catch (Exception e1){
+			JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+		}
+		return j;
+	}
+
+	/*
+	 * Método de Edição de Usuários do SQL
+	 */		
+	public static JDesktopPane EditarUsuario(){
+		JDesktopPane j = new JDesktopPane();		
+		JLabel lblUsuario = new JLabel("Usuário:");
+		JButton btnSalvar = new JButton("Salvar");
+		JButton btnExcluir = new JButton("Excluir");
+		JTextField novoUsuario = new JTextField();
+		JPasswordField novaSenha = new JPasswordField();
+		JLabel lblExiste = new JLabel();
+		JLabel lblSenhaEmBranco = new JLabel();
+		JLabel lblSenha = new JLabel("Senha:");
+		JLabel lblTipoPermissao = new JLabel("Tipo de Permissão");
+		JComboBox<String> tipoPermissao = new JComboBox<String>();
+		JLabel lblSelUsuario = new JLabel("Selecione o Usuário:");
+		JComboBox<String> selUsuario = new JComboBox<String>();
+		
+		try{
+			j.setBackground(new Color(236, 240, 241));
+			
+			// Litagem de Usuários
+			lblSelUsuario.setBounds(30, 17, 204, 14);
+			j.add(lblSelUsuario);
+			selUsuario.setBounds(30, 34, 256, 25);
+			ResultSet r = Database.consultaDB(queryLogin, false);
+			try{
+				while(r.next()){
+					selUsuario.addItem(r.getString("Usuario"));
+				}
+			}
+			catch (Exception e1){}
+			selUsuario.addActionListener((event) -> {
+				try{
+					String infos = queryLogin+" WHERE Usuario='"+selUsuario.getSelectedItem().toString()+"'";
+					ResultSet rs = Database.consultaDB(infos, false);
+					rs.next();
+					if(rs.getString("Usuario").equalsIgnoreCase(selUsuario.getSelectedItem().toString())){
+						novoUsuario.setText(rs.getString("Usuario"));
+						novaSenha.setText(rs.getString("Senha"));
+					}
+				}
+				catch (Exception e1){}
+			});
+			j.add(selUsuario);
+			
+			// ----- Usuário	
+			lblUsuario.setBounds(lblSelUsuario.getX(), lblSelUsuario.getY()+60, 52, 14);
+			j.add(lblUsuario);
+			
+			novoUsuario.setColumns(10);
+			novoUsuario.setBounds(lblUsuario.getX(), lblUsuario.getY()+20, 256, 25);
+			novoUsuario.setName("Usuário");
+			novoUsuario.addKeyListener(new KeyListener(){
+				@Override
+				public void keyPressed(KeyEvent arg0) {}
+				@Override
+				public void keyReleased(KeyEvent arg0) {
+					//System.out.println("Valor do texto atual: " +novoUsuario.getText());
+					String verificarUsuario = queryLogin+" WHERE Usuario='"+novoUsuario.getText()+"'";
+					//System.out.println(verificarUsuario);
+					ResultSet rs = Database.consultaDB(verificarUsuario,false);
+					if(novoUsuario.getText().equals("")){
+						  lblExiste.setText("Usuário inválido");
+						  lblExiste.setIcon(FuncoesExtras.buscarIcone("img/cancel.png"));
+						  btnSalvar.setEnabled(false);
+						  
+					} else {
+					  try {
+						// Verifica se existe próxima linha
+						rs.next();
+						// -- Se possui linha, logo usuário é inválido
+						if(rs.getString("Usuario").equalsIgnoreCase(novoUsuario.getText())){
+						// -- Usuário já cadastrado OU campo em branco
+						lblExiste.setText("Usuário inválido");
+						lblExiste.setIcon(FuncoesExtras.buscarIcone("img/cancel.png"));
+						btnSalvar.setEnabled(false);
+						
+						}
+					  }
+					  catch (Exception e1){
+						  	// -- Não possui linha, logo usuário é válido
+						  	lblExiste.setText("Usuário válido");
+					  		lblExiste.setIcon(FuncoesExtras.buscarIcone("img/accept.png"));
+					  		btnSalvar.setEnabled(true);
+					  		
+					  }
+					}
+				}
+				@Override
+				public void keyTyped(KeyEvent arg0) {}
+			});
+			j.add(novoUsuario);
+			
+			
+			// ----- Senha
+			
+			lblSenha.setBounds(lblUsuario.getX(), lblUsuario.getY()+60, 92, 14);
+			j.add(lblSenha);
+			
+			novaSenha.setBounds(lblSenha.getX(), lblSenha.getY()+20, 256, 25);
+			novaSenha.setName("Senha");
+			novaSenha.addKeyListener(new KeyListener(){
+				@Override
+				public void keyPressed(KeyEvent arg0) {}
+				@Override
+				public void keyReleased(KeyEvent arg0) {
+					String senha = new String(novaSenha.getPassword());
+					if(senha.equals("")){
+						lblSenhaEmBranco.setText("Senha inválida");
+						lblSenhaEmBranco.setIcon(FuncoesExtras.buscarIcone("img/cancel.png"));
+						btnSalvar.setEnabled(false);
+						
+					} else {
+						lblSenhaEmBranco.setText("");
+						lblSenhaEmBranco.setIcon(FuncoesExtras.buscarIcone("img/accept.png"));
+						btnSalvar.setEnabled(true);
+						
+					}
+				}
+				@Override
+				public void keyTyped(KeyEvent arg0) {}
+			});
+			j.add(novaSenha);
+			
+			lblSenhaEmBranco.setBounds(novaSenha.getX()+270, novaSenha.getY(), 256, 25);
+			j.add(lblSenhaEmBranco);
+			
+			// ------ Tipo de Permissão
+			lblTipoPermissao.setBounds(lblSenha.getX(), lblSenha.getY()+60, 180, 14);
+			j.add(lblTipoPermissao);
+			lstPermissao.forEach((NivelPermissao np) -> tipoPermissao.addItem(np.getNomePermissao()));
+			tipoPermissao.setBounds(lblTipoPermissao.getX(), lblTipoPermissao.getY()+20, 140, 25);
+			tipoPermissao.setToolTipText("Selecione o tipo de Permissão");
+			j.add(tipoPermissao);
+			
+			// Salvar
+			btnExcluir.setBounds(lblTipoPermissao.getX(), lblTipoPermissao.getY()+60, 90, 35);
+			btnExcluir.addActionListener((event) -> {
+				Database.updateDB("DELETE FROM bg_informacoesLogin WHERE Usuario='"+selUsuario.getSelectedItem().toString()+"'");
+				JOptionPane.showMessageDialog(null, "Você excluiu o usuário com sucesso.");
+			});
+			j.add(btnExcluir);
+			
+			// Salvar
+			btnSalvar.setBounds(btnExcluir.getX()+120, btnExcluir.getY(), 90, 35);
+			btnSalvar.setEnabled(false);
+			btnSalvar.addActionListener((event) -> {
+				String updateDB = "UPDATE bg_informacoesLogin";
+					String senha = new String(novaSenha.getPassword());
+					lstPermissao.forEach((NivelPermissao np) -> {
+						if(tipoPermissao.getSelectedItem().toString() == np.getNomePermissao()){
+							Database.updateDB(updateDB+" SET Usuario='"+novoUsuario.getText()+"', Senha='"+senha+"', Permissao="+np.getNumPermissao()+" WHERE Usuario='"+selUsuario.getSelectedItem().toString()+"'");
+							JOptionPane.showMessageDialog(null, "Você editou o usuário com sucesso.");
+						}
+					});
+				});
+			j.add(btnSalvar);
+			}
+			catch (Exception e1){
+				JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+			}
+			return j;
+	}
 	
 	/*
 	 * Gerar Importação para o Alterdata
@@ -104,12 +411,12 @@ public class Administracao{
 			ArrayList<Mes> mes = new ArrayList<Mes>(EnumSet.allOf(Mes.class));
 			JComboBox<String> selMes= new JComboBox<String>();
 			int numeroMes = Calendar.getInstance().get(Calendar.MONTH) + 1;
-			for(int i = 0; i < mes.size(); i++){
-				selMes.addItem(mes.get(i).getNomeMes());
-				if(numeroMes == mes.get(i).getNumeroMes()){
-					selMes.setSelectedItem(mes.get(i).getNomeMes());
+			mes.forEach((Mes m) -> {
+				selMes.addItem(m.getNomeMes());
+				if(numeroMes == m.getNumeroMes()){
+					selMes.setSelectedItem(m.getNomeMes());
 				}
-			}
+			});
 			selMes.setBounds(290, 20, 90, 20);
 			j.add(selMes);
 			
@@ -117,12 +424,12 @@ public class Administracao{
 			ArrayList<Ano> ano = new ArrayList<Ano>(EnumSet.allOf(Ano.class));
 			JComboBox<Integer> selAno= new JComboBox<Integer>();
 			int numeroAno = Calendar.getInstance().get(Calendar.YEAR);
-			for(int i = 0; i < ano.size(); i++){
-				selAno.addItem(ano.get(i).getAno());
-				if(numeroAno == ano.get(i).getAno()){
-					selAno.setSelectedItem(ano.get(i).getAno());
+			ano.forEach((Ano a) -> {
+				selAno.addItem(a.getAno());
+				if(numeroAno == a.getAno()){
+					selAno.setSelectedItem(a.getAno());
 				}
-			}
+			});
 			selAno.setSelectedItem(numeroAno);
 			selAno.setBounds(290, 60, 90, 20);
 			j.add(selAno);
@@ -143,78 +450,78 @@ public class Administracao{
 						File temp = File.createTempFile("temp-file-name", ".tmp");
 						//System.out.println(temp.getAbsolutePath());
 						PrintWriter bw = new PrintWriter(temp,"UTF-8");
-					ResultSet rs = Database.consultaDB("SELECT NR_MES, ID_EMPRESA, NR_ANO,"
-							+ " NR_FUNC_ATIVO, NR_LANCAMENTOS_CONTABEIS, NR_LANCAMENTOS_FISCAIS"
-							+ " FROM PACKCRM.HistoricoMensal WHERE NR_ANO='"+selAno.getSelectedItem()+"' AND NR_MES='"+Mes+"'"
-							+ " ORDER BY ID_EMPRESA",true);
-					
-					// CT & DP & EF
-					if(EF.isSelected() == true && CT.isSelected() == true && DP.isSelected() == true){
-						while(rs.next()){
-							bw.println(rs.getInt("NR_MES")+"\t"+rs.getInt("ID_EMPRESA")+"\t"+rs.getInt("NR_ANO")
-									+"\t"+rs.getInt("NR_FUNC_ATIVO")+"\t"+rs.getInt("NR_LANCAMENTOS_CONTABEIS")
-									+"\t"+rs.getInt("NR_LANCAMENTOS_FISCAIS"));
+						ResultSet rs = Database.consultaDB("SELECT NR_MES, ID_EMPRESA, NR_ANO,"
+								+ " NR_FUNC_ATIVO, NR_LANCAMENTOS_CONTABEIS, NR_LANCAMENTOS_FISCAIS"
+								+ " FROM PACKCRM.HistoricoMensal WHERE NR_ANO='"+selAno.getSelectedItem()+"' AND NR_MES='"+Mes+"'"
+								+ " ORDER BY ID_EMPRESA",true);
+						
+						// CT & DP & EF
+						if(EF.isSelected() == true && CT.isSelected() == true && DP.isSelected() == true){
+							while(rs.next()){
+								bw.println(rs.getInt("NR_MES")+"\t"+rs.getInt("ID_EMPRESA")+"\t"+rs.getInt("NR_ANO")
+										+"\t"+rs.getInt("NR_FUNC_ATIVO")+"\t"+rs.getInt("NR_LANCAMENTOS_CONTABEIS")
+										+"\t"+rs.getInt("NR_LANCAMENTOS_FISCAIS"));
+							}
+							bw.close();
+							temp.renameTo(new File("Alterdata-sjt-"+MesFormatado+"-"+selAno.getSelectedItem()+".txt"));
 						}
-						bw.close();
-						temp.renameTo(new File("Alterdata-sjt-"+MesFormatado+"-"+selAno.getSelectedItem()+".txt"));
-					}
-					// CT & DP
-					else if(EF.isSelected() == false && CT.isSelected() == true && DP.isSelected() == true){
-						while(rs.next()){
-							System.out.println(rs.getInt("ID_EMPRESA")+"\t"+rs.getInt("NR_MES")+"\t"+rs.getInt("NR_ANO")
-									+"\t"+rs.getInt("NR_FUNC_ATIVO")+"\t"+rs.getInt("NR_LANCAMENTOS_CONTABEIS"));
+						// CT & DP
+						else if(EF.isSelected() == false && CT.isSelected() == true && DP.isSelected() == true){
+							while(rs.next()){
+								System.out.println(rs.getInt("ID_EMPRESA")+"\t"+rs.getInt("NR_MES")+"\t"+rs.getInt("NR_ANO")
+										+"\t"+rs.getInt("NR_FUNC_ATIVO")+"\t"+rs.getInt("NR_LANCAMENTOS_CONTABEIS"));
+							}
+							bw.close();
+							temp.renameTo(new File("Alterdata-sjt-"+MesFormatado+"-"+selAno.getSelectedItem()+".txt"));
 						}
-						bw.close();
-						temp.renameTo(new File("Alterdata-sjt-"+MesFormatado+"-"+selAno.getSelectedItem()+".txt"));
-					}
-					// DP
-					else if(EF.isSelected() == false && CT.isSelected() == false && DP.isSelected() == true){
-						while(rs.next()){
-							System.out.println(rs.getInt("ID_EMPRESA")+"\t"+rs.getInt("NR_MES")+"\t"+rs.getInt("NR_ANO")
-									+"\t"+rs.getInt("NR_FUNC_ATIVO"));
+						// DP
+						else if(EF.isSelected() == false && CT.isSelected() == false && DP.isSelected() == true){
+							while(rs.next()){
+								System.out.println(rs.getInt("ID_EMPRESA")+"\t"+rs.getInt("NR_MES")+"\t"+rs.getInt("NR_ANO")
+										+"\t"+rs.getInt("NR_FUNC_ATIVO"));
+							}
+							bw.close();
+							temp.renameTo(new File("Alterdata-sjt-"+MesFormatado+"-"+selAno.getSelectedItem()+".txt"));
 						}
-						bw.close();
-						temp.renameTo(new File("Alterdata-sjt-"+MesFormatado+"-"+selAno.getSelectedItem()+".txt"));
-					}
-					// CT
-					else if(EF.isSelected() == false && CT.isSelected() == true && DP.isSelected() == false){
-						while(rs.next()){
-							System.out.println(rs.getInt("ID_EMPRESA")+"\t"+rs.getInt("NR_MES")+"\t"+rs.getInt("NR_ANO")
-									+"\t"+rs.getInt("NR_LANCAMENTOS_CONTABEIS"));
+						// CT
+						else if(EF.isSelected() == false && CT.isSelected() == true && DP.isSelected() == false){
+							while(rs.next()){
+								System.out.println(rs.getInt("ID_EMPRESA")+"\t"+rs.getInt("NR_MES")+"\t"+rs.getInt("NR_ANO")
+										+"\t"+rs.getInt("NR_LANCAMENTOS_CONTABEIS"));
+							}
+							bw.close();
+							temp.renameTo(new File("Alterdata-sjt-"+MesFormatado+"-"+selAno.getSelectedItem()+".txt"));
 						}
-						bw.close();
-						temp.renameTo(new File("Alterdata-sjt-"+MesFormatado+"-"+selAno.getSelectedItem()+".txt"));
-					}
-					// Fiscal & CT
-					else if(EF.isSelected() == true && CT.isSelected() == true && DP.isSelected() == false){
-						while(rs.next()){
-							System.out.println(rs.getInt("ID_EMPRESA")+"\t"+rs.getInt("NR_MES")+"\t"+rs.getInt("NR_ANO")
-									+"\t"+rs.getInt("NR_LANCAMENTOS_CONTABEIS")
-									+"\t"+rs.getInt("NR_LANCAMENTOS_FISCAIS"));
+						// Fiscal & CT
+						else if(EF.isSelected() == true && CT.isSelected() == true && DP.isSelected() == false){
+							while(rs.next()){
+								System.out.println(rs.getInt("ID_EMPRESA")+"\t"+rs.getInt("NR_MES")+"\t"+rs.getInt("NR_ANO")
+										+"\t"+rs.getInt("NR_LANCAMENTOS_CONTABEIS")
+										+"\t"+rs.getInt("NR_LANCAMENTOS_FISCAIS"));
+							}
+							bw.close();
+							temp.renameTo(new File("Alterdata-sjt-"+MesFormatado+"-"+selAno.getSelectedItem()+".txt"));
 						}
-						bw.close();
-						temp.renameTo(new File("Alterdata-sjt-"+MesFormatado+"-"+selAno.getSelectedItem()+".txt"));
-					}
-					// Fiscal
-					else if(EF.isSelected() == true && CT.isSelected() == false && DP.isSelected() == false){
-						while(rs.next()){
-							System.out.println(rs.getInt("ID_EMPRESA")+"\t"+rs.getInt("NR_MES")+"\t"+rs.getInt("NR_ANO")
-									+"\t"+rs.getInt("NR_LANCAMENTOS_FISCAIS"));
+						// Fiscal
+						else if(EF.isSelected() == true && CT.isSelected() == false && DP.isSelected() == false){
+							while(rs.next()){
+								System.out.println(rs.getInt("ID_EMPRESA")+"\t"+rs.getInt("NR_MES")+"\t"+rs.getInt("NR_ANO")
+										+"\t"+rs.getInt("NR_LANCAMENTOS_FISCAIS"));
+							}
+							bw.close();
+							temp.renameTo(new File("Alterdata-sjt-"+MesFormatado+"-"+selAno.getSelectedItem()+".txt"));
 						}
-						bw.close();
-						temp.renameTo(new File("Alterdata-sjt-"+MesFormatado+"-"+selAno.getSelectedItem()+".txt"));
-					}
-					// Fiscal & DP
-					else if(EF.isSelected() == true && CT.isSelected() == false && DP.isSelected() == true){
-						while(rs.next()){
-							System.out.println(rs.getInt("ID_EMPRESA")+"\t"+rs.getInt("NR_MES")+"\t"+rs.getInt("NR_ANO")
-									+"\t"+rs.getInt("NR_FUNC_ATIVO")
-									+"\t"+rs.getInt("NR_LANCAMENTOS_FISCAIS"));
+						// Fiscal & DP
+						else if(EF.isSelected() == true && CT.isSelected() == false && DP.isSelected() == true){
+							while(rs.next()){
+								System.out.println(rs.getInt("ID_EMPRESA")+"\t"+rs.getInt("NR_MES")+"\t"+rs.getInt("NR_ANO")
+										+"\t"+rs.getInt("NR_FUNC_ATIVO")
+										+"\t"+rs.getInt("NR_LANCAMENTOS_FISCAIS"));
+							}
+							bw.close();
+							temp.renameTo(new File("Alterdata-sjt-"+MesFormatado+"-"+selAno.getSelectedItem()+".txt"));
 						}
-						bw.close();
-						temp.renameTo(new File("Alterdata-sjt-"+MesFormatado+"-"+selAno.getSelectedItem()+".txt"));
 					}
-				}
 				catch (Exception e1){
 					JOptionPane.showMessageDialog(null, e1, "Erro", JOptionPane.ERROR_MESSAGE);
 				}
@@ -226,23 +533,6 @@ public class Administracao{
 			JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 		}
 		return j;
-	}
-
-	/*
-	 * Método de Edição de Usuários do SQL
-	 * TODO: Finalizar Edição de Usuários
-	 */		
-	public static JScrollPane EditarUsuario(){
-		try{
-			JTable tabela = new JTable(FuncoesExtras.buildTableModel(Database.consultaDB(queryLogin,false),false));
-			tabela.setEnabled(false);
-			JScrollPane jsp = new JScrollPane(tabela);
-			return jsp;
-		}
-		catch (Exception e1){
-			JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-		}
-		return null;
 	}
 
 	/*
@@ -443,163 +733,21 @@ public class Administracao{
 		}
 		return j;
 	}
-		
+
 	/*
-	 * Método de Criação de Usuários do SQL
+	 *  Ajuste de Percentuais
 	 */
-	public static JDesktopPane CriarUsuario(){
+	public static JDesktopPane AjustePercentuais(){
+		List<Percentuais> lstPercentuais = Arrays.asList(Percentuais.values());
 		JDesktopPane j = new JDesktopPane();
-		j.setBackground(new Color(236, 240, 241));
-		try{
-			// ----- Usuário
-			JLabel lblUsuario = new JLabel("Usuário:");
-			lblUsuario.setBounds(30, 17, 52, 14);
-			j.add(lblUsuario);	
-			JButton btnAdicionar = new JButton("Adicionar");
-			JTextField novoUsuario = new JTextField();
-			JPasswordField novaSenha = new JPasswordField();
-			
-			// ----- Botão Adicionar
-			btnAdicionar.setBounds(198, 125, 90, 35);
-			j.add(btnAdicionar);
-			btnAdicionar.setEnabled(false);
-			
-			JLabel lblExiste = new JLabel();
-			j.add(lblExiste);
-			lblExiste.setBounds(306, 34, 256, 25);
-			
-			novoUsuario.setColumns(10);
-			novoUsuario.setBounds(30, 34, 256, 25);
-			j.add(novoUsuario);
-			novoUsuario.setName("Usuário");
-			novoUsuario.addKeyListener(new KeyListener(){
-				@Override
-				public void keyPressed(KeyEvent arg0) {}
-				@Override
-				public void keyReleased(KeyEvent arg0) {
-					//System.out.println("Valor do texto atual: " +novoUsuario.getText());
-					String verificarUsuario = queryLogin+" WHERE Usuario='"+novoUsuario.getText()+"'";
-					//System.out.println(verificarUsuario);
-					ResultSet rs = Database.consultaDB(verificarUsuario,false);
-					if(novoUsuario.getText().equals("")){
-						  lblExiste.setText("Usuário inválido");
-						  lblExiste.setIcon(FuncoesExtras.buscarIcone("img/cancel.png"));
-						  btnAdicionar.setEnabled(false);
-						  
-					} else {
-					  try {
-						// Verifica se existe próxima linha
-						rs.next();
-						// -- Se possui linha, logo usuário é inválido
-						if(rs.getString("Usuario").equalsIgnoreCase(novoUsuario.getText())){
-						// -- Usuário já cadastrado OU campo em branco
-						lblExiste.setText("Usuário inválido");
-						lblExiste.setIcon(FuncoesExtras.buscarIcone("img/cancel.png"));
-						btnAdicionar.setEnabled(false);
-						
-						}
-					  }
-					  catch (Exception e1){
-						  	// -- Não possui linha, logo usuário é válido
-						  	lblExiste.setText("Usuário válido");
-					  		lblExiste.setIcon(FuncoesExtras.buscarIcone("img/accept.png"));
-					  		btnAdicionar.setEnabled(true);
-					  		
-					  }
-					}
-				}
-				@Override
-				public void keyTyped(KeyEvent arg0) {}
+			DefaultTableModel efDTM = new DefaultTableModel();
+			lstPercentuais.forEach((Percentuais p) -> {
+				
 			});
-			// ----- Senha
-			JLabel lblSenhaEmBranco = new JLabel();
-			j.add(lblSenhaEmBranco);
-			lblSenhaEmBranco.setBounds(306, 81, 256, 25);
-			
-			JLabel lblSenha = new JLabel("Senha:");
-			lblSenha.setBounds(30, 64, 92, 14);
-			j.add(lblSenha);
-			novaSenha.setBounds(30, 81, 256, 25);
-			j.add(novaSenha);
-			novaSenha.setName("Senha");
-			novaSenha.addKeyListener(new KeyListener(){
-				@Override
-				public void keyPressed(KeyEvent arg0) {}
-				@Override
-				public void keyReleased(KeyEvent arg0) {
-					String senha = new String(novaSenha.getPassword());
-					if(senha.equals("")){
-						lblSenhaEmBranco.setText("Senha inválida");
-						lblSenhaEmBranco.setIcon(FuncoesExtras.buscarIcone("img/cancel.png"));
-						btnAdicionar.setEnabled(false);
-						
-					} else {
-						lblSenhaEmBranco.setText("");
-						lblSenhaEmBranco.setIcon(FuncoesExtras.buscarIcone("img/accept.png"));
-						btnAdicionar.setEnabled(true);
-						
-					}
-				}
-				@Override
-				public void keyTyped(KeyEvent arg0) {}
-			});
-			
-			// ------ Tipo de Permissão
-			JLabel lblTipoPermissao = new JLabel("Tipo de Permissão");
-			lblTipoPermissao.setBounds(30, 111, 180, 14);
-			j.add(lblTipoPermissao);
-			JComboBox<String> tipoPermissao = new JComboBox<String>();
-			tipoPermissao.addItem(NivelPermissao.Dev.getNomePermissao());
-			tipoPermissao.addItem(NivelPermissao.Adm.getNomePermissao());
-			tipoPermissao.addItem(NivelPermissao.Financeiro.getNomePermissao());
-			tipoPermissao.addItem(NivelPermissao.Fiscal.getNomePermissao());
-			tipoPermissao.addItem(NivelPermissao.Contabil.getNomePermissao());
-			tipoPermissao.setBounds(30, 131, 140, 25);
-			tipoPermissao.setToolTipText("Selecione o tipo de Permissão");
-			j.add(tipoPermissao);
-			
-		/*
-		 *  Ação ao clicar no botão de Adicionar Usuário
-		 */
-		btnAdicionar.addActionListener(new ActionListener(){
-			String updateDB = "INSERT INTO bg_informacoesLogin(Usuario,Senha,Permissao) VALUES";
-			public void actionPerformed(ActionEvent e){
-				String senha = new String(novaSenha.getPassword());
-				// -----
-				//  Criação dos Usuário c/ suas
-				//     devidas Permissões
-				// -----
-				// Desenvolvedor
-				if(tipoPermissao.getSelectedItem().toString() == NivelPermissao.Dev.getNomePermissao()){
-					Database.updateDB(updateDB+" ('"+novoUsuario.getText()+"','"+senha+"',"+NivelPermissao.Dev.getNumPermissao()+")");
-					JOptionPane.showMessageDialog(null, "Você criou o usuário com sucesso.");
-				}
-				// Administrador
-				if(tipoPermissao.getSelectedItem().toString() == NivelPermissao.Adm.getNomePermissao()){
-					Database.updateDB(updateDB+" ('"+novoUsuario.getText()+"','"+senha+"',"+NivelPermissao.Adm.getNumPermissao()+")");
-					JOptionPane.showMessageDialog(null, "Você criou o usuário com sucesso.");
-				}
-				// Financeiro
-				if(tipoPermissao.getSelectedItem().toString() == NivelPermissao.Financeiro.getNomePermissao()){
-					Database.updateDB(updateDB+" ('"+novoUsuario.getText()+"','"+senha+"',"+NivelPermissao.Financeiro.getNumPermissao()+")");
-					JOptionPane.showMessageDialog(null, "Você criou o usuário com sucesso.");
-				}
-				// Fiscal
-				if(tipoPermissao.getSelectedItem().toString() == NivelPermissao.Fiscal.getNomePermissao()){
-					Database.updateDB(updateDB+" ('"+novoUsuario.getText()+"','"+senha+"',"+NivelPermissao.Fiscal.getNumPermissao()+")");
-					JOptionPane.showMessageDialog(null, "Você criou o usuário com sucesso.");
-				}
-				// Contábil
-				if(tipoPermissao.getSelectedItem().toString() == NivelPermissao.Contabil.getNomePermissao()){
-					Database.updateDB(updateDB+" ('"+novoUsuario.getText()+"','"+senha+"',"+NivelPermissao.Contabil.getNumPermissao()+")");
-					JOptionPane.showMessageDialog(null, "Você criou o usuário com sucesso.");
-				}
-			}
-		});
-		}
-		catch (Exception e1){
-			JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-		}
+			JTable efTable = new JTable(efDTM);
+			JScrollPane escritaFiscal = new JScrollPane(efTable);
+			escritaFiscal.setSize(new Dimension(500,500));
+			j.add(escritaFiscal);
 		return j;
 	}
 	

@@ -20,13 +20,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import br.com.blueGarnet.others.FuncoesExtras;
 import br.com.blueGarnet.system.Config;
-import br.com.blueGarnet.system.Database;
+import br.com.blueGarnet.users.Usuario;
 
 @SuppressWarnings("serial")
 public class JanelaPrincipal extends JFrame{
@@ -34,14 +33,17 @@ public class JanelaPrincipal extends JFrame{
 	public static JPanel PainelInterno = new JPanel();
 	public static JTabbedPane subModulos = new JTabbedPane();
 	public static JMenuBar barraMenu = new JMenuBar();
+	Usuario user;
 	
-	public JanelaPrincipal(int nivelPermissao) {
+	public JanelaPrincipal(Usuario u) {
+		user = u;
 		setSize(Config.larguraPrograma, Config.alturaPrograma);
 		setIconImage(Config.imagemTituloJanela.getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle(Config.nomePrograma);
 		setLocationRelativeTo(null);
 		setVisible(true);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
 		PainelInterno.setBackground(Color.LIGHT_GRAY);
 		PainelInterno.setLayout(new BorderLayout());
@@ -57,7 +59,7 @@ public class JanelaPrincipal extends JFrame{
 		PainelInterno.add(subModulos);
 		
 		add(PainelInterno, BorderLayout.CENTER);
-		add(new Menu(nivelPermissao), BorderLayout.WEST);
+		add(new Menu(user.getNivelPermissao()), BorderLayout.WEST);
 		
 		add(Copyright(), BorderLayout.SOUTH);
 		invalidate();
@@ -72,7 +74,7 @@ public class JanelaPrincipal extends JFrame{
 		JLabel lblStatusBar = new JLabel(
 				"<html>"
 					+ "<div style='padding:3px; margin-let: 20px; font-size:7px;'>"
-						+ "Você está conectado ao DB!"
+						+ "Olá <b>"+user.getUsuario()+"</b>, você está conectado ao DB!"
 						+ "</div>" +
 			   "</html>"
 				);

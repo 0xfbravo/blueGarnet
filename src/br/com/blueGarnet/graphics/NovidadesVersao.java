@@ -38,10 +38,8 @@ public class NovidadesVersao extends JDesktopPane{
 		add(descricao);
 		descricao.setText(""
 				+ "<html>"
-				+ "• Novo Design adicionado!<br>"
-				+ "• Novas Funções Implementadas<br>"
-				+ "• Reformulação do código e otimização de Funções<br><br><br>"
+				+ "• Otimizações com Java 8<br><br><br>"
 				+ ""
-				+ "<i>Por: Fellipe Pimentel em 13/01/2015</i>");
+				+ "<i>Por: Fellipe Pimentel em 21/01/2015</i>");
 	}
 }

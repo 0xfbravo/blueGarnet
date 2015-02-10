@@ -16,7 +16,6 @@ import javax.swing.ImageIcon;
 import br.com.blueGarnet.others.FuncoesExtras;
 
 public class Config {
-	
 	/*
 	 *   Definições do Sistema
 	 */

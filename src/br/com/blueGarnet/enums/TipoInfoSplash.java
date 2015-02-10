@@ -11,4 +11,20 @@ package br.com.blueGarnet.enums;
 										 www.fcode.co
 */
 
-public enum TipoInfoSplash { acessoDB,sucesso }
+public enum TipoInfoSplash {
+	acessoDB("img/database.png"),sucesso("img/world2.png");
+	
+	private String caminhoImg;
+	
+	TipoInfoSplash(String caminhoImg){
+		this.setCaminhoImg(caminhoImg);
+	}
+
+	public String getCaminhoImg() {
+		return caminhoImg;
+	}
+
+	public void setCaminhoImg(String caminhoImg) {
+		this.caminhoImg = caminhoImg;
+	}
+}

@@ -26,6 +26,7 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 
 public class SplashBG implements Runnable{
 
@@ -34,24 +35,42 @@ public class SplashBG implements Runnable{
 	JLabel lblInfoIMG = new JLabel();
 	JLabel lblInfoMSG = new JLabel();
 
+	/*
+	 * ---------------------------------------------------------------
+	 * 			mudarIconeMensagem(TipoInfoSplash tipoMensagem)
+	 * ---------------------------------------------------------------
+	 *  Verifica a mudança de mensagem e busca o ícone referente a
+	 *  mensagem que aparece. 
+	 * 
+	 *					 @author Fellipe Pimentel
+	 * 													www.fcode.co
+	 * ---------------------------------------------------------------
+	 */
 	public void mudarIconeMensagem(TipoInfoSplash tipoMensagem){
-		if(tipoMensagem == TipoInfoSplash.acessoDB){
-			lblInfoIMG.setIcon(FuncoesExtras.buscarIcone("img/database.png"));
-		}
-		else if(tipoMensagem == TipoInfoSplash.sucesso){
-			lblInfoIMG.setIcon(FuncoesExtras.buscarIcone("img/world2.png"));
-		}
+		ArrayList<TipoInfoSplash> t = new ArrayList<TipoInfoSplash>();
+		t.forEach((TipoInfoSplash tis) -> {
+			if(tipoMensagem.equals(tis)) lblInfoIMG.setIcon(FuncoesExtras.buscarIcone(tis.getCaminhoImg()));
+		});
 	}
-	public void mudaMensagem(String mensagem, TipoInfoSplash tipoMensagem){
+	
+	/*
+	 * ---------------------------------------------------------------
+	 * 	 mudarMensagem(String mensagem, TipoInfoSplash tipoMensagem)
+	 * ---------------------------------------------------------------
+	 *  Muda a mensagem que aparece no SplashScreen informando ao
+	 *  usuário o estado atual do processo em questão.
+	 * 
+	 *					 @author Fellipe Pimentel
+	 * 													www.fcode.co
+	 * ---------------------------------------------------------------
+	 */
+	public void mudarMensagem(String mensagem, TipoInfoSplash tipoMensagem){
 		lblInfoMSG.setText(mensagem);
 		lblInfoMSG.setForeground(Color.WHITE);
 		this.mudarIconeMensagem(tipoMensagem);
 		splJanela.repaint();
 	}
 	
-	/**
-	 * @wbp.parser.entryPoint
-	 */
 	@Override
 	public void run() {
 		lblInfoIMG.setHorizontalAlignment(SwingConstants.LEFT);
@@ -101,9 +120,7 @@ public class SplashBG implements Runnable{
 				splJanela.setOpacity(0.02f * i);
 				Thread.sleep(40);
 				splJanela.repaint();
-			} catch (InterruptedException e) {
-			    e.printStackTrace();
-			}
+			} catch (InterruptedException e) { e.printStackTrace(); }
 		}	
 	}
 }

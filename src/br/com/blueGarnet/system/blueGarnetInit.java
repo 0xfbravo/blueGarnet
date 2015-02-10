@@ -16,22 +16,20 @@ import java.awt.MenuItem;
 import java.awt.PopupMenu;
 import java.awt.SystemTray;
 import java.awt.TrayIcon;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
+import br.com.blueGarnet.graphics.JanelaLogin;
+import br.com.blueGarnet.graphics.JanelaPrincipal;
+import br.com.blueGarnet.users.Usuario;
 
 public class blueGarnetInit{
 	public static TrayIcon icon = new TrayIcon(Config.imagemTituloJanela.getImage(), Config.nomePrograma, createPopupMenu());
 	private static PopupMenu createPopupMenu() throws HeadlessException {
 	      PopupMenu menu = new PopupMenu();
 	      MenuItem exit = new MenuItem("Sair do blueGarnet");
-	      exit.addActionListener(new ActionListener() {
-	         public void actionPerformed(ActionEvent e) {
-	            System.exit(0);
-	         }
-	      });
+	      exit.addActionListener( event -> { System.exit(0); } );
 	      menu.add(exit);
 	      return menu;
 	   }
@@ -45,9 +43,9 @@ public class blueGarnetInit{
     	    catch (ClassNotFoundException e) {}
     	    catch (InstantiationException e) {}
     	    catch (IllegalAccessException e) {}
-            
-			new Login(Config.nomePrograma,320,185);
-            //new JanelaPrincipal(99);
+
+			//new Thread(() -> new JanelaLogin()).start();
+            new Usuario("root","senha").acessarSistema();
         }
         catch (Exception ex) {
             ex.printStackTrace();

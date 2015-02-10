@@ -1,4 +1,4 @@
-package br.com.blueGarnet.enums;
+package br.com.blueGarnet.users;
 /*
  _     _             _____                       _   
 | |   | |           / ____|                     | |  
@@ -12,8 +12,8 @@ package br.com.blueGarnet.enums;
 */
 
 public enum NivelPermissao {
-	Dev(100,"Desenvolvedor"),
-	Adm(99,"Administrador"),
+	Dev(255,"Desenvolvedor"),
+	Adm(100,"Administrador"),
 	Financeiro(1,"Financeiro"),
 	Fiscal(2,"Fiscal"),
 	Contabil(3,"Contábil");

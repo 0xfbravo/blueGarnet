@@ -12,24 +12,26 @@ package br.com.blueGarnet.enums;
 */
 
 public enum Modulo{
-	administracao(100,"Administração","img/directive_board.png"),
-	orcamento(0,"Orçamento","img/report2.png"),
-	fluxoCaixa(1,"Fluxo de Caixa","img/bank_transaction.png"),
-	contasReceber(2,"Contas a Receber","img/wallet.png"),
-	contasPagar(3,"Contas a Pagar","img/paypal.png"),
-	listagens(99,"Listagens","img/white_list.png"),
-	relatorios(98,"Relatórios","img/printer.png"),
-	suporte(6,"Suporte","img/headset.png"),
-	verAtt(7,"Atualizações","img/network.png"),;
+	administracao(100,"Administração","img/directive_board.png",0),
+	orcamento(100,"Orçamento","img/report2.png",1),
+	fluxoCaixa(1,"Fluxo de Caixa","img/bank_transaction.png",2),
+	contasReceber(1,"Contas a Receber","img/wallet.png",3),
+	contasPagar(1,"Contas a Pagar","img/paypal.png",4),
+	listagens(100,"Listagens","img/white_list.png",5),
+	relatorios(100,"Relatórios","img/printer.png",6),
+	suporte(255,"Suporte","img/headset.png",7),
+	verAtt(255,"Atualizações","img/network.png",8);
 	
 	private int permissao;
+	private int idModulo;
 	private String nomeModulo;
 	private String icone;
 	
-	Modulo(int permissao, String nomeMenu, String icone){
+	Modulo(int permissao, String nomeMenu, String icone, int idModulo){
 		this.setPermissao(permissao);
 		this.setNomeModulo(nomeMenu);
 		this.setIcone(icone);
+		this.setIdModulo(idModulo);
 	}
 
 	public String getNomeModulo() {
@@ -54,5 +56,13 @@ public enum Modulo{
 
 	public void setPermissao(int permissao) {
 		this.permissao = permissao;
+	}
+
+	public int getIdModulo() {
+		return idModulo;
+	}
+
+	public void setIdModulo(int idModulo) {
+		this.idModulo = idModulo;
 	}
 }

@@ -22,55 +22,43 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
-import br.com.blueGarnet.enums.NivelPermissao;
+import br.com.blueGarnet.users.NivelPermissao;
 
 public class FuncoesExtras{
 	/*
 	 * Método para criação da Tabelas com SQL
 	 */	
-	public static DefaultTableModel buildTableModel(ResultSet rs,boolean contemPermissao)
-	        throws SQLException {
-
+	public static DefaultTableModel buildTableModel(ResultSet rs,boolean contemPermissao) throws SQLException {
 	    ResultSetMetaData metaData = rs.getMetaData();
 
-	    // names of columns
 	    Vector<String> columnNames = new Vector<String>();
 	    int columnCount = metaData.getColumnCount();
-	    for (int column = 1; column <= columnCount; column++) {
-	        columnNames.add(metaData.getColumnName(column));
-	    }
+	    for (int column = 1; column <= columnCount; column++) { columnNames.add(metaData.getColumnName(column)); }
 
-	    // data of the table
 	    Vector<Vector<Object>> data = new Vector<Vector<Object>>();
 	    while (rs.next()) {
 	        Vector<Object> vector = new Vector<Object>();
 	        for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
-	        		vector.add(rs.getObject(columnIndex));
-	            	if(contemPermissao == true){
-	            		// -- DEBUG
-	            		//System.out.println("Coluna recebendo:"+rs.getInt("Permissao"));
-	            		if(rs.getInt("Permissao") == NivelPermissao.Adm.getNumPermissao()){
-	            			vector.add(NivelPermissao.Adm.getNomePermissao());
-	            		}
-	            		if(rs.getInt("Permissao") == NivelPermissao.Financeiro.getNumPermissao()){
-	            			vector.add(NivelPermissao.Financeiro.getNomePermissao());
-	            		}
-	            		if(rs.getInt("Permissao") == NivelPermissao.Fiscal.getNumPermissao()){
-	            			vector.add(NivelPermissao.Fiscal.getNomePermissao());
-	            		}
-	            		if(rs.getInt("Permissao") == NivelPermissao.Contabil.getNumPermissao()){
-	            			vector.add(NivelPermissao.Contabil.getNomePermissao());
-	            		}
-	            		if(rs.getInt("Permissao") == NivelPermissao.Dev.getNumPermissao()){
-	            			vector.add(NivelPermissao.Dev.getNomePermissao());
-	            		}
-	            	}
+	        	vector.add(rs.getObject(columnIndex));
+	            if(contemPermissao == true){
+	            	// -- DEBUG
+	            	//System.out.println("Coluna recebendo:"+rs.getInt("Permissao"));
+	            	if(rs.getInt("Permissao") == NivelPermissao.Adm.getNumPermissao())
+	            		vector.add(NivelPermissao.Adm.getNomePermissao());
+	            	if(rs.getInt("Permissao") == NivelPermissao.Financeiro.getNumPermissao())
+	            		vector.add(NivelPermissao.Financeiro.getNomePermissao());
+	            	if(rs.getInt("Permissao") == NivelPermissao.Fiscal.getNumPermissao())
+	            		vector.add(NivelPermissao.Fiscal.getNomePermissao());
+	            	if(rs.getInt("Permissao") == NivelPermissao.Contabil.getNumPermissao())
+	            		vector.add(NivelPermissao.Contabil.getNomePermissao());
+	            	if(rs.getInt("Permissao") == NivelPermissao.Dev.getNumPermissao())
+	            		vector.add(NivelPermissao.Dev.getNomePermissao());
+	            }
 	        }
 	        data.add(vector);
 	    }
 
 	    return new DefaultTableModel(data, columnNames);
-
 	}
 
 	/*

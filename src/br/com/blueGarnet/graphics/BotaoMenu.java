@@ -14,14 +14,13 @@ package br.com.blueGarnet.graphics;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.border.EmptyBorder;
 
 import br.com.blueGarnet.enums.SubModulo;
@@ -31,10 +30,11 @@ public class BotaoMenu extends JButton{
 
 	private static final long serialVersionUID = 1L;
 	private boolean menuAberto;
-	private int permissao;
+	private int idModulo;
+	private JFrame jf;
     
-	public BotaoMenu(int permissao,String nome,String caminhoImagem){
-		this.setPermissao(permissao);
+	public BotaoMenu(int idModulo,String nome,String caminhoImagem){
+		this.setIdModulo(idModulo);
 	    setText("<html><b>"+nome.toUpperCase()+"</b></html>");
 	    setFont(new Font("Tahoma", Font.PLAIN, 9));
 		setHorizontalTextPosition(JButton.CENTER);
@@ -48,22 +48,18 @@ public class BotaoMenu extends JButton{
 		setOpaque(true);
 		setBackground(new Color(44, 62, 80));
 		setBorder(new EmptyBorder(10,10,10,10));
-		addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
+		addActionListener( event -> {
 				JanelaPrincipal.subModulos.removeAll();
 				List<SubModulo> lstSubModulo = Arrays.asList(SubModulo.values());
-				lstSubModulo.forEach((SubModulo s) -> {
-						if(s.getPermissao() == getPermissao() && s.getJ() != null){
+					lstSubModulo.forEach((SubModulo s) -> {
+						if(s.getJ() != null && getIdModulo() == s.getPermissao()){
 							JanelaPrincipal.subModulos.addTab(s.getNomeSubModulo(),s.getIcone(),s.getJ());
 						}
-						else if(s.getPermissao() == getPermissao() && s.getJsp() != null){
+						else if(s.getJsp() != null && getIdModulo() == s.getPermissao()){
 							JanelaPrincipal.subModulos.addTab(s.getNomeSubModulo(),s.getIcone(),s.getJsp());
 						}		
 					}
 				);
-			}
-			
 		});
 		addMouseListener(new MouseListener(){
 			@Override
@@ -108,11 +104,19 @@ public class BotaoMenu extends JButton{
 		this.menuAberto = menuAberto;
 	}
 
-	public int getPermissao() {
-		return permissao;
+	public int getIdModulo() {
+		return idModulo;
 	}
 
-	public void setPermissao(int permissao) {
-		this.permissao = permissao;
+	public void setIdModulo(int idModulo) {
+		this.idModulo = idModulo;
+	}
+
+	public JFrame getJf() {
+		return jf;
+	}
+
+	public void setJf(JFrame jf) {
+		this.jf = jf;
 	}
 }
